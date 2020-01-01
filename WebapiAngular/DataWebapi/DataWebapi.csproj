@@ -166,9 +166,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="api\AdminapiController.cs" />
-    <Compile Include="api\BaseAPIController.cs" />
-    <Compile Include="api\TicketapiController.cs" />
+    <Compile Include="Controllers\AdminapiController.cs" />
+    <Compile Include="Controllers\BaseAPIController.cs" />
+    <Compile Include="Controllers\TicketapiController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -411,6 +411,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="api\" />
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
