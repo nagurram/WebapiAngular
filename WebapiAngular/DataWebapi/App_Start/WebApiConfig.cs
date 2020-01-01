@@ -10,14 +10,18 @@ namespace DataWebapi
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
-
+           // config.MessageHandlers.Add(new MessageLoggingHandler());
             // Web API routes
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
                  name: "ActionApi",
                  routeTemplate: "api/{controller}/{action}/{id}",
-                 defaults: new { id = RouteParameter.Optional }
+                 defaults: new
+                 {
+                     id = RouteParameter.Optional
+                 }
+
             );
 
             config.Routes.MapHttpRoute(

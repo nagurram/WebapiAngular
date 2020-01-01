@@ -1,0 +1,67 @@
+﻿<div class='panel panel-primary'>
+    <div class='panel-heading'>
+        Application Management
+    </div>
+    <div class='panel-body'>
+        <div class='table-responsive'>
+            <div style="padding-bottom:10px"><button class="btn btn-primary" (click)="addApplication()">Add</button></div>
+            <div class="alert alert-info" role="alert" *ngIf="indLoading"><img src="../../images/loading.gif" width="32" height="32" /> Loading...</div>
+            <div *ngIf='applications && applications.length==0' class="alert alert-info" role="alert">No record found!</div>
+            <table class='table table-striped' *ngIf='applications && applications.length'>
+                <thead>
+                    <tr>
+                        <th>Application Id</th>
+                        <th>Application Name</th>
+                        <th>Is Deleted</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let app of applications">
+                        <td>{{app.Id}}</td>
+                        <td>{{app.keyValue}}</td>
+                        <td>{{app.IsDeleted}}</td>
+                        <td>
+                            <button title="Edit" class="btn btn-primary" (click)="editApplication(app.Id)">Edit</button>
+                            <button title="Delete" class="btn btn-danger" (click)="deleteApplication(app.Id)">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <modal #modal>
+        <form novalidate (ngSubmit)="onSubmit(applicationFrm)" [formGroup]="applicationFrm">
+            <modal-header [show-close]="true">
+                <h4 class="modal-title">{{modalTitle}}</h4>
+            </modal-header>
+            <modal-body>
+                <div class="form-group">
+                    <div>
+                        <span>Application Id</span>
+                        <input type="text" class="form-control" placeholder="Application Id" formControlName="Id" >
+                    </div>
+                    <div>
+                        <span>Application name</span>
+                        <input type="text" class="form-control" placeholder="Application Name" formControlName="keyValue">
+                    </div>
+                    <div>
+                        <span>Is Deleted</span>
+                        <select formControlName="IsDeleted" class="form-control" >
+                            <option>True</option>
+                            <option [selected]="modalBtnTitle=='Add'">False</option>
+                        </select>
+                    </div>
+                </div>
+            </modal-body>
+            <modal-footer>
+                <div>
+                    <a class="btn btn-default" (click)="modal.dismiss()">Cancel</a>
+                    <button type="submit" [disabled]="applicationFrm.invalid" class="btn btn-primary">{{modalBtnTitle}}</button>
+                </div>
+            </modal-footer>
+        </form>
+    </modal>
