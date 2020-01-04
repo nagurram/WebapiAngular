@@ -1,0 +1,29 @@
+<div class="container">
+    <form  (ngSubmit)="addtodoitem()">
+<div class="row">
+    <div class="col-md-3" ><label for="txtTitile">Titile</label></div>
+    <div class="col-md-6">
+        <input type="text" id="txtTitile" formControlName="txtTitile" class="form-control">
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3" ><label for="txtDescription">Description</label></div>
+    <div class="col-md-6">
+        <input type="text" id="txtDescription" formControlName="txtDescription" class="form-control">
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3" ><label for="txtDate">Date</label></div>
+    <div class="col-md-6">
+        <input type="text" id="txtDate" formControlName="txtDate" class="form-control">
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <button type="submit" class="btn btn-primary pull-right">Save</button>
+
+    </div><div class="col-md-6"></div>
+</div>
+        </form>
+
+        </div> 
