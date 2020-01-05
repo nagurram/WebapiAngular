@@ -3,8 +3,10 @@ import { Routes, RouterModule } from '@angular/router';
 import { ToDoComponent } from './Components/todo.component';
 
 const routes: Routes = [
-
+  { path: '', redirectTo: 'Addtodo', pathMatch: 'full' },
   { path: 'Addtodo', component: ToDoComponent },
+  { path: 'angtodo', component: ToDoComponent },
+  
 ];
 
 @NgModule({
