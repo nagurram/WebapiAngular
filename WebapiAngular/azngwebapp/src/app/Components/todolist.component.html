@@ -1,0 +1,28 @@
+<div class="container">
+    <div class='table-responsive'  >
+        <table class="table table-striped table-bordered" *ngIf='todos && todos.length'>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Action date</th>
+                    <th>IsActive</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let tkt of tickets">
+                    <td>
+                        {{tkt.Id}}
+                    </td>
+                    <td>{{tkt.Titile}}</td>
+                    <td>{{tkt.Description}}</td>
+                    <td>{{tkt.actionDate|date}}</td>
+                    <td>{{tkt.IsActive}}</td>
+                    
+                </tr>
+            </tbody>
+        </table>
+    </div>
+        </div> 
