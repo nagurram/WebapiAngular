@@ -14,24 +14,39 @@ export class ToDoComponent implements OnInit {
         console.log('todo model is: '+localStorage.todos);
         this.todomodel = new TodoModel();
         this.todomodel.Id=2;
+        if(JSON.stringify(localStorage.todos))
+        {
+            console.log('I am in JSON.stringify(localStorage.todos');
+       // this.todolist=JSON.parse(JSON.stringify(localStorage.todos));
+        }
     }
     model: NgbDateStruct;
     todomodel: TodoModel;
     placement = 'bottom';
+    todolist:any[]=[];
     constructor( private router: Router, private datepipe: DatePipe)  {
         console.log(localStorage.todos);
     }
     addtodoitem($event) {
-        console.log(this.todomodel);        
-        var obj = JSON.parse(JSON.stringify(localStorage.todos));
-        if(obj)
+        console.log(this.todomodel); 
+        console.log(JSON.stringify(this.todomodel));
+      //  console.log(JSON.parse(JSON.stringify(localStorage.todos)));
+        if(localStorage.todos ==null)
         {
-            obj={};
+            console.log('declaring new array');
+            localStorage.todos=[]; 
+            console.log(localStorage.todos);
         }
-        obj.push(JSON.stringify(this.todomodel));
-        localStorage.todos=JSON.stringify(obj);
-        this.router.navigateByUrl('/todoList')
-    
+        else{
 
+        var tdlist= JSON.parse(localStorage.getItem('todos'));
+        }
+        for(var i in tdlist)
+        {
+        this.todolist.push(tdlist [i]);
+        }
+
+        localStorage.todos =JSON.parse(JSON.stringify(this.todolist));
+        this.router.navigateByUrl('/todoList');
     }
 }

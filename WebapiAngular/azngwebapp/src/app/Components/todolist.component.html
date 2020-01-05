@@ -12,13 +12,13 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let tkt of tickets">
+                <tr *ngFor="let tkt of todos">
                     <td>
                         {{tkt.Id}}
                     </td>
                     <td>{{tkt.Titile}}</td>
                     <td>{{tkt.Description}}</td>
-                    <td>{{tkt.actionDate|date}}</td>
+                    <td>{{tkt.actionDate|ngbDate|date}}</td>
                     <td>{{tkt.IsActive}}</td>
                     
                 </tr>
