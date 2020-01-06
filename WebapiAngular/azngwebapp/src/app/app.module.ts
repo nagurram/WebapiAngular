@@ -8,7 +8,7 @@ import { ToDoComponent } from './Components/todo.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {ToDoListComponent} from './Components/todolist.component';
 import { FormsModule } from '@angular/forms';
-import {NgbDatePipe} from './Pipes/date.pipe';
+import {NgbDatePipe} from './Pipes/ngbDatePipe';
 
 
 @NgModule({

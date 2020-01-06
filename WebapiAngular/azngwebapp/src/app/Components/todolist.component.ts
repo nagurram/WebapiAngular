@@ -2,6 +2,7 @@ import { Component, OnInit ,NgModule } from '@angular/core';
 import { TodoModel } from '../Model/todoModel';
 import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule} from '@angular/forms';
+import {NgbDatePipe} from '../Pipes/ngbDatePipe';
 
 
 @Component({
@@ -18,7 +19,7 @@ export class ToDoListComponent implements OnInit {
     placement = 'bottom';
     title="";
     todos:any[];
-    constructor( private ngbDatePipe: NgbDatePipe)  {
+    constructor()  {
 
     }
     Loadtodolist(): void {
@@ -29,6 +30,7 @@ export class ToDoListComponent implements OnInit {
         for(var i in tdlist)
         {
         this.todos.push(tdlist [i]);
+        console.log(tdlist [i]);
         }
         
         console.log('length of list is '+ this.todos.length);

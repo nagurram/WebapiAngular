@@ -39,14 +39,16 @@ export class ToDoComponent implements OnInit {
         }
         else{
 
-        var tdlist= JSON.parse(localStorage.getItem('todos'));
+        var tdlist= JSON.parse(JSON.stringify(localStorage.todos));
+        console.log('tdlist list is '+tdlist);
         }
+        this.todolist.push(JSON.parse(JSON.stringify(this.todomodel)));
         for(var i in tdlist)
         {
         this.todolist.push(tdlist [i]);
         }
 
-        localStorage.todos =JSON.parse(JSON.stringify(this.todolist));
+        localStorage.todos =JSON.stringify(this.todolist);
         this.router.navigateByUrl('/todoList');
     }
 }
