@@ -1,9 +1,10 @@
-import { Component, OnInit ,NgModule } from '@angular/core';
+import { Component, OnInit, NgModule } from '@angular/core';
 import { TodoModel } from '../Model/todoModel';
-import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateAdapter, NgbDateStruct, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
-import {FormsModule} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+import {  } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     templateUrl: './todo.component.html',
@@ -11,44 +12,29 @@ import {FormsModule} from '@angular/forms';
 })
 export class ToDoComponent implements OnInit {
     ngOnInit(): void {
-        console.log('todo model is: '+localStorage.todos);
-        this.todomodel = new TodoModel();
-        this.todomodel.Id=2;
-        if(JSON.stringify(localStorage.todos))
-        {
-            console.log('I am in JSON.stringify(localStorage.todos');
-       // this.todolist=JSON.parse(JSON.stringify(localStorage.todos));
-        }
+        this.Loadtodolist();
     }
+    showlist: boolean = true;
     model: NgbDateStruct;
     todomodel: TodoModel;
     placement = 'bottom';
-    todolist:any[]=[];
-    constructor( private router: Router, private datepipe: DatePipe)  {
+    todolist: TodoModel[] = new Array();
+    constructor(private router: Router, private datepipe: DatePipe) {
         console.log(localStorage.todos);
     }
     addtodoitem($event) {
-        console.log(this.todomodel); 
-        console.log(JSON.stringify(this.todomodel));
-      //  console.log(JSON.parse(JSON.stringify(localStorage.todos)));
-        if(localStorage.todos ==null)
-        {
-            console.log('declaring new array');
-            localStorage.todos=[]; 
-            console.log(localStorage.todos);
-        }
-        else{
+        this.todolist.push(this.todomodel)
+        localStorage.setItem('itemsintodo', '1');
+        this.showlist = true;
+    }
 
-        var tdlist= JSON.parse(JSON.stringify(localStorage.todos));
-        console.log('tdlist list is '+tdlist);
-        }
-        this.todolist.push(JSON.parse(JSON.stringify(this.todomodel)));
-        for(var i in tdlist)
-        {
-        this.todolist.push(tdlist [i]);
-        }
+    additems($event) {
+        this.todomodel = new TodoModel();
+        this.todomodel.Id = this.todolist.length + 1;;
+        this.showlist = false;
+    }
 
-        localStorage.todos =JSON.stringify(this.todolist);
-        this.router.navigateByUrl('/todoList');
+    Loadtodolist(): void {        
+        console.log('length of list is ' + this.todolist.length);
     }
 }

@@ -6,14 +6,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './Components/app.component';
 import { ToDoComponent } from './Components/todo.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import {ToDoListComponent} from './Components/todolist.component';
+
 import { FormsModule } from '@angular/forms';
 import {NgbDatePipe} from './Pipes/ngbDatePipe';
 
 
 @NgModule({
   declarations: [
-    AppComponent,ToDoComponent,ToDoListComponent,NgbDatePipe
+    AppComponent,ToDoComponent,NgbDatePipe
   ],
   imports: [
     BrowserModule,NgbModule,
