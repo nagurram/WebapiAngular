@@ -21,7 +21,7 @@
             <div class="col-md-3"><label for="txtDate">Date</label></div>
             <div class="col-md-9">
 
-                <input type="text" id="txtDate" bsDatepicker [(ngModel)]="todomodel.actionDate" class="form-control">
+                <input type="text" id="txtDate" autocomplete="off" [(ngModel)]="todomodel.actionDate" bsDatepicker  [bsConfig]="datepickerconfig"  class="form-control" >
             </div>
         </div>
         <div class="row top-buffer">
@@ -62,7 +62,7 @@
                         </td>
                         <td>{{tkt.Titile}}</td>
                         <td>{{tkt.Description}}</td>
-                        <td>{{tkt.actionDate|date:'short'}}</td>
+                        <td>{{tkt.actionDate|date: 'dd/MM/yyyy'}}</td>
                         <td><input type="checkbox" [checked]="tkt.IsActive" disabled="disabled" /> </td>
 
                     </tr>
