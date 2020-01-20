@@ -2,9 +2,9 @@ import { Component, OnInit, NgModule } from '@angular/core';
 import { TodoModel } from '../Model/todoModel';
 import { NgbDateAdapter, NgbDateStruct, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
+
 import { DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import {  } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     templateUrl: './todo.component.html',
@@ -20,7 +20,7 @@ export class ToDoComponent implements OnInit {
     placement = 'bottom';
     todolist: TodoModel[] = new Array();
     constructor(private router: Router, private datepipe: DatePipe) {
-        console.log(localStorage.todos);
+     
     }
     addtodoitem($event) {
         this.todolist.push(this.todomodel)
@@ -30,7 +30,8 @@ export class ToDoComponent implements OnInit {
 
     additems($event) {
         this.todomodel = new TodoModel();
-        this.todomodel.Id = this.todolist.length + 1;;
+        this.todomodel.Id = this.todolist.length + 1;   
+        this.todomodel.IsActive=  ((this.todomodel.Id%2)==0);
         this.showlist = false;
     }
 

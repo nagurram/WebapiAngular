@@ -9,6 +9,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { FormsModule } from '@angular/forms';
 import {NgbDatePipe} from './Pipes/ngbDatePipe';
+import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -16,8 +18,8 @@ import {NgbDatePipe} from './Pipes/ngbDatePipe';
     AppComponent,ToDoComponent,NgbDatePipe
   ],
   imports: [
-    BrowserModule,NgbModule,
-    AppRoutingModule,FormsModule
+    BrowserModule,NgbModule,BrowserAnimationsModule,
+    AppRoutingModule,FormsModule,BsDatepickerModule.forRoot()
   ],
   providers: [{ provide: APP_BASE_HREF, useValue: '/' },DatePipe],
   bootstrap: [AppComponent]

@@ -21,14 +21,7 @@
             <div class="col-md-3"><label for="txtDate">Date</label></div>
             <div class="col-md-9">
 
-                <div class="input-group">
-                    <input class="form-control" placeholder="dd-mm-yyyy" id="txtDate" name="dp" ngbDatepicker
-                        #d="ngbDatepicker" #c2="ngModel" [(ngModel)]="todomodel.actionDate" ngbDatepicker #d2="ngbDatepicker">                        
-                    <div class="input-group-append">
-                        <button #buttonEl class="btn btn-sm btn-outline-primary" (click)="d.toggle()"
-                            type="button"></button>
-                    </div>
-                </div>
+                <input type="text" id="txtDate" bsDatepicker [(ngModel)]="todomodel.actionDate" class="form-control">
             </div>
         </div>
         <div class="row top-buffer">
@@ -41,7 +34,7 @@
             </div>
         </div>
     </div>
-    <div  *ngIf="showlist">
+    <div *ngIf="showlist">
         <div class="row top-buffer">
             <div class="col-md-9"></div>
             <div class="col-md-3">
@@ -69,8 +62,8 @@
                         </td>
                         <td>{{tkt.Titile}}</td>
                         <td>{{tkt.Description}}</td>
-                        <td>{{tkt.actionDate|json}}</td>
-                        <td>{{tkt.IsActive}}</td>
+                        <td>{{tkt.actionDate|date:'short'}}</td>
+                        <td><input type="checkbox" [checked]="tkt.IsActive" disabled="disabled" /> </td>
 
                     </tr>
                 </tbody>
