@@ -47,7 +47,7 @@
             <table class="table table-striped table-bordered" *ngIf='todolist && todolist.length'>
                 <thead>
                     <tr>
-                        <th>Id</th>
+                        <th>TodoId</th>
                         <th>Title</th>
                         <th>Description</th>
                         <th>Action date</th>
@@ -58,7 +58,7 @@
                 <tbody>
                     <tr *ngFor="let tkt of todolist">
                         <td>
-                            {{tkt.Id}}
+                            {{tkt.TodoId}}
                         </td>
                         <td>{{tkt.Titile}}</td>
                         <td>{{tkt.Description}}</td>

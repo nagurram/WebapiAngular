@@ -11,7 +11,8 @@ import { FormsModule } from '@angular/forms';
 import {NgbDatePipe} from './Pipes/ngbDatePipe';
 import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { TodoService } from "././Service/todo.service";
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -19,9 +20,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   ],
   imports: [
     BrowserModule,NgbModule,BrowserAnimationsModule,
-    AppRoutingModule,FormsModule,BsDatepickerModule.forRoot()
+    AppRoutingModule,FormsModule,BsDatepickerModule.forRoot(),HttpClientModule
   ],
-  providers: [{ provide: APP_BASE_HREF, useValue: '/' },DatePipe],
+  providers: [{ provide: APP_BASE_HREF, useValue: '/' },DatePipe,TodoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
