@@ -1,0 +1,1725 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="TicketTrackerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ApplicationMaster">
+          <Key>
+            <PropertyRef Name="ApplicationId" />
+          </Key>
+          <Property Name="ApplicationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ApplicationName" Type="nvarchar" MaxLength="100" />
+          <Property Name="statusOrder" Type="int" />
+          <Property Name="IsDeleted" Type="bit" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'TicketTracker.dbo.Employee' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="empid" />
+          </Key>
+          <Property Name="empid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DateofJoining" Type="date" />
+          <Property Name="managerid" Type="int" />
+          <Property Name="BusinessUnit" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TicketTracker.dbo.EmployeeDetails' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="EmployeeDetails">
+          <Property Name="empid" Type="int" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="100" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="100" />
+          <Property Name="EmailId" Type="nvarchar" MaxLength="200" />
+          <Property Name="Address" Type="nvarchar" MaxLength="1000" />
+        </EntityType>-->
+        <EntityType Name="Entity">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="200" />
+          <Property Name="Reference_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="Entity_Link">
+          <Key>
+            <PropertyRef Name="Link_ID" />
+          </Key>
+          <Property Name="Link_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Parent_Entity_ID" Type="int" />
+          <Property Name="Child_Entity_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="Exception">
+          <Key>
+            <PropertyRef Name="ExceptionId" />
+          </Key>
+          <Property Name="ExceptionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Message" Type="nvarchar" MaxLength="150" />
+          <Property Name="StackTrace" Type="nvarchar" MaxLength="4000" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="ExceptionDateTime" Type="datetime" />
+          <Property Name="InnerExceptionmessage" Type="nvarchar" MaxLength="4000" />
+          <Property Name="ControllerName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ActionName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="FileUpload">
+          <Key>
+            <PropertyRef Name="Fileid" />
+          </Key>
+          <Property Name="Fileid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Filedata" Type="varbinary(max)" />
+          <Property Name="TicketId" Type="int" />
+          <Property Name="Filetype" Type="nvarchar" MaxLength="15" />
+          <Property Name="UploadDate" Type="datetime" />
+          <Property Name="FileName" Type="nvarchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="FinancialEventSource">
+          <Key>
+            <PropertyRef Name="FinancialEventSourceId" />
+          </Key>
+          <Property Name="FinancialEventSourceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FinancialEventSourceTypeId" Type="int" />
+          <Property Name="CaptureDateTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="FinancialEventSourceFlatFile">
+          <Key>
+            <PropertyRef Name="FinancialEventSourceFlatFileId" />
+          </Key>
+          <Property Name="FinancialEventSourceFlatFileId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FinancialEventSourceId" Type="int" />
+          <Property Name="ClientProfileId" Type="int" />
+          <Property Name="FlatFileProcessingStatusId" Type="int" />
+          <Property Name="FileName" Type="nvarchar" MaxLength="200" />
+          <Property Name="ReceiveDir" Type="nvarchar" MaxLength="200" />
+          <Property Name="ReceiveDateTime" Type="datetime" />
+          <Property Name="ProcessingNotes" Type="nvarchar" MaxLength="200" />
+          <Property Name="LastUpdatedUser" Type="int" />
+          <Property Name="LastUpdatedDateTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="FinancialEventSourceSwift">
+          <Key>
+            <PropertyRef Name="FinancialEventSourceSwiftId" />
+          </Key>
+          <Property Name="FinancialEventSourceSwiftId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FinancialEventSourceId" Type="int" />
+          <Property Name="SwiftMessageId" Type="int" />
+          <Property Name="SwiftMessageTypeId" Type="int" />
+          <Property Name="BatchId" Type="int" />
+          <Property Name="SenderBic" Type="int" />
+          <Property Name="Message" Type="nvarchar" MaxLength="200" />
+          <Property Name="MessageXML" Type="nvarchar" MaxLength="2000" />
+          <Property Name="ReceiveDateTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="FXTrade">
+          <Key>
+            <PropertyRef Name="FXTradeId" />
+          </Key>
+          <Property Name="FXTradeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FinancialEventId" Type="int" />
+          <Property Name="PortfolioId" Type="int" />
+          <Property Name="BrokerId" Type="int" />
+          <Property Name="TradeDate" Type="datetime" />
+          <Property Name="SettlementDate" Type="datetime" />
+          <Property Name="SpotForward" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Rate" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="HiportRef" Type="nvarchar" MaxLength="200" />
+          <Property Name="TradeCurrencyId" Type="int" />
+          <Property Name="CounterPartyCurrencyId" Type="int" />
+          <Property Name="TradeNominal" Type="nvarchar" MaxLength="200" />
+          <Property Name="CounterPartyNominal" Type="nvarchar" MaxLength="200" />
+          <Property Name="Position" Type="int" />
+          <Property Name="SenderToReceieverInfo" Type="nvarchar" MaxLength="2000" />
+          <Property Name="TradeAllocationFinancialEventId" Type="int" />
+          <Property Name="MatchStatusId" Type="int" />
+        </EntityType>
+        <EntityType Name="MenuItems">
+          <Key>
+            <PropertyRef Name="MenuItemId" />
+          </Key>
+          <Property Name="MenuItemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MenuId" Type="int" Nullable="false" />
+          <Property Name="link" Type="nvarchar" MaxLength="100" />
+          <Property Name="parentmenuid" Type="int" />
+          <Property Name="Sortorder" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'TicketTracker.dbo.MenuPermission' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="MenuPermission">
+          <Key>
+            <PropertyRef Name="MenuItemId" />
+          </Key>
+          <Property Name="MenuItemId" Type="int" Nullable="false" />
+          <Property Name="RoleId" Type="int" />
+        </EntityType>
+        <EntityType Name="Menus">
+          <Key>
+            <PropertyRef Name="MenuId" />
+          </Key>
+          <Property Name="MenuId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DisplayName" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="ModuleMaster">
+          <Key>
+            <PropertyRef Name="ModuleId" />
+          </Key>
+          <Property Name="ModuleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ModuleName" Type="nvarchar" MaxLength="100" />
+          <Property Name="statusOrder" Type="int" />
+          <Property Name="IsDeleted" Type="bit" />
+        </EntityType>
+        <EntityType Name="PriorityMaster">
+          <Key>
+            <PropertyRef Name="PriorityId" />
+          </Key>
+          <Property Name="PriorityId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PriorityDescription" Type="nvarchar" MaxLength="100" />
+          <Property Name="PriorityOrder" Type="int" />
+          <Property Name="IsDeleted" Type="bit" />
+        </EntityType>
+        <EntityType Name="Resource">
+          <Key>
+            <PropertyRef Name="ResourceId" />
+          </Key>
+          <Property Name="ResourceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Lname" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="80" />
+          <Property Name="Pwd" Type="nvarchar" MaxLength="50" />
+          <Property Name="Roles" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Isactive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RoleMaster">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleDescription" Type="nvarchar" MaxLength="100" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="RootCauseMaster">
+          <Key>
+            <PropertyRef Name="RootCauseId" />
+          </Key>
+          <Property Name="RootCauseId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="100" />
+          <Property Name="Isdelete" Type="bit" />
+        </EntityType>
+        <EntityType Name="StatusMaster">
+          <Key>
+            <PropertyRef Name="StatusId" />
+          </Key>
+          <Property Name="StatusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StatusDescription" Type="nvarchar" MaxLength="100" />
+          <Property Name="statusOrder" Type="int" />
+          <Property Name="IsDeleted" Type="bit" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Tickets">
+          <Key>
+            <PropertyRef Name="TicketId" />
+          </Key>
+          <Property Name="TicketId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="4000" />
+          <Property Name="TDescription" Type="nvarchar" MaxLength="4000" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="StatusId" Type="int" />
+          <Property Name="Createddate" Type="datetime" />
+          <Property Name="AssignedTo" Type="int" />
+          <Property Name="PriorityId" Type="int" />
+          <Property Name="TypeId" Type="int" />
+          <Property Name="ApplicationId" Type="int" />
+          <Property Name="ModuleID" Type="int" />
+          <Property Name="ResponseDeadline" Type="datetime" />
+          <Property Name="ResolutionDeadline" Type="datetime" />
+          <Property Name="RootCauseId" Type="int" />
+          <Property Name="Coommnets" Type="nvarchar" MaxLength="4000" />
+          <Property Name="UpdatedBy" Type="int" />
+          <Property Name="LastModifiedon" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Trade">
+          <Key>
+            <PropertyRef Name="TradeId" />
+          </Key>
+          <Property Name="TradeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TradeFileID" Type="int" />
+          <Property Name="TradeTypeId" Type="int" />
+          <Property Name="ClientTradeRef" Type="nvarchar" MaxLength="200" />
+          <Property Name="SecurityCode" Type="nvarchar" MaxLength="200" />
+          <Property Name="Units" Type="nvarchar" MaxLength="200" />
+          <Property Name="Price" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Brokerage" Type="int" />
+          <Property Name="BrokerageGST" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="NetSettlementValue" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="GrossSettlementValue" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="TradeValidationError">
+          <Key>
+            <PropertyRef Name="TradeValidationErrorID" />
+          </Key>
+          <Property Name="TradeValidationErrorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TradeId" Type="int" />
+          <Property Name="ErrorCode" Type="nvarchar" MaxLength="300" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TicketTracker.dbo.TrainingHistory' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="TrainingHistory">
+          <Property Name="Userid" Type="int" />
+          <Property Name="YearNo" Type="int" />
+          <Property Name="TrainigId" Type="int" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'TicketTracker.dbo.TrainingMaster' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="TrainingMaster">
+          <Key>
+            <PropertyRef Name="TrianingId" />
+          </Key>
+          <Property Name="TrianingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Details" Type="nchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="TypeMaster">
+          <Key>
+            <PropertyRef Name="TypeId" />
+          </Key>
+          <Property Name="TypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TypeDescription" Type="nvarchar" MaxLength="100" />
+          <Property Name="TypeOrder" Type="int" />
+          <Property Name="IsDeleted" Type="bit" />
+        </EntityType>
+        <EntityType Name="UserMaster">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FName" Type="nvarchar" MaxLength="100" />
+          <Property Name="LName" Type="nvarchar" MaxLength="100" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" />
+          <Property Name="IsDeleted" Type="bit" />
+        </EntityType>
+        <EntityType Name="UserRoles">
+          <Key>
+            <PropertyRef Name="Mappingid" />
+          </Key>
+          <Property Name="Mappingid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'TicketTracker.dbo.vw_user_permissions' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vw_user_permissions">
+          <Key>
+            <PropertyRef Name="menuitemid" />
+            <PropertyRef Name="userid" />
+            <PropertyRef Name="roleid" />
+          </Key>
+          <Property Name="displayname" Type="nvarchar" MaxLength="100" />
+          <Property Name="menuitemid" Type="int" Nullable="false" />
+          <Property Name="link" Type="nvarchar" MaxLength="100" />
+          <Property Name="parentmenuid" Type="int" />
+          <Property Name="sortorder" Type="int" />
+          <Property Name="userid" Type="int" Nullable="false" />
+          <Property Name="roleid" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Entity_Link_Entity">
+          <End Role="Entity" Type="Self.Entity" Multiplicity="0..1" />
+          <End Role="Entity_Link" Type="Self.Entity_Link" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entity">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Entity_Link">
+              <PropertyRef Name="Parent_Entity_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Entity_Link_Entity1">
+          <End Role="Entity" Type="Self.Entity" Multiplicity="0..1" />
+          <End Role="Entity_Link" Type="Self.Entity_Link" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entity">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Entity_Link">
+              <PropertyRef Name="Child_Entity_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FileUpload_Tickets">
+          <End Role="Tickets" Type="Self.Tickets" Multiplicity="0..1" />
+          <End Role="FileUpload" Type="Self.FileUpload" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tickets">
+              <PropertyRef Name="TicketId" />
+            </Principal>
+            <Dependent Role="FileUpload">
+              <PropertyRef Name="TicketId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FinancialEventSourceFlatFile_FinancialEventSource">
+          <End Role="FinancialEventSource" Type="Self.FinancialEventSource" Multiplicity="0..1" />
+          <End Role="FinancialEventSourceFlatFile" Type="Self.FinancialEventSourceFlatFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FinancialEventSource">
+              <PropertyRef Name="FinancialEventSourceId" />
+            </Principal>
+            <Dependent Role="FinancialEventSourceFlatFile">
+              <PropertyRef Name="FinancialEventSourceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FinancialEventSourceSwift_FinancialEventSource">
+          <End Role="FinancialEventSource" Type="Self.FinancialEventSource" Multiplicity="0..1" />
+          <End Role="FinancialEventSourceSwift" Type="Self.FinancialEventSourceSwift" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FinancialEventSource">
+              <PropertyRef Name="FinancialEventSourceId" />
+            </Principal>
+            <Dependent Role="FinancialEventSourceSwift">
+              <PropertyRef Name="FinancialEventSourceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MenuItems_Menus">
+          <End Role="Menus" Type="Self.Menus" Multiplicity="1" />
+          <End Role="MenuItems" Type="Self.MenuItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Menus">
+              <PropertyRef Name="MenuId" />
+            </Principal>
+            <Dependent Role="MenuItems">
+              <PropertyRef Name="MenuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MenuPermission_MenuItems">
+          <End Role="MenuItems" Type="Self.MenuItems" Multiplicity="1" />
+          <End Role="MenuPermission" Type="Self.MenuPermission" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="MenuItems">
+              <PropertyRef Name="MenuItemId" />
+            </Principal>
+            <Dependent Role="MenuPermission">
+              <PropertyRef Name="MenuItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MenuPermission_RoleMaster">
+          <End Role="RoleMaster" Type="Self.RoleMaster" Multiplicity="0..1" />
+          <End Role="MenuPermission" Type="Self.MenuPermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RoleMaster">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="MenuPermission">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ModuleMaster_ModuleMaster">
+          <End Role="ModuleMaster" Type="Self.ModuleMaster" Multiplicity="1" />
+          <End Role="ModuleMaster1" Type="Self.ModuleMaster" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="ModuleMaster">
+              <PropertyRef Name="ModuleId" />
+            </Principal>
+            <Dependent Role="ModuleMaster1">
+              <PropertyRef Name="ModuleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tickets_ApplicationMaster">
+          <End Role="ApplicationMaster" Type="Self.ApplicationMaster" Multiplicity="0..1" />
+          <End Role="Tickets" Type="Self.Tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ApplicationMaster">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="Tickets">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tickets_ModuleMaster">
+          <End Role="ModuleMaster" Type="Self.ModuleMaster" Multiplicity="0..1" />
+          <End Role="Tickets" Type="Self.Tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ModuleMaster">
+              <PropertyRef Name="ModuleId" />
+            </Principal>
+            <Dependent Role="Tickets">
+              <PropertyRef Name="ModuleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tickets_PriorityMaster">
+          <End Role="PriorityMaster" Type="Self.PriorityMaster" Multiplicity="0..1" />
+          <End Role="Tickets" Type="Self.Tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PriorityMaster">
+              <PropertyRef Name="PriorityId" />
+            </Principal>
+            <Dependent Role="Tickets">
+              <PropertyRef Name="PriorityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tickets_Resource">
+          <End Role="Resource" Type="Self.Resource" Multiplicity="0..1" />
+          <End Role="Tickets" Type="Self.Tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Resource">
+              <PropertyRef Name="ResourceId" />
+            </Principal>
+            <Dependent Role="Tickets">
+              <PropertyRef Name="UpdatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tickets_RootCauseMaster1">
+          <End Role="RootCauseMaster" Type="Self.RootCauseMaster" Multiplicity="0..1" />
+          <End Role="Tickets" Type="Self.Tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RootCauseMaster">
+              <PropertyRef Name="RootCauseId" />
+            </Principal>
+            <Dependent Role="Tickets">
+              <PropertyRef Name="RootCauseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tickets_StatusMaster">
+          <End Role="StatusMaster" Type="Self.StatusMaster" Multiplicity="0..1" />
+          <End Role="Tickets" Type="Self.Tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatusMaster">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="Tickets">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tickets_TypeMaster">
+          <End Role="TypeMaster" Type="Self.TypeMaster" Multiplicity="0..1" />
+          <End Role="Tickets" Type="Self.Tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeMaster">
+              <PropertyRef Name="TypeId" />
+            </Principal>
+            <Dependent Role="Tickets">
+              <PropertyRef Name="TypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TradeValidationError_Trade">
+          <End Role="Trade" Type="Self.Trade" Multiplicity="0..1" />
+          <End Role="TradeValidationError" Type="Self.TradeValidationError" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Trade">
+              <PropertyRef Name="TradeId" />
+            </Principal>
+            <Dependent Role="TradeValidationError">
+              <PropertyRef Name="TradeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRoles_RoleMaster">
+          <End Role="RoleMaster" Type="Self.RoleMaster" Multiplicity="1" />
+          <End Role="UserRoles" Type="Self.UserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RoleMaster">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="UserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRoles_UserMaster">
+          <End Role="UserMaster" Type="Self.UserMaster" Multiplicity="1" />
+          <End Role="UserRoles" Type="Self.UserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserMaster">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TicketTrackerModelStoreContainer">
+          <EntitySet Name="ApplicationMaster" EntityType="Self.ApplicationMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Entity" EntityType="Self.Entity" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Entity_Link" EntityType="Self.Entity_Link" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Exception" EntityType="Self.Exception" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FileUpload" EntityType="Self.FileUpload" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FinancialEventSource" EntityType="Self.FinancialEventSource" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FinancialEventSourceFlatFile" EntityType="Self.FinancialEventSourceFlatFile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FinancialEventSourceSwift" EntityType="Self.FinancialEventSourceSwift" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FXTrade" EntityType="Self.FXTrade" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MenuItems" EntityType="Self.MenuItems" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Menus" EntityType="Self.Menus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ModuleMaster" EntityType="Self.ModuleMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PriorityMaster" EntityType="Self.PriorityMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Resource" EntityType="Self.Resource" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RoleMaster" EntityType="Self.RoleMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RootCauseMaster" EntityType="Self.RootCauseMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StatusMaster" EntityType="Self.StatusMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tickets" EntityType="Self.Tickets" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Trade" EntityType="Self.Trade" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TradeValidationError" EntityType="Self.TradeValidationError" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TypeMaster" EntityType="Self.TypeMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserMaster" EntityType="Self.UserMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRoles" EntityType="Self.UserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Employee].[empid] AS [empid], 
+    [Employee].[DateofJoining] AS [DateofJoining], 
+    [Employee].[managerid] AS [managerid], 
+    [Employee].[BusinessUnit] AS [BusinessUnit]
+    FROM [dbo].[Employee] AS [Employee]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="MenuPermission" EntityType="Self.MenuPermission" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [MenuPermission].[MenuItemId] AS [MenuItemId], 
+    [MenuPermission].[RoleId] AS [RoleId]
+    FROM [dbo].[MenuPermission] AS [MenuPermission]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="TrainingMaster" EntityType="Self.TrainingMaster" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [TrainingMaster].[TrianingId] AS [TrianingId], 
+    [TrainingMaster].[Details] AS [Details]
+    FROM [dbo].[TrainingMaster] AS [TrainingMaster]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vw_user_permissions" EntityType="Self.vw_user_permissions" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vw_user_permissions].[displayname] AS [displayname], 
+    [vw_user_permissions].[menuitemid] AS [menuitemid], 
+    [vw_user_permissions].[link] AS [link], 
+    [vw_user_permissions].[parentmenuid] AS [parentmenuid], 
+    [vw_user_permissions].[sortorder] AS [sortorder], 
+    [vw_user_permissions].[userid] AS [userid], 
+    [vw_user_permissions].[roleid] AS [roleid]
+    FROM [dbo].[vw_user_permissions] AS [vw_user_permissions]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Entity_Link_Entity" Association="Self.FK_Entity_Link_Entity">
+            <End Role="Entity" EntitySet="Entity" />
+            <End Role="Entity_Link" EntitySet="Entity_Link" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Entity_Link_Entity1" Association="Self.FK_Entity_Link_Entity1">
+            <End Role="Entity" EntitySet="Entity" />
+            <End Role="Entity_Link" EntitySet="Entity_Link" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FileUpload_Tickets" Association="Self.FK_FileUpload_Tickets">
+            <End Role="Tickets" EntitySet="Tickets" />
+            <End Role="FileUpload" EntitySet="FileUpload" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FinancialEventSourceFlatFile_FinancialEventSource" Association="Self.FK_FinancialEventSourceFlatFile_FinancialEventSource">
+            <End Role="FinancialEventSource" EntitySet="FinancialEventSource" />
+            <End Role="FinancialEventSourceFlatFile" EntitySet="FinancialEventSourceFlatFile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FinancialEventSourceSwift_FinancialEventSource" Association="Self.FK_FinancialEventSourceSwift_FinancialEventSource">
+            <End Role="FinancialEventSource" EntitySet="FinancialEventSource" />
+            <End Role="FinancialEventSourceSwift" EntitySet="FinancialEventSourceSwift" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MenuItems_Menus" Association="Self.FK_MenuItems_Menus">
+            <End Role="Menus" EntitySet="Menus" />
+            <End Role="MenuItems" EntitySet="MenuItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MenuPermission_MenuItems" Association="Self.FK_MenuPermission_MenuItems">
+            <End Role="MenuItems" EntitySet="MenuItems" />
+            <End Role="MenuPermission" EntitySet="MenuPermission" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MenuPermission_RoleMaster" Association="Self.FK_MenuPermission_RoleMaster">
+            <End Role="RoleMaster" EntitySet="RoleMaster" />
+            <End Role="MenuPermission" EntitySet="MenuPermission" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ModuleMaster_ModuleMaster" Association="Self.FK_ModuleMaster_ModuleMaster">
+            <End Role="ModuleMaster" EntitySet="ModuleMaster" />
+            <End Role="ModuleMaster1" EntitySet="ModuleMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tickets_ApplicationMaster" Association="Self.FK_Tickets_ApplicationMaster">
+            <End Role="ApplicationMaster" EntitySet="ApplicationMaster" />
+            <End Role="Tickets" EntitySet="Tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tickets_ModuleMaster" Association="Self.FK_Tickets_ModuleMaster">
+            <End Role="ModuleMaster" EntitySet="ModuleMaster" />
+            <End Role="Tickets" EntitySet="Tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tickets_PriorityMaster" Association="Self.FK_Tickets_PriorityMaster">
+            <End Role="PriorityMaster" EntitySet="PriorityMaster" />
+            <End Role="Tickets" EntitySet="Tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tickets_Resource" Association="Self.FK_Tickets_Resource">
+            <End Role="Resource" EntitySet="Resource" />
+            <End Role="Tickets" EntitySet="Tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tickets_RootCauseMaster1" Association="Self.FK_Tickets_RootCauseMaster1">
+            <End Role="RootCauseMaster" EntitySet="RootCauseMaster" />
+            <End Role="Tickets" EntitySet="Tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tickets_StatusMaster" Association="Self.FK_Tickets_StatusMaster">
+            <End Role="StatusMaster" EntitySet="StatusMaster" />
+            <End Role="Tickets" EntitySet="Tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tickets_TypeMaster" Association="Self.FK_Tickets_TypeMaster">
+            <End Role="TypeMaster" EntitySet="TypeMaster" />
+            <End Role="Tickets" EntitySet="Tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TradeValidationError_Trade" Association="Self.FK_TradeValidationError_Trade">
+            <End Role="Trade" EntitySet="Trade" />
+            <End Role="TradeValidationError" EntitySet="TradeValidationError" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRoles_RoleMaster" Association="Self.FK_UserRoles_RoleMaster">
+            <End Role="RoleMaster" EntitySet="RoleMaster" />
+            <End Role="UserRoles" EntitySet="UserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRoles_UserMaster" Association="Self.FK_UserRoles_UserMaster">
+            <End Role="UserMaster" EntitySet="UserMaster" />
+            <End Role="UserRoles" EntitySet="UserRoles" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TicketTrackerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ApplicationMaster">
+          <Key>
+            <PropertyRef Name="ApplicationId" />
+          </Key>
+          <Property Name="ApplicationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ApplicationName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="statusOrder" Type="Int32" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="Tickets" Relationship="Self.FK_Tickets_ApplicationMaster" FromRole="ApplicationMaster" ToRole="Tickets" />
+        </EntityType>
+        <EntityType Name="Entity">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Reference_ID" Type="Int32" />
+          <NavigationProperty Name="Entity_Link" Relationship="Self.FK_Entity_Link_Entity" FromRole="Entity" ToRole="Entity_Link" />
+          <NavigationProperty Name="Entity_Link1" Relationship="Self.FK_Entity_Link_Entity1" FromRole="Entity" ToRole="Entity_Link" />
+        </EntityType>
+        <EntityType Name="Entity_Link">
+          <Key>
+            <PropertyRef Name="Link_ID" />
+          </Key>
+          <Property Name="Link_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Parent_Entity_ID" Type="Int32" />
+          <Property Name="Child_Entity_ID" Type="Int32" />
+          <NavigationProperty Name="Entity" Relationship="Self.FK_Entity_Link_Entity" FromRole="Entity_Link" ToRole="Entity" />
+          <NavigationProperty Name="Entity1" Relationship="Self.FK_Entity_Link_Entity1" FromRole="Entity_Link" ToRole="Entity" />
+        </EntityType>
+        <EntityType Name="Exception">
+          <Key>
+            <PropertyRef Name="ExceptionId" />
+          </Key>
+          <Property Name="ExceptionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Message" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="StackTrace" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="ExceptionDateTime" Type="DateTime" Precision="3" />
+          <Property Name="InnerExceptionmessage" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="ControllerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ActionName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="FileUpload">
+          <Key>
+            <PropertyRef Name="Fileid" />
+          </Key>
+          <Property Name="Fileid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Filedata" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="TicketId" Type="Int32" />
+          <Property Name="Filetype" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="UploadDate" Type="DateTime" Precision="3" />
+          <Property Name="FileName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Ticket" Relationship="Self.FK_FileUpload_Tickets" FromRole="FileUpload" ToRole="Tickets" />
+        </EntityType>
+        <EntityType Name="FinancialEventSource">
+          <Key>
+            <PropertyRef Name="FinancialEventSourceId" />
+          </Key>
+          <Property Name="FinancialEventSourceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FinancialEventSourceTypeId" Type="Int32" />
+          <Property Name="CaptureDateTime" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="FinancialEventSourceFlatFiles" Relationship="Self.FK_FinancialEventSourceFlatFile_FinancialEventSource" FromRole="FinancialEventSource" ToRole="FinancialEventSourceFlatFile" />
+          <NavigationProperty Name="FinancialEventSourceSwifts" Relationship="Self.FK_FinancialEventSourceSwift_FinancialEventSource" FromRole="FinancialEventSource" ToRole="FinancialEventSourceSwift" />
+        </EntityType>
+        <EntityType Name="FinancialEventSourceFlatFile">
+          <Key>
+            <PropertyRef Name="FinancialEventSourceFlatFileId" />
+          </Key>
+          <Property Name="FinancialEventSourceFlatFileId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FinancialEventSourceId" Type="Int32" />
+          <Property Name="ClientProfileId" Type="Int32" />
+          <Property Name="FlatFileProcessingStatusId" Type="Int32" />
+          <Property Name="FileName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ReceiveDir" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ReceiveDateTime" Type="DateTime" Precision="3" />
+          <Property Name="ProcessingNotes" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="LastUpdatedUser" Type="Int32" />
+          <Property Name="LastUpdatedDateTime" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="FinancialEventSource" Relationship="Self.FK_FinancialEventSourceFlatFile_FinancialEventSource" FromRole="FinancialEventSourceFlatFile" ToRole="FinancialEventSource" />
+        </EntityType>
+        <EntityType Name="FinancialEventSourceSwift">
+          <Key>
+            <PropertyRef Name="FinancialEventSourceSwiftId" />
+          </Key>
+          <Property Name="FinancialEventSourceSwiftId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FinancialEventSourceId" Type="Int32" />
+          <Property Name="SwiftMessageId" Type="Int32" />
+          <Property Name="SwiftMessageTypeId" Type="Int32" />
+          <Property Name="BatchId" Type="Int32" />
+          <Property Name="SenderBic" Type="Int32" />
+          <Property Name="Message" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="MessageXML" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="ReceiveDateTime" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="FinancialEventSource" Relationship="Self.FK_FinancialEventSourceSwift_FinancialEventSource" FromRole="FinancialEventSourceSwift" ToRole="FinancialEventSource" />
+        </EntityType>
+        <EntityType Name="FXTrade">
+          <Key>
+            <PropertyRef Name="FXTradeId" />
+          </Key>
+          <Property Name="FXTradeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FinancialEventId" Type="Int32" />
+          <Property Name="PortfolioId" Type="Int32" />
+          <Property Name="BrokerId" Type="Int32" />
+          <Property Name="TradeDate" Type="DateTime" Precision="3" />
+          <Property Name="SettlementDate" Type="DateTime" Precision="3" />
+          <Property Name="SpotForward" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Rate" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="HiportRef" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="TradeCurrencyId" Type="Int32" />
+          <Property Name="CounterPartyCurrencyId" Type="Int32" />
+          <Property Name="TradeNominal" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CounterPartyNominal" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Position" Type="Int32" />
+          <Property Name="SenderToReceieverInfo" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="TradeAllocationFinancialEventId" Type="Int32" />
+          <Property Name="MatchStatusId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="MenuItem">
+          <Key>
+            <PropertyRef Name="MenuItemId" />
+          </Key>
+          <Property Name="MenuItemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MenuId" Type="Int32" Nullable="false" />
+          <Property Name="link" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="parentmenuid" Type="Int32" />
+          <Property Name="Sortorder" Type="Int32" />
+          <NavigationProperty Name="Menu" Relationship="Self.FK_MenuItems_Menus" FromRole="MenuItems" ToRole="Menus" />
+          <NavigationProperty Name="MenuPermission" Relationship="Self.FK_MenuPermission_MenuItems" FromRole="MenuItems" ToRole="MenuPermission" />
+        </EntityType>
+        <EntityType Name="Menu">
+          <Key>
+            <PropertyRef Name="MenuId" />
+          </Key>
+          <Property Name="MenuId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DisplayName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="MenuItems" Relationship="Self.FK_MenuItems_Menus" FromRole="Menus" ToRole="MenuItems" />
+        </EntityType>
+        <EntityType Name="ModuleMaster">
+          <Key>
+            <PropertyRef Name="ModuleId" />
+          </Key>
+          <Property Name="ModuleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ModuleName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="statusOrder" Type="Int32" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="ModuleMaster1" Relationship="Self.FK_ModuleMaster_ModuleMaster" FromRole="ModuleMaster" ToRole="ModuleMaster1" />
+          <NavigationProperty Name="ModuleMaster2" Relationship="Self.FK_ModuleMaster_ModuleMaster" FromRole="ModuleMaster1" ToRole="ModuleMaster" />
+          <NavigationProperty Name="Tickets" Relationship="Self.FK_Tickets_ModuleMaster" FromRole="ModuleMaster" ToRole="Tickets" />
+        </EntityType>
+        <EntityType Name="PriorityMaster">
+          <Key>
+            <PropertyRef Name="PriorityId" />
+          </Key>
+          <Property Name="PriorityId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PriorityDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PriorityOrder" Type="Int32" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="Tickets" Relationship="Self.FK_Tickets_PriorityMaster" FromRole="PriorityMaster" ToRole="Tickets" />
+        </EntityType>
+        <EntityType Name="Resource">
+          <Key>
+            <PropertyRef Name="ResourceId" />
+          </Key>
+          <Property Name="ResourceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Lname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="Pwd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Roles" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Isactive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Tickets" Relationship="Self.FK_Tickets_Resource" FromRole="Resource" ToRole="Tickets" />
+        </EntityType>
+        <EntityType Name="RoleMaster">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="MenuPermissions" Relationship="Self.FK_MenuPermission_RoleMaster" FromRole="RoleMaster" ToRole="MenuPermission" />
+          <NavigationProperty Name="UserRoles" Relationship="Self.FK_UserRoles_RoleMaster" FromRole="RoleMaster" ToRole="UserRoles" />
+        </EntityType>
+        <EntityType Name="RootCauseMaster">
+          <Key>
+            <PropertyRef Name="RootCauseId" />
+          </Key>
+          <Property Name="RootCauseId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Isdelete" Type="Boolean" />
+          <NavigationProperty Name="Tickets" Relationship="Self.FK_Tickets_RootCauseMaster1" FromRole="RootCauseMaster" ToRole="Tickets" />
+        </EntityType>
+        <EntityType Name="StatusMaster">
+          <Key>
+            <PropertyRef Name="StatusId" />
+          </Key>
+          <Property Name="StatusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StatusDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="statusOrder" Type="Int32" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="Tickets" Relationship="Self.FK_Tickets_StatusMaster" FromRole="StatusMaster" ToRole="Tickets" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Ticket">
+          <Key>
+            <PropertyRef Name="TicketId" />
+          </Key>
+          <Property Name="TicketId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="TDescription" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="StatusId" Type="Int32" />
+          <Property Name="Createddate" Type="DateTime" Precision="3" />
+          <Property Name="AssignedTo" Type="Int32" />
+          <Property Name="PriorityId" Type="Int32" />
+          <Property Name="TypeId" Type="Int32" />
+          <Property Name="ApplicationId" Type="Int32" />
+          <Property Name="ModuleID" Type="Int32" />
+          <Property Name="ResponseDeadline" Type="DateTime" Precision="3" />
+          <Property Name="ResolutionDeadline" Type="DateTime" Precision="3" />
+          <Property Name="RootCauseId" Type="Int32" />
+          <Property Name="Coommnets" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="LastModifiedon" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="ApplicationMaster" Relationship="Self.FK_Tickets_ApplicationMaster" FromRole="Tickets" ToRole="ApplicationMaster" />
+          <NavigationProperty Name="FileUploads" Relationship="Self.FK_FileUpload_Tickets" FromRole="Tickets" ToRole="FileUpload" />
+          <NavigationProperty Name="ModuleMaster" Relationship="Self.FK_Tickets_ModuleMaster" FromRole="Tickets" ToRole="ModuleMaster" />
+          <NavigationProperty Name="PriorityMaster" Relationship="Self.FK_Tickets_PriorityMaster" FromRole="Tickets" ToRole="PriorityMaster" />
+          <NavigationProperty Name="Resource" Relationship="Self.FK_Tickets_Resource" FromRole="Tickets" ToRole="Resource" />
+          <NavigationProperty Name="RootCauseMaster" Relationship="Self.FK_Tickets_RootCauseMaster1" FromRole="Tickets" ToRole="RootCauseMaster" />
+          <NavigationProperty Name="StatusMaster" Relationship="Self.FK_Tickets_StatusMaster" FromRole="Tickets" ToRole="StatusMaster" />
+          <NavigationProperty Name="TypeMaster" Relationship="Self.FK_Tickets_TypeMaster" FromRole="Tickets" ToRole="TypeMaster" />
+        </EntityType>
+        <EntityType Name="Trade">
+          <Key>
+            <PropertyRef Name="TradeId" />
+          </Key>
+          <Property Name="TradeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TradeFileID" Type="Int32" />
+          <Property Name="TradeTypeId" Type="Int32" />
+          <Property Name="ClientTradeRef" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityCode" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Units" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Brokerage" Type="Int32" />
+          <Property Name="BrokerageGST" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="NetSettlementValue" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="GrossSettlementValue" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="TradeValidationErrors" Relationship="Self.FK_TradeValidationError_Trade" FromRole="Trade" ToRole="TradeValidationError" />
+        </EntityType>
+        <EntityType Name="TradeValidationError">
+          <Key>
+            <PropertyRef Name="TradeValidationErrorID" />
+          </Key>
+          <Property Name="TradeValidationErrorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TradeId" Type="Int32" />
+          <Property Name="ErrorCode" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Trade" Relationship="Self.FK_TradeValidationError_Trade" FromRole="TradeValidationError" ToRole="Trade" />
+        </EntityType>
+        <EntityType Name="TypeMaster">
+          <Key>
+            <PropertyRef Name="TypeId" />
+          </Key>
+          <Property Name="TypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TypeDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TypeOrder" Type="Int32" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="Tickets" Relationship="Self.FK_Tickets_TypeMaster" FromRole="TypeMaster" ToRole="Tickets" />
+        </EntityType>
+        <EntityType Name="UserMaster">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="UserRoles" Relationship="Self.FK_UserRoles_UserMaster" FromRole="UserMaster" ToRole="UserRoles" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="Mappingid" />
+          </Key>
+          <Property Name="Mappingid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="RoleMaster" Relationship="Self.FK_UserRoles_RoleMaster" FromRole="UserRoles" ToRole="RoleMaster" />
+          <NavigationProperty Name="UserMaster" Relationship="Self.FK_UserRoles_UserMaster" FromRole="UserRoles" ToRole="UserMaster" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="empid" />
+          </Key>
+          <Property Name="empid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DateofJoining" Type="DateTime" Precision="0" />
+          <Property Name="managerid" Type="Int32" />
+          <Property Name="BusinessUnit" Type="Int32" />
+        </EntityType>
+        <EntityType Name="MenuPermission">
+          <Key>
+            <PropertyRef Name="MenuItemId" />
+          </Key>
+          <Property Name="MenuItemId" Type="Int32" Nullable="false" />
+          <Property Name="RoleId" Type="Int32" />
+          <NavigationProperty Name="MenuItem" Relationship="Self.FK_MenuPermission_MenuItems" FromRole="MenuPermission" ToRole="MenuItems" />
+          <NavigationProperty Name="RoleMaster" Relationship="Self.FK_MenuPermission_RoleMaster" FromRole="MenuPermission" ToRole="RoleMaster" />
+        </EntityType>
+        <EntityType Name="TrainingMaster">
+          <Key>
+            <PropertyRef Name="TrianingId" />
+          </Key>
+          <Property Name="TrianingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Details" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="vw_user_permissions">
+          <Key>
+            <PropertyRef Name="menuitemid" />
+            <PropertyRef Name="userid" />
+            <PropertyRef Name="roleid" />
+          </Key>
+          <Property Name="displayname" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="menuitemid" Type="Int32" Nullable="false" />
+          <Property Name="link" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="parentmenuid" Type="Int32" />
+          <Property Name="sortorder" Type="Int32" />
+          <Property Name="userid" Type="Int32" Nullable="false" />
+          <Property Name="roleid" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Tickets_ApplicationMaster">
+          <End Role="ApplicationMaster" Type="Self.ApplicationMaster" Multiplicity="0..1" />
+          <End Role="Tickets" Type="Self.Ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ApplicationMaster">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="Tickets">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Entity_Link_Entity">
+          <End Role="Entity" Type="Self.Entity" Multiplicity="0..1" />
+          <End Role="Entity_Link" Type="Self.Entity_Link" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entity">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Entity_Link">
+              <PropertyRef Name="Parent_Entity_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Entity_Link_Entity1">
+          <End Role="Entity" Type="Self.Entity" Multiplicity="0..1" />
+          <End Role="Entity_Link" Type="Self.Entity_Link" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entity">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Entity_Link">
+              <PropertyRef Name="Child_Entity_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FileUpload_Tickets">
+          <End Role="Tickets" Type="Self.Ticket" Multiplicity="0..1" />
+          <End Role="FileUpload" Type="Self.FileUpload" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tickets">
+              <PropertyRef Name="TicketId" />
+            </Principal>
+            <Dependent Role="FileUpload">
+              <PropertyRef Name="TicketId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FinancialEventSourceFlatFile_FinancialEventSource">
+          <End Role="FinancialEventSource" Type="Self.FinancialEventSource" Multiplicity="0..1" />
+          <End Role="FinancialEventSourceFlatFile" Type="Self.FinancialEventSourceFlatFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FinancialEventSource">
+              <PropertyRef Name="FinancialEventSourceId" />
+            </Principal>
+            <Dependent Role="FinancialEventSourceFlatFile">
+              <PropertyRef Name="FinancialEventSourceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FinancialEventSourceSwift_FinancialEventSource">
+          <End Role="FinancialEventSource" Type="Self.FinancialEventSource" Multiplicity="0..1" />
+          <End Role="FinancialEventSourceSwift" Type="Self.FinancialEventSourceSwift" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FinancialEventSource">
+              <PropertyRef Name="FinancialEventSourceId" />
+            </Principal>
+            <Dependent Role="FinancialEventSourceSwift">
+              <PropertyRef Name="FinancialEventSourceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MenuItems_Menus">
+          <End Role="Menus" Type="Self.Menu" Multiplicity="1" />
+          <End Role="MenuItems" Type="Self.MenuItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Menus">
+              <PropertyRef Name="MenuId" />
+            </Principal>
+            <Dependent Role="MenuItems">
+              <PropertyRef Name="MenuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MenuPermission_MenuItems">
+          <End Role="MenuItems" Type="Self.MenuItem" Multiplicity="1" />
+          <End Role="MenuPermission" Type="Self.MenuPermission" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="MenuItems">
+              <PropertyRef Name="MenuItemId" />
+            </Principal>
+            <Dependent Role="MenuPermission">
+              <PropertyRef Name="MenuItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ModuleMaster_ModuleMaster">
+          <End Role="ModuleMaster" Type="Self.ModuleMaster" Multiplicity="1" />
+          <End Role="ModuleMaster1" Type="Self.ModuleMaster" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="ModuleMaster">
+              <PropertyRef Name="ModuleId" />
+            </Principal>
+            <Dependent Role="ModuleMaster1">
+              <PropertyRef Name="ModuleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tickets_ModuleMaster">
+          <End Role="ModuleMaster" Type="Self.ModuleMaster" Multiplicity="0..1" />
+          <End Role="Tickets" Type="Self.Ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ModuleMaster">
+              <PropertyRef Name="ModuleId" />
+            </Principal>
+            <Dependent Role="Tickets">
+              <PropertyRef Name="ModuleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tickets_PriorityMaster">
+          <End Role="PriorityMaster" Type="Self.PriorityMaster" Multiplicity="0..1" />
+          <End Role="Tickets" Type="Self.Ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PriorityMaster">
+              <PropertyRef Name="PriorityId" />
+            </Principal>
+            <Dependent Role="Tickets">
+              <PropertyRef Name="PriorityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tickets_Resource">
+          <End Role="Resource" Type="Self.Resource" Multiplicity="0..1" />
+          <End Role="Tickets" Type="Self.Ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Resource">
+              <PropertyRef Name="ResourceId" />
+            </Principal>
+            <Dependent Role="Tickets">
+              <PropertyRef Name="UpdatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MenuPermission_RoleMaster">
+          <End Role="RoleMaster" Type="Self.RoleMaster" Multiplicity="0..1" />
+          <End Role="MenuPermission" Type="Self.MenuPermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RoleMaster">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="MenuPermission">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRoles_RoleMaster">
+          <End Role="RoleMaster" Type="Self.RoleMaster" Multiplicity="1" />
+          <End Role="UserRoles" Type="Self.UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RoleMaster">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="UserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tickets_RootCauseMaster1">
+          <End Role="RootCauseMaster" Type="Self.RootCauseMaster" Multiplicity="0..1" />
+          <End Role="Tickets" Type="Self.Ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RootCauseMaster">
+              <PropertyRef Name="RootCauseId" />
+            </Principal>
+            <Dependent Role="Tickets">
+              <PropertyRef Name="RootCauseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tickets_StatusMaster">
+          <End Role="StatusMaster" Type="Self.StatusMaster" Multiplicity="0..1" />
+          <End Role="Tickets" Type="Self.Ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatusMaster">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="Tickets">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tickets_TypeMaster">
+          <End Role="TypeMaster" Type="Self.TypeMaster" Multiplicity="0..1" />
+          <End Role="Tickets" Type="Self.Ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeMaster">
+              <PropertyRef Name="TypeId" />
+            </Principal>
+            <Dependent Role="Tickets">
+              <PropertyRef Name="TypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TradeValidationError_Trade">
+          <End Role="Trade" Type="Self.Trade" Multiplicity="0..1" />
+          <End Role="TradeValidationError" Type="Self.TradeValidationError" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Trade">
+              <PropertyRef Name="TradeId" />
+            </Principal>
+            <Dependent Role="TradeValidationError">
+              <PropertyRef Name="TradeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRoles_UserMaster">
+          <End Role="UserMaster" Type="Self.UserMaster" Multiplicity="1" />
+          <End Role="UserRoles" Type="Self.UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserMaster">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TicketTrackerEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ApplicationMasters" EntityType="Self.ApplicationMaster" />
+          <EntitySet Name="Entities" EntityType="Self.Entity" />
+          <EntitySet Name="Entity_Link" EntityType="Self.Entity_Link" />
+          <EntitySet Name="Exceptions" EntityType="Self.Exception" />
+          <EntitySet Name="FileUploads" EntityType="Self.FileUpload" />
+          <EntitySet Name="FinancialEventSources" EntityType="Self.FinancialEventSource" />
+          <EntitySet Name="FinancialEventSourceFlatFiles" EntityType="Self.FinancialEventSourceFlatFile" />
+          <EntitySet Name="FinancialEventSourceSwifts" EntityType="Self.FinancialEventSourceSwift" />
+          <EntitySet Name="FXTrades" EntityType="Self.FXTrade" />
+          <EntitySet Name="MenuItems" EntityType="Self.MenuItem" />
+          <EntitySet Name="Menus" EntityType="Self.Menu" />
+          <EntitySet Name="ModuleMasters" EntityType="Self.ModuleMaster" />
+          <EntitySet Name="PriorityMasters" EntityType="Self.PriorityMaster" />
+          <EntitySet Name="Resources" EntityType="Self.Resource" />
+          <EntitySet Name="RoleMasters" EntityType="Self.RoleMaster" />
+          <EntitySet Name="RootCauseMasters" EntityType="Self.RootCauseMaster" />
+          <EntitySet Name="StatusMasters" EntityType="Self.StatusMaster" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="Tickets" EntityType="Self.Ticket" />
+          <EntitySet Name="Trades" EntityType="Self.Trade" />
+          <EntitySet Name="TradeValidationErrors" EntityType="Self.TradeValidationError" />
+          <EntitySet Name="TypeMasters" EntityType="Self.TypeMaster" />
+          <EntitySet Name="UserMasters" EntityType="Self.UserMaster" />
+          <EntitySet Name="UserRoles" EntityType="Self.UserRole" />
+          <EntitySet Name="Employees" EntityType="Self.Employee" />
+          <EntitySet Name="MenuPermissions" EntityType="Self.MenuPermission" />
+          <EntitySet Name="TrainingMasters" EntityType="Self.TrainingMaster" />
+          <EntitySet Name="vw_user_permissions" EntityType="Self.vw_user_permissions" />
+          <AssociationSet Name="FK_Tickets_ApplicationMaster" Association="Self.FK_Tickets_ApplicationMaster">
+            <End Role="ApplicationMaster" EntitySet="ApplicationMasters" />
+            <End Role="Tickets" EntitySet="Tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Entity_Link_Entity" Association="Self.FK_Entity_Link_Entity">
+            <End Role="Entity" EntitySet="Entities" />
+            <End Role="Entity_Link" EntitySet="Entity_Link" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Entity_Link_Entity1" Association="Self.FK_Entity_Link_Entity1">
+            <End Role="Entity" EntitySet="Entities" />
+            <End Role="Entity_Link" EntitySet="Entity_Link" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FileUpload_Tickets" Association="Self.FK_FileUpload_Tickets">
+            <End Role="Tickets" EntitySet="Tickets" />
+            <End Role="FileUpload" EntitySet="FileUploads" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FinancialEventSourceFlatFile_FinancialEventSource" Association="Self.FK_FinancialEventSourceFlatFile_FinancialEventSource">
+            <End Role="FinancialEventSource" EntitySet="FinancialEventSources" />
+            <End Role="FinancialEventSourceFlatFile" EntitySet="FinancialEventSourceFlatFiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FinancialEventSourceSwift_FinancialEventSource" Association="Self.FK_FinancialEventSourceSwift_FinancialEventSource">
+            <End Role="FinancialEventSource" EntitySet="FinancialEventSources" />
+            <End Role="FinancialEventSourceSwift" EntitySet="FinancialEventSourceSwifts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MenuItems_Menus" Association="Self.FK_MenuItems_Menus">
+            <End Role="Menus" EntitySet="Menus" />
+            <End Role="MenuItems" EntitySet="MenuItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MenuPermission_MenuItems" Association="Self.FK_MenuPermission_MenuItems">
+            <End Role="MenuItems" EntitySet="MenuItems" />
+            <End Role="MenuPermission" EntitySet="MenuPermissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ModuleMaster_ModuleMaster" Association="Self.FK_ModuleMaster_ModuleMaster">
+            <End Role="ModuleMaster" EntitySet="ModuleMasters" />
+            <End Role="ModuleMaster1" EntitySet="ModuleMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tickets_ModuleMaster" Association="Self.FK_Tickets_ModuleMaster">
+            <End Role="ModuleMaster" EntitySet="ModuleMasters" />
+            <End Role="Tickets" EntitySet="Tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tickets_PriorityMaster" Association="Self.FK_Tickets_PriorityMaster">
+            <End Role="PriorityMaster" EntitySet="PriorityMasters" />
+            <End Role="Tickets" EntitySet="Tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tickets_Resource" Association="Self.FK_Tickets_Resource">
+            <End Role="Resource" EntitySet="Resources" />
+            <End Role="Tickets" EntitySet="Tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MenuPermission_RoleMaster" Association="Self.FK_MenuPermission_RoleMaster">
+            <End Role="RoleMaster" EntitySet="RoleMasters" />
+            <End Role="MenuPermission" EntitySet="MenuPermissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRoles_RoleMaster" Association="Self.FK_UserRoles_RoleMaster">
+            <End Role="RoleMaster" EntitySet="RoleMasters" />
+            <End Role="UserRoles" EntitySet="UserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tickets_RootCauseMaster1" Association="Self.FK_Tickets_RootCauseMaster1">
+            <End Role="RootCauseMaster" EntitySet="RootCauseMasters" />
+            <End Role="Tickets" EntitySet="Tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tickets_StatusMaster" Association="Self.FK_Tickets_StatusMaster">
+            <End Role="StatusMaster" EntitySet="StatusMasters" />
+            <End Role="Tickets" EntitySet="Tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tickets_TypeMaster" Association="Self.FK_Tickets_TypeMaster">
+            <End Role="TypeMaster" EntitySet="TypeMasters" />
+            <End Role="Tickets" EntitySet="Tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TradeValidationError_Trade" Association="Self.FK_TradeValidationError_Trade">
+            <End Role="Trade" EntitySet="Trades" />
+            <End Role="TradeValidationError" EntitySet="TradeValidationErrors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRoles_UserMaster" Association="Self.FK_UserRoles_UserMaster">
+            <End Role="UserMaster" EntitySet="UserMasters" />
+            <End Role="UserRoles" EntitySet="UserRoles" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TicketTrackerModelStoreContainer" CdmEntityContainer="TicketTrackerEntities2">
+          <EntitySetMapping Name="ApplicationMasters">
+            <EntityTypeMapping TypeName="TicketTrackerModel.ApplicationMaster">
+              <MappingFragment StoreEntitySet="ApplicationMaster">
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+                <ScalarProperty Name="ApplicationName" ColumnName="ApplicationName" />
+                <ScalarProperty Name="statusOrder" ColumnName="statusOrder" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Entities">
+            <EntityTypeMapping TypeName="TicketTrackerModel.Entity">
+              <MappingFragment StoreEntitySet="Entity">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Reference_ID" ColumnName="Reference_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Entity_Link">
+            <EntityTypeMapping TypeName="TicketTrackerModel.Entity_Link">
+              <MappingFragment StoreEntitySet="Entity_Link">
+                <ScalarProperty Name="Link_ID" ColumnName="Link_ID" />
+                <ScalarProperty Name="Parent_Entity_ID" ColumnName="Parent_Entity_ID" />
+                <ScalarProperty Name="Child_Entity_ID" ColumnName="Child_Entity_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Exceptions">
+            <EntityTypeMapping TypeName="TicketTrackerModel.Exception">
+              <MappingFragment StoreEntitySet="Exception">
+                <ScalarProperty Name="ExceptionId" ColumnName="ExceptionId" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="StackTrace" ColumnName="StackTrace" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ExceptionDateTime" ColumnName="ExceptionDateTime" />
+                <ScalarProperty Name="InnerExceptionmessage" ColumnName="InnerExceptionmessage" />
+                <ScalarProperty Name="ControllerName" ColumnName="ControllerName" />
+                <ScalarProperty Name="ActionName" ColumnName="ActionName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FileUploads">
+            <EntityTypeMapping TypeName="TicketTrackerModel.FileUpload">
+              <MappingFragment StoreEntitySet="FileUpload">
+                <ScalarProperty Name="Fileid" ColumnName="Fileid" />
+                <ScalarProperty Name="Filedata" ColumnName="Filedata" />
+                <ScalarProperty Name="TicketId" ColumnName="TicketId" />
+                <ScalarProperty Name="Filetype" ColumnName="Filetype" />
+                <ScalarProperty Name="UploadDate" ColumnName="UploadDate" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FinancialEventSources">
+            <EntityTypeMapping TypeName="TicketTrackerModel.FinancialEventSource">
+              <MappingFragment StoreEntitySet="FinancialEventSource">
+                <ScalarProperty Name="FinancialEventSourceId" ColumnName="FinancialEventSourceId" />
+                <ScalarProperty Name="FinancialEventSourceTypeId" ColumnName="FinancialEventSourceTypeId" />
+                <ScalarProperty Name="CaptureDateTime" ColumnName="CaptureDateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FinancialEventSourceFlatFiles">
+            <EntityTypeMapping TypeName="TicketTrackerModel.FinancialEventSourceFlatFile">
+              <MappingFragment StoreEntitySet="FinancialEventSourceFlatFile">
+                <ScalarProperty Name="FinancialEventSourceFlatFileId" ColumnName="FinancialEventSourceFlatFileId" />
+                <ScalarProperty Name="FinancialEventSourceId" ColumnName="FinancialEventSourceId" />
+                <ScalarProperty Name="ClientProfileId" ColumnName="ClientProfileId" />
+                <ScalarProperty Name="FlatFileProcessingStatusId" ColumnName="FlatFileProcessingStatusId" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="ReceiveDir" ColumnName="ReceiveDir" />
+                <ScalarProperty Name="ReceiveDateTime" ColumnName="ReceiveDateTime" />
+                <ScalarProperty Name="ProcessingNotes" ColumnName="ProcessingNotes" />
+                <ScalarProperty Name="LastUpdatedUser" ColumnName="LastUpdatedUser" />
+                <ScalarProperty Name="LastUpdatedDateTime" ColumnName="LastUpdatedDateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FinancialEventSourceSwifts">
+            <EntityTypeMapping TypeName="TicketTrackerModel.FinancialEventSourceSwift">
+              <MappingFragment StoreEntitySet="FinancialEventSourceSwift">
+                <ScalarProperty Name="FinancialEventSourceSwiftId" ColumnName="FinancialEventSourceSwiftId" />
+                <ScalarProperty Name="FinancialEventSourceId" ColumnName="FinancialEventSourceId" />
+                <ScalarProperty Name="SwiftMessageId" ColumnName="SwiftMessageId" />
+                <ScalarProperty Name="SwiftMessageTypeId" ColumnName="SwiftMessageTypeId" />
+                <ScalarProperty Name="BatchId" ColumnName="BatchId" />
+                <ScalarProperty Name="SenderBic" ColumnName="SenderBic" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="MessageXML" ColumnName="MessageXML" />
+                <ScalarProperty Name="ReceiveDateTime" ColumnName="ReceiveDateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FXTrades">
+            <EntityTypeMapping TypeName="TicketTrackerModel.FXTrade">
+              <MappingFragment StoreEntitySet="FXTrade">
+                <ScalarProperty Name="FXTradeId" ColumnName="FXTradeId" />
+                <ScalarProperty Name="FinancialEventId" ColumnName="FinancialEventId" />
+                <ScalarProperty Name="PortfolioId" ColumnName="PortfolioId" />
+                <ScalarProperty Name="BrokerId" ColumnName="BrokerId" />
+                <ScalarProperty Name="TradeDate" ColumnName="TradeDate" />
+                <ScalarProperty Name="SettlementDate" ColumnName="SettlementDate" />
+                <ScalarProperty Name="SpotForward" ColumnName="SpotForward" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+                <ScalarProperty Name="HiportRef" ColumnName="HiportRef" />
+                <ScalarProperty Name="TradeCurrencyId" ColumnName="TradeCurrencyId" />
+                <ScalarProperty Name="CounterPartyCurrencyId" ColumnName="CounterPartyCurrencyId" />
+                <ScalarProperty Name="TradeNominal" ColumnName="TradeNominal" />
+                <ScalarProperty Name="CounterPartyNominal" ColumnName="CounterPartyNominal" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="SenderToReceieverInfo" ColumnName="SenderToReceieverInfo" />
+                <ScalarProperty Name="TradeAllocationFinancialEventId" ColumnName="TradeAllocationFinancialEventId" />
+                <ScalarProperty Name="MatchStatusId" ColumnName="MatchStatusId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MenuItems">
+            <EntityTypeMapping TypeName="TicketTrackerModel.MenuItem">
+              <MappingFragment StoreEntitySet="MenuItems">
+                <ScalarProperty Name="MenuItemId" ColumnName="MenuItemId" />
+                <ScalarProperty Name="MenuId" ColumnName="MenuId" />
+                <ScalarProperty Name="link" ColumnName="link" />
+                <ScalarProperty Name="parentmenuid" ColumnName="parentmenuid" />
+                <ScalarProperty Name="Sortorder" ColumnName="Sortorder" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Menus">
+            <EntityTypeMapping TypeName="TicketTrackerModel.Menu">
+              <MappingFragment StoreEntitySet="Menus">
+                <ScalarProperty Name="MenuId" ColumnName="MenuId" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ModuleMasters">
+            <EntityTypeMapping TypeName="TicketTrackerModel.ModuleMaster">
+              <MappingFragment StoreEntitySet="ModuleMaster">
+                <ScalarProperty Name="ModuleId" ColumnName="ModuleId" />
+                <ScalarProperty Name="ModuleName" ColumnName="ModuleName" />
+                <ScalarProperty Name="statusOrder" ColumnName="statusOrder" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PriorityMasters">
+            <EntityTypeMapping TypeName="TicketTrackerModel.PriorityMaster">
+              <MappingFragment StoreEntitySet="PriorityMaster">
+                <ScalarProperty Name="PriorityId" ColumnName="PriorityId" />
+                <ScalarProperty Name="PriorityDescription" ColumnName="PriorityDescription" />
+                <ScalarProperty Name="PriorityOrder" ColumnName="PriorityOrder" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Resources">
+            <EntityTypeMapping TypeName="TicketTrackerModel.Resource">
+              <MappingFragment StoreEntitySet="Resource">
+                <ScalarProperty Name="ResourceId" ColumnName="ResourceId" />
+                <ScalarProperty Name="FName" ColumnName="FName" />
+                <ScalarProperty Name="Lname" ColumnName="Lname" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Pwd" ColumnName="Pwd" />
+                <ScalarProperty Name="Roles" ColumnName="Roles" />
+                <ScalarProperty Name="Isactive" ColumnName="Isactive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoleMasters">
+            <EntityTypeMapping TypeName="TicketTrackerModel.RoleMaster">
+              <MappingFragment StoreEntitySet="RoleMaster">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="RoleDescription" ColumnName="RoleDescription" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RootCauseMasters">
+            <EntityTypeMapping TypeName="TicketTrackerModel.RootCauseMaster">
+              <MappingFragment StoreEntitySet="RootCauseMaster">
+                <ScalarProperty Name="RootCauseId" ColumnName="RootCauseId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Isdelete" ColumnName="Isdelete" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StatusMasters">
+            <EntityTypeMapping TypeName="TicketTrackerModel.StatusMaster">
+              <MappingFragment StoreEntitySet="StatusMaster">
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="StatusDescription" ColumnName="StatusDescription" />
+                <ScalarProperty Name="statusOrder" ColumnName="statusOrder" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="TicketTrackerModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tickets">
+            <EntityTypeMapping TypeName="TicketTrackerModel.Ticket">
+              <MappingFragment StoreEntitySet="Tickets">
+                <ScalarProperty Name="TicketId" ColumnName="TicketId" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="TDescription" ColumnName="TDescription" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="Createddate" ColumnName="Createddate" />
+                <ScalarProperty Name="AssignedTo" ColumnName="AssignedTo" />
+                <ScalarProperty Name="PriorityId" ColumnName="PriorityId" />
+                <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+                <ScalarProperty Name="ModuleID" ColumnName="ModuleID" />
+                <ScalarProperty Name="ResponseDeadline" ColumnName="ResponseDeadline" />
+                <ScalarProperty Name="ResolutionDeadline" ColumnName="ResolutionDeadline" />
+                <ScalarProperty Name="RootCauseId" ColumnName="RootCauseId" />
+                <ScalarProperty Name="Coommnets" ColumnName="Coommnets" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="LastModifiedon" ColumnName="LastModifiedon" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Trades">
+            <EntityTypeMapping TypeName="TicketTrackerModel.Trade">
+              <MappingFragment StoreEntitySet="Trade">
+                <ScalarProperty Name="TradeId" ColumnName="TradeId" />
+                <ScalarProperty Name="TradeFileID" ColumnName="TradeFileID" />
+                <ScalarProperty Name="TradeTypeId" ColumnName="TradeTypeId" />
+                <ScalarProperty Name="ClientTradeRef" ColumnName="ClientTradeRef" />
+                <ScalarProperty Name="SecurityCode" ColumnName="SecurityCode" />
+                <ScalarProperty Name="Units" ColumnName="Units" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Brokerage" ColumnName="Brokerage" />
+                <ScalarProperty Name="BrokerageGST" ColumnName="BrokerageGST" />
+                <ScalarProperty Name="NetSettlementValue" ColumnName="NetSettlementValue" />
+                <ScalarProperty Name="GrossSettlementValue" ColumnName="GrossSettlementValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TradeValidationErrors">
+            <EntityTypeMapping TypeName="TicketTrackerModel.TradeValidationError">
+              <MappingFragment StoreEntitySet="TradeValidationError">
+                <ScalarProperty Name="TradeValidationErrorID" ColumnName="TradeValidationErrorID" />
+                <ScalarProperty Name="TradeId" ColumnName="TradeId" />
+                <ScalarProperty Name="ErrorCode" ColumnName="ErrorCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TypeMasters">
+            <EntityTypeMapping TypeName="TicketTrackerModel.TypeMaster">
+              <MappingFragment StoreEntitySet="TypeMaster">
+                <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+                <ScalarProperty Name="TypeDescription" ColumnName="TypeDescription" />
+                <ScalarProperty Name="TypeOrder" ColumnName="TypeOrder" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserMasters">
+            <EntityTypeMapping TypeName="TicketTrackerModel.UserMaster">
+              <MappingFragment StoreEntitySet="UserMaster">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="FName" ColumnName="FName" />
+                <ScalarProperty Name="LName" ColumnName="LName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRoles">
+            <EntityTypeMapping TypeName="TicketTrackerModel.UserRole">
+              <MappingFragment StoreEntitySet="UserRoles">
+                <ScalarProperty Name="Mappingid" ColumnName="Mappingid" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="TicketTrackerModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="empid" ColumnName="empid" />
+                <ScalarProperty Name="DateofJoining" ColumnName="DateofJoining" />
+                <ScalarProperty Name="managerid" ColumnName="managerid" />
+                <ScalarProperty Name="BusinessUnit" ColumnName="BusinessUnit" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MenuPermissions">
+            <EntityTypeMapping TypeName="TicketTrackerModel.MenuPermission">
+              <MappingFragment StoreEntitySet="MenuPermission">
+                <ScalarProperty Name="MenuItemId" ColumnName="MenuItemId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TrainingMasters">
+            <EntityTypeMapping TypeName="TicketTrackerModel.TrainingMaster">
+              <MappingFragment StoreEntitySet="TrainingMaster">
+                <ScalarProperty Name="TrianingId" ColumnName="TrianingId" />
+                <ScalarProperty Name="Details" ColumnName="Details" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_user_permissions">
+            <EntityTypeMapping TypeName="TicketTrackerModel.vw_user_permissions">
+              <MappingFragment StoreEntitySet="vw_user_permissions">
+                <ScalarProperty Name="displayname" ColumnName="displayname" />
+                <ScalarProperty Name="menuitemid" ColumnName="menuitemid" />
+                <ScalarProperty Name="link" ColumnName="link" />
+                <ScalarProperty Name="parentmenuid" ColumnName="parentmenuid" />
+                <ScalarProperty Name="sortorder" ColumnName="sortorder" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="roleid" ColumnName="roleid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

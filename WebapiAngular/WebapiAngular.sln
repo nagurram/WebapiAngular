@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "webapp", "webapp\webapp.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ang4api", "ang4api\ang4api.csproj", "{0DCDE4F3-83FE-4789-9CF5-44CE72DBD91A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "webdataapi", "webdataapi\webdataapi.csproj", "{0BDA1728-30AF-43A5-A47A-D53A59E21198}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataApi", "DataApi\DataApi.csproj", "{1F1B098E-EF9E-415B-89D2-D4ABA49923D9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{0DCDE4F3-83FE-4789-9CF5-44CE72DBD91A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0DCDE4F3-83FE-4789-9CF5-44CE72DBD91A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0DCDE4F3-83FE-4789-9CF5-44CE72DBD91A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0BDA1728-30AF-43A5-A47A-D53A59E21198}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0BDA1728-30AF-43A5-A47A-D53A59E21198}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0BDA1728-30AF-43A5-A47A-D53A59E21198}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0BDA1728-30AF-43A5-A47A-D53A59E21198}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F1B098E-EF9E-415B-89D2-D4ABA49923D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F1B098E-EF9E-415B-89D2-D4ABA49923D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F1B098E-EF9E-415B-89D2-D4ABA49923D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F1B098E-EF9E-415B-89D2-D4ABA49923D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
