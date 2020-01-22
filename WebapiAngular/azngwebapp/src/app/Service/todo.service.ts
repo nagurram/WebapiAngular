@@ -32,7 +32,7 @@ export class TodoService {
 
     put(url: string, id: number, model: any): Observable<any> {
         let body = JSON.stringify(model);
-        let headers = new HttpHeaders().set('Content-Type', 'application/json');
+        let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Access-Control-Allow-Origin', '*');
         let options = { headers: headers };
         return this._http.put(this.baseurl+url + id, body, options);
 
