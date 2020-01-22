@@ -53,5 +53,6 @@ namespace DataApi.DBContext
         public virtual DbSet<MenuPermission> MenuPermissions { get; set; }
         public virtual DbSet<TrainingMaster> TrainingMasters { get; set; }
         public virtual DbSet<vw_user_permissions> vw_user_permissions { get; set; }
+        public virtual DbSet<TodoList> TodoLists { get; set; }
     }
 }

@@ -52,6 +52,7 @@
         <AssociationConnector Association="TicketTrackerModel.FK_Tickets_TypeMaster" ManuallyRouted="false" />
         <AssociationConnector Association="TicketTrackerModel.FK_TradeValidationError_Trade" ManuallyRouted="false" />
         <AssociationConnector Association="TicketTrackerModel.FK_UserRoles_UserMaster" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="TicketTrackerModel.TodoList" Width="1.5" PointX="15.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

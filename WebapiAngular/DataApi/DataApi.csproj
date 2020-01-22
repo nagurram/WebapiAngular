@@ -65,7 +65,7 @@
       <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.2\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
@@ -194,6 +194,7 @@
     <Compile Include="api\BaseAPIController.cs" />
     <Compile Include="api\downloadResult.cs" />
     <Compile Include="api\TicketapiController.cs" />
+    <Compile Include="api\TodoController.cs" />
     <Compile Include="api\UserapiController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -307,6 +308,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>TicketTrackerContext.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DBContext\TodoList.cs">
+      <DependentUpon>TicketTrackerContext.tt</DependentUpon>
     </Compile>
     <Compile Include="DBContext\Trade.cs">
       <DependentUpon>TicketTrackerContext.tt</DependentUpon>
