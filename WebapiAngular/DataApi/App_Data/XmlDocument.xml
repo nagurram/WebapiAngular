@@ -34,6 +34,12 @@
              https://scotch.io/@kashyapmukkamala/using-http-interceptor-with-angular2
              https://www.youtube.com/watch?v=rbHSTJBhJ44
         </member>
+        <member name="M:DataApi.api.TodoController.Get">
+            <summary>
+            Returns All Todo List items
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:DataApi.Areas.HelpPage.ApiDescriptionExtensions.GetFriendlyId(System.Web.Http.Description.ApiDescription)">
             <summary>
             Generates an URI-friendly ID for the <see cref="T:System.Web.Http.Description.ApiDescription"/>. E.g. "Get-Values-id_name" instead of "GetValues/{id}?name={name}"

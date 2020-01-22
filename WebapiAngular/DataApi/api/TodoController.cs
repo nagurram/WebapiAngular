@@ -12,21 +12,36 @@ using System.Collections.Generic;
 using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using System.Text;
+using log4net;
 
 namespace DataApi.api
 {
     [RoutePrefix("api/Todoapi")]
     public class TodoController : BaseAPIController
     {
+        private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        [HttpGet]
+
+        /// <summary>
+        /// Returns All Todo List items
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet, Route("todolist")]
         public HttpResponseMessage Get()
         {
-            var _lsttodo = from t in TicketDB.TodoLists
+            var _lsttodoe = new List<TodoList>();
+            try
+            {
+              var   _lsttodo = (from t in TicketDB.TodoLists
 
-                           select new { t.TodoId, t.Userid, t.Titile, t.Description, t.actionDate, t.IsActive };
-
-            return ToJson(_lsttodo);
+                               select new { t.TodoId, t.Userid, t.Titile, t.Description, t.actionDate, t.IsActive }).ToList();
+                return ToJson(_lsttodo);
+            }
+            catch(System.Exception e)
+            {
+                Log.Error(e);
+            }
+            return ToJson(_lsttodoe);
         }
 
 

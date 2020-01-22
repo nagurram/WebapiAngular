@@ -42,7 +42,6 @@ namespace DataApi.DBContext
         public virtual DbSet<RoleMaster> RoleMasters { get; set; }
         public virtual DbSet<RootCauseMaster> RootCauseMasters { get; set; }
         public virtual DbSet<StatusMaster> StatusMasters { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Ticket> Tickets { get; set; }
         public virtual DbSet<Trade> Trades { get; set; }
         public virtual DbSet<TradeValidationError> TradeValidationErrors { get; set; }

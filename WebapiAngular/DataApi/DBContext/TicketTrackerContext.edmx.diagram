@@ -22,7 +22,6 @@
         <EntityTypeShape EntityType="TicketTrackerModel.RoleMaster" Width="1.5" PointX="5.75" PointY="8.375" IsExpanded="true" />
         <EntityTypeShape EntityType="TicketTrackerModel.RootCauseMaster" Width="1.5" PointX="0.75" PointY="16.25" IsExpanded="true" />
         <EntityTypeShape EntityType="TicketTrackerModel.StatusMaster" Width="1.5" PointX="0.75" PointY="18.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="TicketTrackerModel.sysdiagram" Width="1.5" PointX="2.75" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TicketTrackerModel.Ticket" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="TicketTrackerModel.Trade" Width="1.5" PointX="7.75" PointY="12" IsExpanded="true" />
         <EntityTypeShape EntityType="TicketTrackerModel.TradeValidationError" Width="1.5" PointX="10" PointY="12.75" IsExpanded="true" />

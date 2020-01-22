@@ -881,16 +881,6 @@ warning 6002: The table/view 'TicketTracker.dbo.vw_user_permissions' does not ha
           <Property Name="IsDeleted" Type="Boolean" />
           <NavigationProperty Name="Tickets" Relationship="Self.FK_Tickets_StatusMaster" FromRole="StatusMaster" ToRole="Tickets" />
         </EntityType>
-        <EntityType Name="sysdiagram">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
         <EntityType Name="Ticket">
           <Key>
             <PropertyRef Name="TicketId" />
@@ -1263,7 +1253,6 @@ warning 6002: The table/view 'TicketTracker.dbo.vw_user_permissions' does not ha
           <EntitySet Name="RoleMasters" EntityType="Self.RoleMaster" />
           <EntitySet Name="RootCauseMasters" EntityType="Self.RootCauseMaster" />
           <EntitySet Name="StatusMasters" EntityType="Self.StatusMaster" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="Tickets" EntityType="Self.Ticket" />
           <EntitySet Name="Trades" EntityType="Self.Trade" />
           <EntitySet Name="TradeValidationErrors" EntityType="Self.TradeValidationError" />
