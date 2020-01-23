@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ToDoComponent } from './Components/todo.component';
-import { LoginComponent } from './components/login.component';
-import { PageNotFoundComponent } from './components/PageNotFound.component';
+import { LoginComponent } from './Components/login.component';
+import { PageNotFoundComponent } from './Components/PageNotFound.component';
 import { AuthGuard } from './auth/auth.guard';
 import { NotAuthorizedComponent } from './Components/notauthorized.component';
 

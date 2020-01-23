@@ -24,7 +24,8 @@ export class UserService {
 
     userAuthentication(userName: string, password: string): Observable<any> {
         var body = "username=" + userName + "&password=" + password + "&grant_type=password";
-        var url = this.rootUrl + '/token'
+        console.log(body);
+        var url = this.rootUrl + 'token'
         let headers = new HttpHeaders().set('Content-Type', 'application/x-www-urlencoded').set('No-Auth', 'True');
         let options = { headers: headers };
         return this._http.post(url, body, options);
@@ -32,14 +33,14 @@ export class UserService {
     }
 
     getusermenu(): Observable<any> {
-        var url = Global.BASE_USER_ENDPOINT+Global.BASE_USER_MENU;
+        var url = this.rootUrl+Global.BASE_USER_ENDPOINT+Global.BASE_USER_MENU;
             return this._http.get(url);
     }
     userlogout(): void {
         console.log('logoutservice called');
         var body = {};
         localStorage.removeItem('userToken');
-        var url = Global.BASE_USER_ENDPOINT + Global.BASE_USER_LOGOUT;
+        var url = this.rootUrl+Global.BASE_USER_ENDPOINT + Global.BASE_USER_LOGOUT;
         let headers = new HttpHeaders().set('Content-Type', 'application/json');
         let options = { headers: headers };
         this._http.post(url, body, options);

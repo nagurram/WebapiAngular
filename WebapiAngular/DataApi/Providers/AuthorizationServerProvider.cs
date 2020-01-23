@@ -6,11 +6,13 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using DataApi.common;
+using log4net;
 
 namespace DataApi.Providers
 {
     public class AuthorizationServerProvider : OAuthAuthorizationServerProvider
     {
+        private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         public override async Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
         {
             context.Validated();
@@ -20,6 +22,7 @@ namespace DataApi.Providers
         {
             try
             {
+                Log.Info("in Login, User id is:  " + context.UserName + " , Pwd " + context.Password);
                 context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
                 Resource _logedinUser = null;
                 using (TicketTrackerEntities2 _repo = new TicketTrackerEntities2())

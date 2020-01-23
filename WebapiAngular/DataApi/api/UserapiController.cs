@@ -5,6 +5,7 @@ using System.Web.Http;
 using DataApi.common;
 using System;
 using System.Web;
+using log4net;
 
 namespace DataApi.api
 {
@@ -12,10 +13,13 @@ namespace DataApi.api
     [Authorize]
     public class UserapiController : BaseAPIController
     {
+        private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         [HttpGet, Route("GetMenuitems")]
         public HttpResponseMessage GetMenuitms()
         {
+
+            Log.Info("This GetMenuitms method is called");
             int userid = Convert.ToInt32(GetClaimValue(Constants.UserId));
             var menus = (from p in TicketDB.vw_user_permissions
                          where p.userid == userid

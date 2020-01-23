@@ -54,6 +54,10 @@ export class ToDoComponent implements OnInit {
         this.showlist = false;
     }
 
+    CancelItem($event) {
+        this.Loadtodolist();
+    }
+
     Loadtodolist(): void {   
         this._todoService.get(Global.BASE_TODOLIST_ENDPOINT)
         .subscribe(todolist => { this.todolist = todolist;  },

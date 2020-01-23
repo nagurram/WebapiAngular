@@ -12,7 +12,7 @@ import { Router } from "@angular/router";
     <nav class='navbar navbar-inverse' >
         <div class='container-fluid' >
             <ul class='nav navbar-nav' >
-               <li  *ngFor="let cols of userModel.routeCollection"> <a [routerLink]="[cols.key]" > {{ cols.keyValue }} </a></li >
+               <li  *ngFor="let cols of userModel.routeCollection"> <a [routerLink]="[cols.key]" routerLinkActive="active" > {{ cols.keyValue }} </a></li >
             </ul>
         <ul class="nav navbar-nav navbar-right">
         <li><a href="#"><span class="glyphicon glyphicon-user"></span> {{userModel.UserName}}</a></li>

@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { LoginModel } from '../Model/loginModel';
 import { MenuComponent } from './menu.component';
 import { MessageService } from '../Service/message.service';
-import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
     templateUrl: './login.component.html'
@@ -23,8 +22,8 @@ export class LoginComponent implements OnInit {
 
     ngOnInit() {
         this.loginmodel = new LoginModel();
-        this.loginmodel.Userid = "naren.7090@gmail.com";
-        this.loginmodel.Password = "1234";
+        //this.loginmodel.Userid = "naren.7090@gmail.com";
+        //this.loginmodel.Password = "1234";
         this.logout();
     }
 

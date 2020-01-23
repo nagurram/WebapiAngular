@@ -13,8 +13,8 @@ import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TodoService } from "././Service/todo.service";
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { LoginComponent } from './components/login.component';
-import { PageNotFoundComponent } from './components/PageNotFound.component';
+import { LoginComponent } from './Components/login.component';
+import { PageNotFoundComponent } from './Components/PageNotFound.component';
 import { AuthGuard } from './auth/auth.guard';
 import { UserService } from "././Service/user.service";
 import { AuthInterceptor } from "./auth/auth.interceptor";
@@ -31,7 +31,7 @@ import { NotAuthorizedComponent } from './Components/notauthorized.component';
     BrowserModule,NgbModule,BrowserAnimationsModule,
     AppRoutingModule,FormsModule,BsDatepickerModule.forRoot(),HttpClientModule
   ],
-  providers: [{ provide: APP_BASE_HREF, useValue: '/' },DatePipe,TodoService,AuthGuard, UserService, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }, MessageService],
+  providers: [{ provide: APP_BASE_HREF, useValue: '/angtodo/' },DatePipe,TodoService,AuthGuard, UserService, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }, MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

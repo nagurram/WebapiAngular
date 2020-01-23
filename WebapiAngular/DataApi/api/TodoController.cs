@@ -19,6 +19,7 @@ namespace DataApi.api
 {
     [RoutePrefix("api/Todoapi")]
     [EnableCors(origins: "http://vmtest.australiaeast.cloudapp.azure.com/angtodo", headers: "*", methods: "*")]
+    [Authorize]
     public class TodoController : BaseAPIController
     {
         private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
