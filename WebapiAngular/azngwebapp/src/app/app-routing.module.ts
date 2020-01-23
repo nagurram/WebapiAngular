@@ -1,16 +1,19 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ToDoComponent } from './Components/todo.component';
-
+import { LoginComponent } from './components/login.component';
+import { PageNotFoundComponent } from './components/PageNotFound.component';
+import { AuthGuard } from './auth/auth.guard';
+import { NotAuthorizedComponent } from './Components/notauthorized.component';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: 'Addtodo', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'Addtodo', component: ToDoComponent },
   { path: 'angtodo', component: ToDoComponent },
-  
-  
-  
+  { path: 'login', component: LoginComponent },
+  { path: 'NotAuthorized', component: NotAuthorizedComponent },
+  { path: '**', component: PageNotFoundComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

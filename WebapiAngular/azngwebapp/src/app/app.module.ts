@@ -13,16 +13,25 @@ import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TodoService } from "././Service/todo.service";
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { LoginComponent } from './components/login.component';
+import { PageNotFoundComponent } from './components/PageNotFound.component';
+import { AuthGuard } from './auth/auth.guard';
+import { UserService } from "././Service/user.service";
+import { AuthInterceptor } from "./auth/auth.interceptor";
+import { MenuComponent } from './Components/menu.component';
+import { MessageService } from './Service/message.service';
+import { NotAuthorizedComponent } from './Components/notauthorized.component';
+
 
 @NgModule({
   declarations: [
-    AppComponent,ToDoComponent,NgbDatePipe
+    AppComponent,ToDoComponent,NgbDatePipe,LoginComponent, PageNotFoundComponent, MenuComponent, NotAuthorizedComponent
   ],
   imports: [
     BrowserModule,NgbModule,BrowserAnimationsModule,
     AppRoutingModule,FormsModule,BsDatepickerModule.forRoot(),HttpClientModule
   ],
-  providers: [{ provide: APP_BASE_HREF, useValue: '/' },DatePipe,TodoService],
+  providers: [{ provide: APP_BASE_HREF, useValue: '/' },DatePipe,TodoService,AuthGuard, UserService, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }, MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
