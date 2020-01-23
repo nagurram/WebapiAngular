@@ -21,11 +21,12 @@ import { AuthInterceptor } from "./auth/auth.interceptor";
 import { MenuComponent } from './Components/menu.component';
 import { MessageService } from './Service/message.service';
 import { NotAuthorizedComponent } from './Components/notauthorized.component';
+import { AddUserComponentComponent } from './add-user-component/add-user-component.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent,ToDoComponent,NgbDatePipe,LoginComponent, PageNotFoundComponent, MenuComponent, NotAuthorizedComponent
+    AppComponent,ToDoComponent,NgbDatePipe,LoginComponent, PageNotFoundComponent, MenuComponent, NotAuthorizedComponent, AddUserComponentComponent
   ],
   imports: [
     BrowserModule,NgbModule,BrowserAnimationsModule,

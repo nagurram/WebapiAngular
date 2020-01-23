@@ -24,7 +24,6 @@ export class UserService {
 
     userAuthentication(userName: string, password: string): Observable<any> {
         var body = "username=" + userName + "&password=" + password + "&grant_type=password";
-        console.log(body);
         var url = this.rootUrl + 'token'
         let headers = new HttpHeaders().set('Content-Type', 'application/x-www-urlencoded').set('No-Auth', 'True');
         let options = { headers: headers };
