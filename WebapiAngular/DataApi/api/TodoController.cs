@@ -13,10 +13,12 @@ using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using System.Text;
 using log4net;
+using System.Web.Http.Cors;
 
 namespace DataApi.api
 {
     [RoutePrefix("api/Todoapi")]
+    [EnableCors(origins: "http://vmtest.australiaeast.cloudapp.azure.com/angtodo", headers: "*", methods: "*")]
     public class TodoController : BaseAPIController
     {
         private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);

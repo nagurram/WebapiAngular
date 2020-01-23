@@ -1,5 +1,5 @@
 export class TodoModel {
-    Id: number;
+    TodoId: number;
     Titile: string;
     Description: string;
     actionDate: Date;

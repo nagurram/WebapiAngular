@@ -50,6 +50,7 @@ export class ToDoComponent implements OnInit {
     additems($event) {
         this.todomodel = new TodoModel();
         this.todomodel.TodoId=0;
+        this.todomodel.IsActive=true;
         this.showlist = false;
     }
 

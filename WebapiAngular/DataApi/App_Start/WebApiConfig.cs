@@ -10,8 +10,11 @@ namespace DataApi
     {
         public static void Register(HttpConfiguration config)
         {
+
+
+            config.EnableCors();
             // Web API configuration and services
-           // config.MessageHandlers.Add(new MessageLoggingHandler());
+            // config.MessageHandlers.Add(new MessageLoggingHandler());
             // Web API routes
             config.MapHttpAttributeRoutes();
 
