@@ -21,6 +21,12 @@ export class UserService {
 
 
     }
+    post(url: string, model: any): Observable<any> {
+        let body = JSON.stringify(model);
+        let headers = new HttpHeaders().set( 'Content-Type', 'application/json' );
+        let options =   { headers: headers };
+        return this._http.post(url, body, options);
+    }
 
     userAuthentication(userName: string, password: string): Observable<any> {
         var body = "username=" + userName + "&password=" + password + "&grant_type=password";

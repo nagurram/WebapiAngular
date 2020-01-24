@@ -7,7 +7,7 @@ import { AppComponent } from './Components/app.component';
 import { ToDoComponent } from './Components/todo.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import {NgbDatePipe} from './Pipes/ngbDatePipe';
 import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -21,16 +21,16 @@ import { AuthInterceptor } from "./auth/auth.interceptor";
 import { MenuComponent } from './Components/menu.component';
 import { MessageService } from './Service/message.service';
 import { NotAuthorizedComponent } from './Components/notauthorized.component';
-import { AddUserComponentComponent } from './add-user-component/add-user-component.component';
+import { AddUserComponent } from './Components/add-user.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent,ToDoComponent,NgbDatePipe,LoginComponent, PageNotFoundComponent, MenuComponent, NotAuthorizedComponent, AddUserComponentComponent
+    AppComponent,ToDoComponent,NgbDatePipe,LoginComponent, PageNotFoundComponent, MenuComponent, NotAuthorizedComponent, AddUserComponent
   ],
   imports: [
     BrowserModule,NgbModule,BrowserAnimationsModule,
-    AppRoutingModule,FormsModule,BsDatepickerModule.forRoot(),HttpClientModule
+    AppRoutingModule,FormsModule,BsDatepickerModule.forRoot(),HttpClientModule,ReactiveFormsModule
   ],
   providers: [{ provide: APP_BASE_HREF, useValue: '/angtodo/' },DatePipe,TodoService,AuthGuard, UserService, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }, MessageService],
   bootstrap: [AppComponent]

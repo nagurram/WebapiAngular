@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Web.Http;
 using DataApi.DBContext;
 using DataApi.Models;
+using log4net;
 
 namespace DataApi.api
 {
@@ -14,7 +15,7 @@ namespace DataApi.api
     [RoutePrefix("api/adminapi")]
     public class AdminapiController : BaseAPIController
     {
-
+        private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         public HttpResponseMessage Get()
         {
             return BAppMaster();
@@ -61,8 +62,21 @@ namespace DataApi.api
         [HttpPost, Route("adduser")]
         public HttpResponseMessage adduser([FromBody]UserModel value)
         {
-            TicketDB.Resources.Add(new Resource() { FName = value.FirstName, Lname = value.LastName, Email = value.EmailId,Pwd="1234",Roles="2",Isactive=true });
-            return ToJson(TicketDB.SaveChanges());
+            var _lstResource = new List<Resource>();
+            try
+            {
+                Log.Info("Saving users");
+                TicketDB.Resources.Add(new Resource() { FName = value.FirstName, Lname = value.LastName, Email = value.EmailId, Pwd = "1234", Roles = "2", Isactive = true });
+                TicketDB.SaveChanges();
+
+                Log.Info("Saving complete");
+                return ToJson(1);
+            }
+            catch(System.Exception e)
+            {
+                Log.Error(e);
+            }
+            return ToJson(0);
         }
 
 

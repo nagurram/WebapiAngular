@@ -1,4 +1,7 @@
 ﻿export class Global {
+
+
+    public static BASE_URL="http://vmtest.australiaeast.cloudapp.azure.com/Dataapi/"
     //ENDPOINTS
     public static BASE_TODOLIST_ENDPOINT = "api/Todoapi/todolist";
     public static BASE_TODO_UPDATE = "api/Todoapi/Updatetodo/";
@@ -19,7 +22,7 @@
     
     public static BASE_TICKET_ATTCHEMENTS = "Getattachments/";
     public static BASE_TICKET_FILE = "GetfileAttachemnet/";
-    public static BASE_ADMIN_ADDUSER = "adduser/";
+    public static BASE_ADMIN_ADDUSER = "api/adminapi/adduser";
 
 
     public static BASE_USER_MENU = "GetMenuitems";

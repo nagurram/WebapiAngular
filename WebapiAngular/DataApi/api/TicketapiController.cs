@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using System.Text;
+using log4net;
 
 namespace DataApi.api
 {
@@ -21,7 +22,7 @@ namespace DataApi.api
     public class TicketapiController : BaseAPIController
     {
 
-
+        private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         string diskFolderPath = HttpContext.Current.Server.MapPath("~/App_Data");
 
 

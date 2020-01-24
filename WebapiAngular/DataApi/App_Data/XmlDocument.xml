@@ -26,7 +26,7 @@
             <param name="value"></param>
             <returns></returns>
         </member>
-        <member name="F:DataApi.api.BaseAPIController.Log">
+        <member name="F:DataApi.api.BaseAPIController.TicketDB">
             http://bitoftech.net/2015/03/11/asp-net-identity-2-1-roles-based-authorization-authentication-asp-net-web-api/
              http://bitoftech.net/2014/06/01/token-based-authentication-asp-net-web-api-2-owin-asp-net-identity/
              http://www.dotnetmob.com/angular-5-tutorial/angular-5-login-and-logout-with-web-api-using-token-based-authentication/

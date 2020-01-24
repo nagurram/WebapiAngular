@@ -14,7 +14,7 @@ namespace DataApi.api
 {
     public class BaseAPIController : ApiController
     {
-
+        private static readonly ILog BLog = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         ///http://bitoftech.net/2015/03/11/asp-net-identity-2-1-roles-based-authorization-authentication-asp-net-web-api/
         /// http://bitoftech.net/2014/06/01/token-based-authentication-asp-net-web-api-2-owin-asp-net-identity/
         /// http://www.dotnetmob.com/angular-5-tutorial/angular-5-login-and-logout-with-web-api-using-token-based-authentication/
@@ -22,13 +22,22 @@ namespace DataApi.api
         /// https://scotch.io/@kashyapmukkamala/using-http-interceptor-with-angular2
         /// https://www.youtube.com/watch?v=rbHSTJBhJ44
 
-        public static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         protected readonly TicketTrackerEntities2 TicketDB = new TicketTrackerEntities2();
         protected HttpResponseMessage ToJson(dynamic obj)
         {
-            var response = Request.CreateResponse(HttpStatusCode.OK);
-            response.Content = new StringContent(JsonConvert.SerializeObject(obj), Encoding.UTF8, "application/json");
-            return response;
+            try
+            {
+                BLog.Info("in Json converion method");
+                var response = Request.CreateResponse(HttpStatusCode.OK);
+                response.Content = new StringContent(JsonConvert.SerializeObject(obj), Encoding.UTF8, "application/json");
+                BLog.Info(response);
+                return response;
+            }
+            catch(System.Exception e)
+            {
+                BLog.Error(e);
+                throw;
+            }
         }
 
 

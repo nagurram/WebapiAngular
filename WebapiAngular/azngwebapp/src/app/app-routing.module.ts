@@ -5,6 +5,7 @@ import { LoginComponent } from './Components/login.component';
 import { PageNotFoundComponent } from './Components/PageNotFound.component';
 import { AuthGuard } from './auth/auth.guard';
 import { NotAuthorizedComponent } from './Components/notauthorized.component';
+import { AddUserComponent } from './Components/add-user.component';
 
 
 const routes: Routes = [
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'angtodo', component: ToDoComponent },
   { path: 'login', component: LoginComponent },
   { path: 'NotAuthorized', component: NotAuthorizedComponent },
+  { path: 'adduser', component: AddUserComponent },
   { path: '**', component: PageNotFoundComponent, canActivate: [AuthGuard] }
 ];
 
