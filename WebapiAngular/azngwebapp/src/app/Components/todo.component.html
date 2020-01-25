@@ -1,27 +1,43 @@
 <div class="container">
     <div *ngIf="!showlist">
+        <form [formGroup]="todoForm" (ngSubmit)="addtodoitem()">
         <div class="row top-buffer">
             <h1>Add Todo Item</h1>
         </div>
 
         <div class="row top-buffer">
-            <div class="col-md-3"><label for="txtTitile">Titile</label></div>
+            <div class="col-md-3"  [class.has-error]="todoForm.controls['Titile'].hasError('required')"><label for="txtTitile">Titile</label></div>
             <div class="col-md-9">
-                <input type="text" id="txtTitile" [(ngModel)]="todomodel.Titile" class="form-control">
+                <input type="text" id="txtTitile" formControlName="Titile" class="form-control">
+                <div *ngIf="todoForm.controls['Titile'].touched && !todoForm.controls['Titile'].valid">
+                    <span *ngIf="todoForm.controls['Titile'].hasError('required') " class="alert-danger">
+                        Titile is required
+                    </span>
+                </div>
             </div>
         </div>
         <div class="row top-buffer">
-            <div class="col-md-3"><label for="txtDescription">Description</label></div>
+            <div class="col-md-3"  [class.has-error]="todoForm.controls['Description'].hasError('required')"><label for="txtDescription">Description</label></div>
             <div class="col-md-9">
-                <textarea rows="4" id="txtDescription" [(ngModel)]="todomodel.Description" class="form-control"
+                <textarea rows="4" id="txtDescription" formControlName="Description" class="form-control"
                     style="min-width: 100%"></textarea>
+                    <div *ngIf="todoForm.controls['Description'].touched && !todoForm.controls['Description'].valid">
+                        <span *ngIf="todoForm.controls['Description'].hasError('required') " class="alert-danger">
+                            Description is required
+                        </span>
+                    </div>
             </div>
         </div>
         <div class="row top-buffer">
-            <div class="col-md-3"><label for="txtDate">Date</label></div>
+            <div class="col-md-3"  [class.has-error]="todoForm.controls['ActionDate'].hasError('required')"><label for="txtDate">Date</label></div>
             <div class="col-md-9">
 
-                <input type="text" id="txtDate" autocomplete="off" [(ngModel)]="todomodel.actionDate" bsDatepicker  [bsConfig]="datepickerconfig"  class="form-control" >
+                <input type="text" id="txtDate" autocomplete="off" formControlName="ActionDate"  bsDatepicker  [bsConfig]="datepickerconfig"  class="form-control" >
+                <div *ngIf="todoForm.controls['ActionDate'].touched && !todoForm.controls['ActionDate'].valid">
+                    <span *ngIf="todoForm.controls['ActionDate'].hasError('required') " class="alert-danger">
+                        Action Date is required
+                    </span>
+                </div>
             </div>
         </div>
         <div class="row top-buffer">
@@ -29,10 +45,11 @@
                 <button (click)="CancelItem($event)" class="btn btn-warning pull-right">Cancel</button>
             </div>
             <div class="col-md-6">
-                <button (click)="addtodoitem($event)" class="btn btn-primary">Save</button>
+                <button type="submit"  class="btn btn-primary">Save</button>
 
             </div>
         </div>
+        </form>
     </div>
     <div *ngIf="showlist">
         <div class="row top-buffer">

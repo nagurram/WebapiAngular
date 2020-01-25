@@ -4,7 +4,7 @@ import { NgbDateAdapter, NgbDateStruct, NgbModule } from '@ng-bootstrap/ng-boots
 import { Router } from '@angular/router';
 import { BsDatepickerConfig} from 'ngx-bootstrap/datepicker';
 import { DatePipe } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { TodoService } from '../Service/todo.service';
 import { Global } from '../Shared/global';
 
@@ -17,18 +17,23 @@ export class ToDoComponent implements OnInit {
     ngOnInit(): void {
         this.Loadtodolist();
 
+
     }
     showlist: boolean = true;
     model: NgbDateStruct;
     todomodel: TodoModel;
+    todoForm: FormGroup;
     placement = 'bottom';
     msg: string;
     todolist: TodoModel[] = new Array();
-    constructor(private router: Router, private datepipe: DatePipe,private _todoService: TodoService) {
+    constructor(private router: Router, private datepipe: DatePipe,private _todoService: TodoService,private formBuilder: FormBuilder) {
      this.datepickerconfig= Object.assign({},{containerClass:'theme-dark-blue',  dateInputFormat: 'DD/MM/YYYY'})
     }
-    addtodoitem($event) {
-        this.todolist.push(this.todomodel)   
+    addtodoitem() {
+        if (this.todoForm.status == 'INVALID') {
+            this.validateAllFields(this.todoForm); 
+            return;
+          }
         this._todoService.put(Global.BASE_TODO_UPDATE, this.todomodel.TodoId, this.todomodel).subscribe(
             data => {
                 if (data == 1) //Success
@@ -52,9 +57,16 @@ export class ToDoComponent implements OnInit {
         this.todomodel.TodoId=0;
         this.todomodel.IsActive=true;
         this.showlist = false;
+        this.todoForm = this.formBuilder.group({});
+        this.todoForm = this.formBuilder.group({
+          'Titile': new FormControl(this.todomodel.Titile, [Validators.required]),
+          'Description': new FormControl(this.todomodel.Description, [Validators.required]),
+          'ActionDate': new FormControl(this.todomodel.actionDate, [Validators.required, Validators.required])
+        });
     }
 
     CancelItem($event) {
+        this.showlist = true;
         this.Loadtodolist();
     }
 
@@ -66,7 +78,16 @@ export class ToDoComponent implements OnInit {
         console.log('length of list is ' + this.todolist.length);
     }
 
-        
+    validateAllFields(formGroup: FormGroup) {         
+        Object.keys(formGroup.controls).forEach(field => {  
+            const control = formGroup.get(field);            
+            if (control instanceof FormControl) {             
+                control.markAsTouched({ onlySelf: true });
+            } else if (control instanceof FormGroup) {        
+                this.validateAllFields(control);  
+            }
+        });
+    } 
         
 
 }
