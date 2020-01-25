@@ -55,7 +55,7 @@ namespace DataApi.Providers
             }
             catch (System.Exception ex)
             {
-
+                Log.Error(ex);
                 throw;
             }
         }

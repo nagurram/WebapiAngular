@@ -3,7 +3,7 @@ import { UserService } from '../Service/user.service';
 import { FormBuilder, FormGroup, Validators, FormControl, ValidatorFn } from '@angular/forms';
 import { AddUserModel } from '../Model/adduserModel';
 import { DBOperation } from '../Shared/enum';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs';
 import { Global } from '../Shared/global';
 import { Router, ActivatedRoute, Route } from '@angular/router';
 import { removeSpaces } from '../Validators/removeSpaces.validator';
@@ -38,6 +38,7 @@ export class AddUserComponent implements OnInit {
 
   adduser() {
     if (this.addUserForm.status == 'INVALID') {
+      this.validateAllFields(this.addUserForm); 
       return;
     }
     const result: AddUserModel = Object.assign({}, this.addUserForm.value);
@@ -61,5 +62,16 @@ export class AddUserComponent implements OnInit {
       }
     );
   }
+
+  validateAllFields(formGroup: FormGroup) {         
+    Object.keys(formGroup.controls).forEach(field => {  
+        const control = formGroup.get(field);            
+        if (control instanceof FormControl) {             
+            control.markAsTouched({ onlySelf: true });
+        } else if (control instanceof FormGroup) {        
+            this.validateAllFields(control);  
+        }
+    });
+}
 
 }

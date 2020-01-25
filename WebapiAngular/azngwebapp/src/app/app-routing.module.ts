@@ -10,7 +10,6 @@ import { AddUserComponent } from './Components/add-user.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'Addtodo', component: ToDoComponent },
   { path: 'angtodo', component: ToDoComponent },
   { path: 'login', component: LoginComponent },
   { path: 'NotAuthorized', component: NotAuthorizedComponent },

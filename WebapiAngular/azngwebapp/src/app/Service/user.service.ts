@@ -16,7 +16,7 @@ export class UserService {
         return this._http.get(this.rootUrl + '/api/GetUserClaims');
     }
     constructor(private _http: HttpClient, platformLocation: PlatformLocation) {
-        this.baseurl="http://vmtest.australiaeast.cloudapp.azure.com/Dataapi/";
+        this.baseurl= Global.BASE_URL// "http://vmtest.australiaeast.cloudapp.azure.com/Dataapi/";
         this.rootUrl = this.baseurl;//(platformLocation as any).location.origin;
 
 

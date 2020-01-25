@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-
+import { Global } from '../Shared/global';
 
 @Injectable()
 export class TodoService {
     constructor(private _http: HttpClient) { 
-        this.baseurl="http://vmtest.australiaeast.cloudapp.azure.com/Dataapi/";
+        this.baseurl= Global.BASE_URL;//"http://vmtest.australiaeast.cloudapp.azure.com/Dataapi/";
     }
     baseurl:string;
 

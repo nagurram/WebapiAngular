@@ -30,10 +30,6 @@ namespace DataApi.DBContext
         public virtual DbSet<Entity_Link> Entity_Link { get; set; }
         public virtual DbSet<Exception> Exceptions { get; set; }
         public virtual DbSet<FileUpload> FileUploads { get; set; }
-        public virtual DbSet<FinancialEventSource> FinancialEventSources { get; set; }
-        public virtual DbSet<FinancialEventSourceFlatFile> FinancialEventSourceFlatFiles { get; set; }
-        public virtual DbSet<FinancialEventSourceSwift> FinancialEventSourceSwifts { get; set; }
-        public virtual DbSet<FXTrade> FXTrades { get; set; }
         public virtual DbSet<MenuItem> MenuItems { get; set; }
         public virtual DbSet<Menu> Menus { get; set; }
         public virtual DbSet<ModuleMaster> ModuleMasters { get; set; }
@@ -43,14 +39,11 @@ namespace DataApi.DBContext
         public virtual DbSet<RootCauseMaster> RootCauseMasters { get; set; }
         public virtual DbSet<StatusMaster> StatusMasters { get; set; }
         public virtual DbSet<Ticket> Tickets { get; set; }
-        public virtual DbSet<Trade> Trades { get; set; }
-        public virtual DbSet<TradeValidationError> TradeValidationErrors { get; set; }
         public virtual DbSet<TypeMaster> TypeMasters { get; set; }
         public virtual DbSet<UserMaster> UserMasters { get; set; }
         public virtual DbSet<UserRole> UserRoles { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<MenuPermission> MenuPermissions { get; set; }
-        public virtual DbSet<TrainingMaster> TrainingMasters { get; set; }
         public virtual DbSet<vw_user_permissions> vw_user_permissions { get; set; }
         public virtual DbSet<TodoList> TodoLists { get; set; }
     }

@@ -18,7 +18,8 @@ using System.Web.Http.Cors;
 namespace DataApi.api
 {
     [RoutePrefix("api/Todoapi")]
-    [EnableCors(origins: "http://vmtest.australiaeast.cloudapp.azure.com/angtodo", headers: "*", methods: "*")]
+   // [EnableCors(origins: "http://vmtest.australiaeast.cloudapp.azure.com/angtodo", headers: "*", methods: "*")]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     [Authorize]
     public class TodoController : BaseAPIController
     {

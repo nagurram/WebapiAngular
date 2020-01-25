@@ -65,65 +65,6 @@ warning 6002: The table/view 'TicketTracker.dbo.Employee' does not have a primar
           <Property Name="UploadDate" Type="datetime" />
           <Property Name="FileName" Type="nvarchar" MaxLength="150" />
         </EntityType>
-        <EntityType Name="FinancialEventSource">
-          <Key>
-            <PropertyRef Name="FinancialEventSourceId" />
-          </Key>
-          <Property Name="FinancialEventSourceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FinancialEventSourceTypeId" Type="int" />
-          <Property Name="CaptureDateTime" Type="datetime" />
-        </EntityType>
-        <EntityType Name="FinancialEventSourceFlatFile">
-          <Key>
-            <PropertyRef Name="FinancialEventSourceFlatFileId" />
-          </Key>
-          <Property Name="FinancialEventSourceFlatFileId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FinancialEventSourceId" Type="int" />
-          <Property Name="ClientProfileId" Type="int" />
-          <Property Name="FlatFileProcessingStatusId" Type="int" />
-          <Property Name="FileName" Type="nvarchar" MaxLength="200" />
-          <Property Name="ReceiveDir" Type="nvarchar" MaxLength="200" />
-          <Property Name="ReceiveDateTime" Type="datetime" />
-          <Property Name="ProcessingNotes" Type="nvarchar" MaxLength="200" />
-          <Property Name="LastUpdatedUser" Type="int" />
-          <Property Name="LastUpdatedDateTime" Type="datetime" />
-        </EntityType>
-        <EntityType Name="FinancialEventSourceSwift">
-          <Key>
-            <PropertyRef Name="FinancialEventSourceSwiftId" />
-          </Key>
-          <Property Name="FinancialEventSourceSwiftId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FinancialEventSourceId" Type="int" />
-          <Property Name="SwiftMessageId" Type="int" />
-          <Property Name="SwiftMessageTypeId" Type="int" />
-          <Property Name="BatchId" Type="int" />
-          <Property Name="SenderBic" Type="int" />
-          <Property Name="Message" Type="nvarchar" MaxLength="200" />
-          <Property Name="MessageXML" Type="nvarchar" MaxLength="2000" />
-          <Property Name="ReceiveDateTime" Type="datetime" />
-        </EntityType>
-        <EntityType Name="FXTrade">
-          <Key>
-            <PropertyRef Name="FXTradeId" />
-          </Key>
-          <Property Name="FXTradeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FinancialEventId" Type="int" />
-          <Property Name="PortfolioId" Type="int" />
-          <Property Name="BrokerId" Type="int" />
-          <Property Name="TradeDate" Type="datetime" />
-          <Property Name="SettlementDate" Type="datetime" />
-          <Property Name="SpotForward" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="Rate" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="HiportRef" Type="nvarchar" MaxLength="200" />
-          <Property Name="TradeCurrencyId" Type="int" />
-          <Property Name="CounterPartyCurrencyId" Type="int" />
-          <Property Name="TradeNominal" Type="nvarchar" MaxLength="200" />
-          <Property Name="CounterPartyNominal" Type="nvarchar" MaxLength="200" />
-          <Property Name="Position" Type="int" />
-          <Property Name="SenderToReceieverInfo" Type="nvarchar" MaxLength="2000" />
-          <Property Name="TradeAllocationFinancialEventId" Type="int" />
-          <Property Name="MatchStatusId" Type="int" />
-        </EntityType>
         <EntityType Name="MenuItems">
           <Key>
             <PropertyRef Name="MenuItemId" />
@@ -238,39 +179,6 @@ warning 6002: The table/view 'TicketTracker.dbo.MenuPermission' does not have a 
           <Property Name="IsActive" Type="bit" />
           <Property Name="Userid" Type="int" />
         </EntityType>
-        <EntityType Name="Trade">
-          <Key>
-            <PropertyRef Name="TradeId" />
-          </Key>
-          <Property Name="TradeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TradeFileID" Type="int" />
-          <Property Name="TradeTypeId" Type="int" />
-          <Property Name="ClientTradeRef" Type="nvarchar" MaxLength="200" />
-          <Property Name="SecurityCode" Type="nvarchar" MaxLength="200" />
-          <Property Name="Units" Type="nvarchar" MaxLength="200" />
-          <Property Name="Price" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="Brokerage" Type="int" />
-          <Property Name="BrokerageGST" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="NetSettlementValue" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="GrossSettlementValue" Type="decimal" Precision="18" Scale="2" />
-        </EntityType>
-        <EntityType Name="TradeValidationError">
-          <Key>
-            <PropertyRef Name="TradeValidationErrorID" />
-          </Key>
-          <Property Name="TradeValidationErrorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TradeId" Type="int" />
-          <Property Name="ErrorCode" Type="nvarchar" MaxLength="300" />
-        </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'TicketTracker.dbo.TrainingMaster' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="TrainingMaster">
-          <Key>
-            <PropertyRef Name="TrianingId" />
-          </Key>
-          <Property Name="TrianingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Details" Type="nchar" MaxLength="100" />
-        </EntityType>
         <EntityType Name="TypeMaster">
           <Key>
             <PropertyRef Name="TypeId" />
@@ -347,30 +255,6 @@ warning 6002: The table/view 'TicketTracker.dbo.vw_user_permissions' does not ha
             </Principal>
             <Dependent Role="FileUpload">
               <PropertyRef Name="TicketId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_FinancialEventSourceFlatFile_FinancialEventSource">
-          <End Role="FinancialEventSource" Type="Self.FinancialEventSource" Multiplicity="0..1" />
-          <End Role="FinancialEventSourceFlatFile" Type="Self.FinancialEventSourceFlatFile" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FinancialEventSource">
-              <PropertyRef Name="FinancialEventSourceId" />
-            </Principal>
-            <Dependent Role="FinancialEventSourceFlatFile">
-              <PropertyRef Name="FinancialEventSourceId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_FinancialEventSourceSwift_FinancialEventSource">
-          <End Role="FinancialEventSource" Type="Self.FinancialEventSource" Multiplicity="0..1" />
-          <End Role="FinancialEventSourceSwift" Type="Self.FinancialEventSourceSwift" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FinancialEventSource">
-              <PropertyRef Name="FinancialEventSourceId" />
-            </Principal>
-            <Dependent Role="FinancialEventSourceSwift">
-              <PropertyRef Name="FinancialEventSourceId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -506,18 +390,6 @@ warning 6002: The table/view 'TicketTracker.dbo.vw_user_permissions' does not ha
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_TradeValidationError_Trade">
-          <End Role="Trade" Type="Self.Trade" Multiplicity="0..1" />
-          <End Role="TradeValidationError" Type="Self.TradeValidationError" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Trade">
-              <PropertyRef Name="TradeId" />
-            </Principal>
-            <Dependent Role="TradeValidationError">
-              <PropertyRef Name="TradeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_UserRoles_RoleMaster">
           <End Role="RoleMaster" Type="Self.RoleMaster" Multiplicity="1" />
           <End Role="UserRoles" Type="Self.UserRoles" Multiplicity="*" />
@@ -548,10 +420,6 @@ warning 6002: The table/view 'TicketTracker.dbo.vw_user_permissions' does not ha
           <EntitySet Name="Entity_Link" EntityType="Self.Entity_Link" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Exception" EntityType="Self.Exception" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FileUpload" EntityType="Self.FileUpload" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="FinancialEventSource" EntityType="Self.FinancialEventSource" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="FinancialEventSourceFlatFile" EntityType="Self.FinancialEventSourceFlatFile" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="FinancialEventSourceSwift" EntityType="Self.FinancialEventSourceSwift" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="FXTrade" EntityType="Self.FXTrade" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MenuItems" EntityType="Self.MenuItems" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Menus" EntityType="Self.Menus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ModuleMaster" EntityType="Self.ModuleMaster" Schema="dbo" store:Type="Tables" />
@@ -562,8 +430,6 @@ warning 6002: The table/view 'TicketTracker.dbo.vw_user_permissions' does not ha
           <EntitySet Name="StatusMaster" EntityType="Self.StatusMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tickets" EntityType="Self.Tickets" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TodoList" EntityType="Self.TodoList" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Trade" EntityType="Self.Trade" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="TradeValidationError" EntityType="Self.TradeValidationError" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TypeMaster" EntityType="Self.TypeMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserMaster" EntityType="Self.UserMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserRoles" EntityType="Self.UserRoles" Schema="dbo" store:Type="Tables" />
@@ -580,12 +446,6 @@ warning 6002: The table/view 'TicketTracker.dbo.vw_user_permissions' does not ha
     [MenuPermission].[MenuItemId] AS [MenuItemId], 
     [MenuPermission].[RoleId] AS [RoleId]
     FROM [dbo].[MenuPermission] AS [MenuPermission]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="TrainingMaster" EntityType="Self.TrainingMaster" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [TrainingMaster].[TrianingId] AS [TrianingId], 
-    [TrainingMaster].[Details] AS [Details]
-    FROM [dbo].[TrainingMaster] AS [TrainingMaster]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="vw_user_permissions" EntityType="Self.vw_user_permissions" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -609,14 +469,6 @@ warning 6002: The table/view 'TicketTracker.dbo.vw_user_permissions' does not ha
           <AssociationSet Name="FK_FileUpload_Tickets" Association="Self.FK_FileUpload_Tickets">
             <End Role="Tickets" EntitySet="Tickets" />
             <End Role="FileUpload" EntitySet="FileUpload" />
-          </AssociationSet>
-          <AssociationSet Name="FK_FinancialEventSourceFlatFile_FinancialEventSource" Association="Self.FK_FinancialEventSourceFlatFile_FinancialEventSource">
-            <End Role="FinancialEventSource" EntitySet="FinancialEventSource" />
-            <End Role="FinancialEventSourceFlatFile" EntitySet="FinancialEventSourceFlatFile" />
-          </AssociationSet>
-          <AssociationSet Name="FK_FinancialEventSourceSwift_FinancialEventSource" Association="Self.FK_FinancialEventSourceSwift_FinancialEventSource">
-            <End Role="FinancialEventSource" EntitySet="FinancialEventSource" />
-            <End Role="FinancialEventSourceSwift" EntitySet="FinancialEventSourceSwift" />
           </AssociationSet>
           <AssociationSet Name="FK_MenuItems_Menus" Association="Self.FK_MenuItems_Menus">
             <End Role="Menus" EntitySet="Menus" />
@@ -661,10 +513,6 @@ warning 6002: The table/view 'TicketTracker.dbo.vw_user_permissions' does not ha
           <AssociationSet Name="FK_Tickets_TypeMaster" Association="Self.FK_Tickets_TypeMaster">
             <End Role="TypeMaster" EntitySet="TypeMaster" />
             <End Role="Tickets" EntitySet="Tickets" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TradeValidationError_Trade" Association="Self.FK_TradeValidationError_Trade">
-            <End Role="Trade" EntitySet="Trade" />
-            <End Role="TradeValidationError" EntitySet="TradeValidationError" />
           </AssociationSet>
           <AssociationSet Name="FK_UserRoles_RoleMaster" Association="Self.FK_UserRoles_RoleMaster">
             <End Role="RoleMaster" EntitySet="RoleMaster" />
@@ -733,69 +581,6 @@ warning 6002: The table/view 'TicketTracker.dbo.vw_user_permissions' does not ha
           <Property Name="UploadDate" Type="DateTime" Precision="3" />
           <Property Name="FileName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Ticket" Relationship="Self.FK_FileUpload_Tickets" FromRole="FileUpload" ToRole="Tickets" />
-        </EntityType>
-        <EntityType Name="FinancialEventSource">
-          <Key>
-            <PropertyRef Name="FinancialEventSourceId" />
-          </Key>
-          <Property Name="FinancialEventSourceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FinancialEventSourceTypeId" Type="Int32" />
-          <Property Name="CaptureDateTime" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="FinancialEventSourceFlatFiles" Relationship="Self.FK_FinancialEventSourceFlatFile_FinancialEventSource" FromRole="FinancialEventSource" ToRole="FinancialEventSourceFlatFile" />
-          <NavigationProperty Name="FinancialEventSourceSwifts" Relationship="Self.FK_FinancialEventSourceSwift_FinancialEventSource" FromRole="FinancialEventSource" ToRole="FinancialEventSourceSwift" />
-        </EntityType>
-        <EntityType Name="FinancialEventSourceFlatFile">
-          <Key>
-            <PropertyRef Name="FinancialEventSourceFlatFileId" />
-          </Key>
-          <Property Name="FinancialEventSourceFlatFileId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FinancialEventSourceId" Type="Int32" />
-          <Property Name="ClientProfileId" Type="Int32" />
-          <Property Name="FlatFileProcessingStatusId" Type="Int32" />
-          <Property Name="FileName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="ReceiveDir" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="ReceiveDateTime" Type="DateTime" Precision="3" />
-          <Property Name="ProcessingNotes" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="LastUpdatedUser" Type="Int32" />
-          <Property Name="LastUpdatedDateTime" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="FinancialEventSource" Relationship="Self.FK_FinancialEventSourceFlatFile_FinancialEventSource" FromRole="FinancialEventSourceFlatFile" ToRole="FinancialEventSource" />
-        </EntityType>
-        <EntityType Name="FinancialEventSourceSwift">
-          <Key>
-            <PropertyRef Name="FinancialEventSourceSwiftId" />
-          </Key>
-          <Property Name="FinancialEventSourceSwiftId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FinancialEventSourceId" Type="Int32" />
-          <Property Name="SwiftMessageId" Type="Int32" />
-          <Property Name="SwiftMessageTypeId" Type="Int32" />
-          <Property Name="BatchId" Type="Int32" />
-          <Property Name="SenderBic" Type="Int32" />
-          <Property Name="Message" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="MessageXML" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
-          <Property Name="ReceiveDateTime" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="FinancialEventSource" Relationship="Self.FK_FinancialEventSourceSwift_FinancialEventSource" FromRole="FinancialEventSourceSwift" ToRole="FinancialEventSource" />
-        </EntityType>
-        <EntityType Name="FXTrade">
-          <Key>
-            <PropertyRef Name="FXTradeId" />
-          </Key>
-          <Property Name="FXTradeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FinancialEventId" Type="Int32" />
-          <Property Name="PortfolioId" Type="Int32" />
-          <Property Name="BrokerId" Type="Int32" />
-          <Property Name="TradeDate" Type="DateTime" Precision="3" />
-          <Property Name="SettlementDate" Type="DateTime" Precision="3" />
-          <Property Name="SpotForward" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Rate" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="HiportRef" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="TradeCurrencyId" Type="Int32" />
-          <Property Name="CounterPartyCurrencyId" Type="Int32" />
-          <Property Name="TradeNominal" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="CounterPartyNominal" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="Position" Type="Int32" />
-          <Property Name="SenderToReceieverInfo" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
-          <Property Name="TradeAllocationFinancialEventId" Type="Int32" />
-          <Property Name="MatchStatusId" Type="Int32" />
         </EntityType>
         <EntityType Name="MenuItem">
           <Key>
@@ -911,32 +696,6 @@ warning 6002: The table/view 'TicketTracker.dbo.vw_user_permissions' does not ha
           <NavigationProperty Name="StatusMaster" Relationship="Self.FK_Tickets_StatusMaster" FromRole="Tickets" ToRole="StatusMaster" />
           <NavigationProperty Name="TypeMaster" Relationship="Self.FK_Tickets_TypeMaster" FromRole="Tickets" ToRole="TypeMaster" />
         </EntityType>
-        <EntityType Name="Trade">
-          <Key>
-            <PropertyRef Name="TradeId" />
-          </Key>
-          <Property Name="TradeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TradeFileID" Type="Int32" />
-          <Property Name="TradeTypeId" Type="Int32" />
-          <Property Name="ClientTradeRef" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="SecurityCode" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="Units" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Brokerage" Type="Int32" />
-          <Property Name="BrokerageGST" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="NetSettlementValue" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="GrossSettlementValue" Type="Decimal" Precision="18" Scale="2" />
-          <NavigationProperty Name="TradeValidationErrors" Relationship="Self.FK_TradeValidationError_Trade" FromRole="Trade" ToRole="TradeValidationError" />
-        </EntityType>
-        <EntityType Name="TradeValidationError">
-          <Key>
-            <PropertyRef Name="TradeValidationErrorID" />
-          </Key>
-          <Property Name="TradeValidationErrorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TradeId" Type="Int32" />
-          <Property Name="ErrorCode" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Trade" Relationship="Self.FK_TradeValidationError_Trade" FromRole="TradeValidationError" ToRole="Trade" />
-        </EntityType>
         <EntityType Name="TypeMaster">
           <Key>
             <PropertyRef Name="TypeId" />
@@ -985,13 +744,6 @@ warning 6002: The table/view 'TicketTracker.dbo.vw_user_permissions' does not ha
           <Property Name="RoleId" Type="Int32" />
           <NavigationProperty Name="MenuItem" Relationship="Self.FK_MenuPermission_MenuItems" FromRole="MenuPermission" ToRole="MenuItems" />
           <NavigationProperty Name="RoleMaster" Relationship="Self.FK_MenuPermission_RoleMaster" FromRole="MenuPermission" ToRole="RoleMaster" />
-        </EntityType>
-        <EntityType Name="TrainingMaster">
-          <Key>
-            <PropertyRef Name="TrianingId" />
-          </Key>
-          <Property Name="TrianingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Details" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="vw_user_permissions">
           <Key>
@@ -1052,30 +804,6 @@ warning 6002: The table/view 'TicketTracker.dbo.vw_user_permissions' does not ha
             </Principal>
             <Dependent Role="FileUpload">
               <PropertyRef Name="TicketId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_FinancialEventSourceFlatFile_FinancialEventSource">
-          <End Role="FinancialEventSource" Type="Self.FinancialEventSource" Multiplicity="0..1" />
-          <End Role="FinancialEventSourceFlatFile" Type="Self.FinancialEventSourceFlatFile" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FinancialEventSource">
-              <PropertyRef Name="FinancialEventSourceId" />
-            </Principal>
-            <Dependent Role="FinancialEventSourceFlatFile">
-              <PropertyRef Name="FinancialEventSourceId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_FinancialEventSourceSwift_FinancialEventSource">
-          <End Role="FinancialEventSource" Type="Self.FinancialEventSource" Multiplicity="0..1" />
-          <End Role="FinancialEventSourceSwift" Type="Self.FinancialEventSourceSwift" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FinancialEventSource">
-              <PropertyRef Name="FinancialEventSourceId" />
-            </Principal>
-            <Dependent Role="FinancialEventSourceSwift">
-              <PropertyRef Name="FinancialEventSourceId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1211,18 +939,6 @@ warning 6002: The table/view 'TicketTracker.dbo.vw_user_permissions' does not ha
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_TradeValidationError_Trade">
-          <End Role="Trade" Type="Self.Trade" Multiplicity="0..1" />
-          <End Role="TradeValidationError" Type="Self.TradeValidationError" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Trade">
-              <PropertyRef Name="TradeId" />
-            </Principal>
-            <Dependent Role="TradeValidationError">
-              <PropertyRef Name="TradeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_UserRoles_UserMaster">
           <End Role="UserMaster" Type="Self.UserMaster" Multiplicity="1" />
           <End Role="UserRoles" Type="Self.UserRole" Multiplicity="*" />
@@ -1241,10 +957,6 @@ warning 6002: The table/view 'TicketTracker.dbo.vw_user_permissions' does not ha
           <EntitySet Name="Entity_Link" EntityType="Self.Entity_Link" />
           <EntitySet Name="Exceptions" EntityType="Self.Exception" />
           <EntitySet Name="FileUploads" EntityType="Self.FileUpload" />
-          <EntitySet Name="FinancialEventSources" EntityType="Self.FinancialEventSource" />
-          <EntitySet Name="FinancialEventSourceFlatFiles" EntityType="Self.FinancialEventSourceFlatFile" />
-          <EntitySet Name="FinancialEventSourceSwifts" EntityType="Self.FinancialEventSourceSwift" />
-          <EntitySet Name="FXTrades" EntityType="Self.FXTrade" />
           <EntitySet Name="MenuItems" EntityType="Self.MenuItem" />
           <EntitySet Name="Menus" EntityType="Self.Menu" />
           <EntitySet Name="ModuleMasters" EntityType="Self.ModuleMaster" />
@@ -1254,14 +966,11 @@ warning 6002: The table/view 'TicketTracker.dbo.vw_user_permissions' does not ha
           <EntitySet Name="RootCauseMasters" EntityType="Self.RootCauseMaster" />
           <EntitySet Name="StatusMasters" EntityType="Self.StatusMaster" />
           <EntitySet Name="Tickets" EntityType="Self.Ticket" />
-          <EntitySet Name="Trades" EntityType="Self.Trade" />
-          <EntitySet Name="TradeValidationErrors" EntityType="Self.TradeValidationError" />
           <EntitySet Name="TypeMasters" EntityType="Self.TypeMaster" />
           <EntitySet Name="UserMasters" EntityType="Self.UserMaster" />
           <EntitySet Name="UserRoles" EntityType="Self.UserRole" />
           <EntitySet Name="Employees" EntityType="Self.Employee" />
           <EntitySet Name="MenuPermissions" EntityType="Self.MenuPermission" />
-          <EntitySet Name="TrainingMasters" EntityType="Self.TrainingMaster" />
           <EntitySet Name="vw_user_permissions" EntityType="Self.vw_user_permissions" />
           <AssociationSet Name="FK_Tickets_ApplicationMaster" Association="Self.FK_Tickets_ApplicationMaster">
             <End Role="ApplicationMaster" EntitySet="ApplicationMasters" />
@@ -1278,14 +987,6 @@ warning 6002: The table/view 'TicketTracker.dbo.vw_user_permissions' does not ha
           <AssociationSet Name="FK_FileUpload_Tickets" Association="Self.FK_FileUpload_Tickets">
             <End Role="Tickets" EntitySet="Tickets" />
             <End Role="FileUpload" EntitySet="FileUploads" />
-          </AssociationSet>
-          <AssociationSet Name="FK_FinancialEventSourceFlatFile_FinancialEventSource" Association="Self.FK_FinancialEventSourceFlatFile_FinancialEventSource">
-            <End Role="FinancialEventSource" EntitySet="FinancialEventSources" />
-            <End Role="FinancialEventSourceFlatFile" EntitySet="FinancialEventSourceFlatFiles" />
-          </AssociationSet>
-          <AssociationSet Name="FK_FinancialEventSourceSwift_FinancialEventSource" Association="Self.FK_FinancialEventSourceSwift_FinancialEventSource">
-            <End Role="FinancialEventSource" EntitySet="FinancialEventSources" />
-            <End Role="FinancialEventSourceSwift" EntitySet="FinancialEventSourceSwifts" />
           </AssociationSet>
           <AssociationSet Name="FK_MenuItems_Menus" Association="Self.FK_MenuItems_Menus">
             <End Role="Menus" EntitySet="Menus" />
@@ -1330,10 +1031,6 @@ warning 6002: The table/view 'TicketTracker.dbo.vw_user_permissions' does not ha
           <AssociationSet Name="FK_Tickets_TypeMaster" Association="Self.FK_Tickets_TypeMaster">
             <End Role="TypeMaster" EntitySet="TypeMasters" />
             <End Role="Tickets" EntitySet="Tickets" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TradeValidationError_Trade" Association="Self.FK_TradeValidationError_Trade">
-            <End Role="Trade" EntitySet="Trades" />
-            <End Role="TradeValidationError" EntitySet="TradeValidationErrors" />
           </AssociationSet>
           <AssociationSet Name="FK_UserRoles_UserMaster" Association="Self.FK_UserRoles_UserMaster">
             <End Role="UserMaster" EntitySet="UserMasters" />
@@ -1409,69 +1106,6 @@ warning 6002: The table/view 'TicketTracker.dbo.vw_user_permissions' does not ha
                 <ScalarProperty Name="Filetype" ColumnName="Filetype" />
                 <ScalarProperty Name="UploadDate" ColumnName="UploadDate" />
                 <ScalarProperty Name="FileName" ColumnName="FileName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="FinancialEventSources">
-            <EntityTypeMapping TypeName="TicketTrackerModel.FinancialEventSource">
-              <MappingFragment StoreEntitySet="FinancialEventSource">
-                <ScalarProperty Name="FinancialEventSourceId" ColumnName="FinancialEventSourceId" />
-                <ScalarProperty Name="FinancialEventSourceTypeId" ColumnName="FinancialEventSourceTypeId" />
-                <ScalarProperty Name="CaptureDateTime" ColumnName="CaptureDateTime" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="FinancialEventSourceFlatFiles">
-            <EntityTypeMapping TypeName="TicketTrackerModel.FinancialEventSourceFlatFile">
-              <MappingFragment StoreEntitySet="FinancialEventSourceFlatFile">
-                <ScalarProperty Name="FinancialEventSourceFlatFileId" ColumnName="FinancialEventSourceFlatFileId" />
-                <ScalarProperty Name="FinancialEventSourceId" ColumnName="FinancialEventSourceId" />
-                <ScalarProperty Name="ClientProfileId" ColumnName="ClientProfileId" />
-                <ScalarProperty Name="FlatFileProcessingStatusId" ColumnName="FlatFileProcessingStatusId" />
-                <ScalarProperty Name="FileName" ColumnName="FileName" />
-                <ScalarProperty Name="ReceiveDir" ColumnName="ReceiveDir" />
-                <ScalarProperty Name="ReceiveDateTime" ColumnName="ReceiveDateTime" />
-                <ScalarProperty Name="ProcessingNotes" ColumnName="ProcessingNotes" />
-                <ScalarProperty Name="LastUpdatedUser" ColumnName="LastUpdatedUser" />
-                <ScalarProperty Name="LastUpdatedDateTime" ColumnName="LastUpdatedDateTime" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="FinancialEventSourceSwifts">
-            <EntityTypeMapping TypeName="TicketTrackerModel.FinancialEventSourceSwift">
-              <MappingFragment StoreEntitySet="FinancialEventSourceSwift">
-                <ScalarProperty Name="FinancialEventSourceSwiftId" ColumnName="FinancialEventSourceSwiftId" />
-                <ScalarProperty Name="FinancialEventSourceId" ColumnName="FinancialEventSourceId" />
-                <ScalarProperty Name="SwiftMessageId" ColumnName="SwiftMessageId" />
-                <ScalarProperty Name="SwiftMessageTypeId" ColumnName="SwiftMessageTypeId" />
-                <ScalarProperty Name="BatchId" ColumnName="BatchId" />
-                <ScalarProperty Name="SenderBic" ColumnName="SenderBic" />
-                <ScalarProperty Name="Message" ColumnName="Message" />
-                <ScalarProperty Name="MessageXML" ColumnName="MessageXML" />
-                <ScalarProperty Name="ReceiveDateTime" ColumnName="ReceiveDateTime" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="FXTrades">
-            <EntityTypeMapping TypeName="TicketTrackerModel.FXTrade">
-              <MappingFragment StoreEntitySet="FXTrade">
-                <ScalarProperty Name="FXTradeId" ColumnName="FXTradeId" />
-                <ScalarProperty Name="FinancialEventId" ColumnName="FinancialEventId" />
-                <ScalarProperty Name="PortfolioId" ColumnName="PortfolioId" />
-                <ScalarProperty Name="BrokerId" ColumnName="BrokerId" />
-                <ScalarProperty Name="TradeDate" ColumnName="TradeDate" />
-                <ScalarProperty Name="SettlementDate" ColumnName="SettlementDate" />
-                <ScalarProperty Name="SpotForward" ColumnName="SpotForward" />
-                <ScalarProperty Name="Rate" ColumnName="Rate" />
-                <ScalarProperty Name="HiportRef" ColumnName="HiportRef" />
-                <ScalarProperty Name="TradeCurrencyId" ColumnName="TradeCurrencyId" />
-                <ScalarProperty Name="CounterPartyCurrencyId" ColumnName="CounterPartyCurrencyId" />
-                <ScalarProperty Name="TradeNominal" ColumnName="TradeNominal" />
-                <ScalarProperty Name="CounterPartyNominal" ColumnName="CounterPartyNominal" />
-                <ScalarProperty Name="Position" ColumnName="Position" />
-                <ScalarProperty Name="SenderToReceieverInfo" ColumnName="SenderToReceieverInfo" />
-                <ScalarProperty Name="TradeAllocationFinancialEventId" ColumnName="TradeAllocationFinancialEventId" />
-                <ScalarProperty Name="MatchStatusId" ColumnName="MatchStatusId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1578,32 +1212,6 @@ warning 6002: The table/view 'TicketTracker.dbo.vw_user_permissions' does not ha
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Trades">
-            <EntityTypeMapping TypeName="TicketTrackerModel.Trade">
-              <MappingFragment StoreEntitySet="Trade">
-                <ScalarProperty Name="TradeId" ColumnName="TradeId" />
-                <ScalarProperty Name="TradeFileID" ColumnName="TradeFileID" />
-                <ScalarProperty Name="TradeTypeId" ColumnName="TradeTypeId" />
-                <ScalarProperty Name="ClientTradeRef" ColumnName="ClientTradeRef" />
-                <ScalarProperty Name="SecurityCode" ColumnName="SecurityCode" />
-                <ScalarProperty Name="Units" ColumnName="Units" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="Brokerage" ColumnName="Brokerage" />
-                <ScalarProperty Name="BrokerageGST" ColumnName="BrokerageGST" />
-                <ScalarProperty Name="NetSettlementValue" ColumnName="NetSettlementValue" />
-                <ScalarProperty Name="GrossSettlementValue" ColumnName="GrossSettlementValue" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TradeValidationErrors">
-            <EntityTypeMapping TypeName="TicketTrackerModel.TradeValidationError">
-              <MappingFragment StoreEntitySet="TradeValidationError">
-                <ScalarProperty Name="TradeValidationErrorID" ColumnName="TradeValidationErrorID" />
-                <ScalarProperty Name="TradeId" ColumnName="TradeId" />
-                <ScalarProperty Name="ErrorCode" ColumnName="ErrorCode" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="TypeMasters">
             <EntityTypeMapping TypeName="TicketTrackerModel.TypeMaster">
               <MappingFragment StoreEntitySet="TypeMaster">
@@ -1649,14 +1257,6 @@ warning 6002: The table/view 'TicketTracker.dbo.vw_user_permissions' does not ha
               <MappingFragment StoreEntitySet="MenuPermission">
                 <ScalarProperty Name="MenuItemId" ColumnName="MenuItemId" />
                 <ScalarProperty Name="RoleId" ColumnName="RoleId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TrainingMasters">
-            <EntityTypeMapping TypeName="TicketTrackerModel.TrainingMaster">
-              <MappingFragment StoreEntitySet="TrainingMaster">
-                <ScalarProperty Name="TrianingId" ColumnName="TrianingId" />
-                <ScalarProperty Name="Details" ColumnName="Details" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
