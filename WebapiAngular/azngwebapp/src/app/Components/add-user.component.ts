@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { Global } from '../Shared/global';
 import { Router, ActivatedRoute, Route } from '@angular/router';
 import { removeSpaces } from '../Validators/removeSpaces.validator';
+import { BaseComponent } from './BaseComponent';
 
 
 
@@ -14,7 +15,7 @@ import { removeSpaces } from '../Validators/removeSpaces.validator';
   templateUrl: './add-user.component.html'
 })
 
-export class AddUserComponent implements OnInit {
+export class AddUserComponent extends BaseComponent implements OnInit {
   addUsermodel: AddUserModel;
   addUserForm: FormGroup;
   msg: string;
@@ -22,7 +23,7 @@ export class AddUserComponent implements OnInit {
   //isValidationError: boolean = false;
 
   constructor(private formBuilder: FormBuilder, private _userService: UserService) {
-
+    super();
   }
 
   ngOnInit(): void {
@@ -65,17 +66,6 @@ export class AddUserComponent implements OnInit {
         this.msg = error;
       }
     );
-  }
-
-  validateAllFields(formGroup: FormGroup) {         
-    Object.keys(formGroup.controls).forEach(field => {  
-        const control = formGroup.get(field);            
-        if (control instanceof FormControl) {             
-            control.markAsTouched({ onlySelf: true });
-        } else if (control instanceof FormGroup) {        
-            this.validateAllFields(control);  
-        }
-    });
-}
+  } 
 
 }

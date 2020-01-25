@@ -1,18 +1,19 @@
-import { Component, OnInit, NgModule } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TodoModel } from '../Model/todoModel';
-import { NgbDateAdapter, NgbDateStruct, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { BsDatepickerConfig} from 'ngx-bootstrap/datepicker';
 import { DatePipe } from '@angular/common';
-import { FormsModule, FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { TodoService } from '../Service/todo.service';
 import { Global } from '../Shared/global';
+import { BaseComponent } from './BaseComponent';
 
 @Component({
     templateUrl: './todo.component.html',
     styleUrls: ['./todo.component.css']
 })
-export class ToDoComponent implements OnInit {
+export class ToDoComponent  extends BaseComponent  implements OnInit {
     datepickerconfig: Partial<BsDatepickerConfig>;
     ngOnInit(): void {
         this.Loadtodolist();
@@ -26,7 +27,8 @@ export class ToDoComponent implements OnInit {
     placement = 'bottom';
     msg: string;
     todolist: TodoModel[] = new Array();
-    constructor(private router: Router, private datepipe: DatePipe,private _todoService: TodoService,private formBuilder: FormBuilder) {
+    constructor(private _todoService: TodoService,private formBuilder: FormBuilder) {
+        super();
      this.datepickerconfig= Object.assign({},{containerClass:'theme-dark-blue',  dateInputFormat: 'DD/MM/YYYY'})
     }
     addtodoitem() {
@@ -55,7 +57,7 @@ export class ToDoComponent implements OnInit {
         this.showlist = true;
     }
 
-    additems($event) {
+    additems() {
         this.todomodel = new TodoModel();
         this.todomodel.TodoId=0;
         this.todomodel.IsActive=true;
@@ -68,7 +70,7 @@ export class ToDoComponent implements OnInit {
         });
     }
 
-    CancelItem($event) {
+    CancelItem() {
         this.showlist = true;
         this.Loadtodolist();
     }
@@ -81,16 +83,7 @@ export class ToDoComponent implements OnInit {
         console.log('length of list is ' + this.todolist.length);
     }
 
-    validateAllFields(formGroup: FormGroup) {         
-        Object.keys(formGroup.controls).forEach(field => {  
-            const control = formGroup.get(field);            
-            if (control instanceof FormControl) {             
-                control.markAsTouched({ onlySelf: true });
-            } else if (control instanceof FormGroup) {        
-                this.validateAllFields(control);  
-            }
-        });
-    } 
+   
         
 
 }

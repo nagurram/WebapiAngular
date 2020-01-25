@@ -22,11 +22,11 @@ import { MenuComponent } from './Components/menu.component';
 import { MessageService } from './Service/message.service';
 import { NotAuthorizedComponent } from './Components/notauthorized.component';
 import { AddUserComponent } from './Components/add-user.component';
-
+import { BaseComponent } from './Components/BaseComponent';
 
 @NgModule({
   declarations: [
-    AppComponent,ToDoComponent,NgbDatePipe,LoginComponent, PageNotFoundComponent, MenuComponent, NotAuthorizedComponent, AddUserComponent
+    AppComponent,ToDoComponent,NgbDatePipe,LoginComponent, PageNotFoundComponent, MenuComponent,BaseComponent, NotAuthorizedComponent, AddUserComponent
   ],
   imports: [
     BrowserModule,NgbModule,BrowserAnimationsModule,
