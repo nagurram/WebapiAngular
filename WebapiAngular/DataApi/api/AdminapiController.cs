@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using DataApi.DBContext;
 using DataApi.Models;
 using log4net;
@@ -13,6 +14,7 @@ namespace DataApi.api
 {
     [Authorize(Roles = "Admin")]
     [RoutePrefix("api/adminapi")]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class AdminapiController : BaseAPIController
     {
         private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);

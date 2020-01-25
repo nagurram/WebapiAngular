@@ -18,6 +18,7 @@ export class AddUserComponent implements OnInit {
   addUsermodel: AddUserModel;
   addUserForm: FormGroup;
   msg: string;
+  savedsuccess:boolean;
   //isValidationError: boolean = false;
 
   constructor(private formBuilder: FormBuilder, private _userService: UserService) {
@@ -25,7 +26,7 @@ export class AddUserComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.savedsuccess=false;
     this.addUsermodel = new AddUserModel();
     this.addUserForm = this.formBuilder.group({});
     this.addUserForm = this.formBuilder.group({
@@ -48,16 +49,19 @@ export class AddUserComponent implements OnInit {
       data => {
         if (data == 1) //Success
         {
+          this.savedsuccess=true;
           console.log('User Saved!');
           this.msg = "User Saved!"
         }
         else {
+          this.savedsuccess=false;
           console.log('error');
           this.msg = "There is some issue in saving records, please contact to system administrator!"
         }
       },
       error => {
         console.log('error');
+        this.savedsuccess=false;
         this.msg = error;
       }
     );

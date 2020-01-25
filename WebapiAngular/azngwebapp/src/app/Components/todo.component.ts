@@ -34,7 +34,10 @@ export class ToDoComponent implements OnInit {
             this.validateAllFields(this.todoForm); 
             return;
           }
-        this._todoService.put(Global.BASE_TODO_UPDATE, this.todomodel.TodoId, this.todomodel).subscribe(
+          const result: TodoModel = Object.assign({}, this.todoForm.value);
+          this.todoForm.reset();
+          console.log(result);
+        this._todoService.put(Global.BASE_TODO_UPDATE, this.todomodel.TodoId, result).subscribe(
             data => {
                 if (data == 1) //Success
                 {

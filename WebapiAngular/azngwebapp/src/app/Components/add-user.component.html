@@ -38,7 +38,7 @@
             <div class="row  top-buffer">
                 <div class="col-md-4">
                     <button type="submit" class="btn btn-primary pull-right">Add User</button>
-                    <span class="alert-danger">
+                    <span [className]="savedsuccess ? 'alert-success' : 'alert-danger'" >
                         {{msg}}
                     </span>
                 </div><div class="col-md-8"></div>
