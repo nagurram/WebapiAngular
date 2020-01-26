@@ -23,6 +23,7 @@ import { MessageService } from './Service/message.service';
 import { NotAuthorizedComponent } from './Components/notauthorized.component';
 import { AddUserComponent } from './Components/add-user.component';
 import { BaseComponent } from './Components/BaseComponent';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,7 @@ import { BaseComponent } from './Components/BaseComponent';
   ],
   imports: [
     BrowserModule,NgbModule,BrowserAnimationsModule,
-    AppRoutingModule,FormsModule,BsDatepickerModule.forRoot(),HttpClientModule,ReactiveFormsModule
+    AppRoutingModule,FormsModule,BsDatepickerModule.forRoot(),ModalModule.forRoot(),HttpClientModule,ReactiveFormsModule
   ],
   providers: [{ provide: APP_BASE_HREF, useValue: '/angtodo/' },DatePipe,TodoService,AuthGuard, UserService, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }, MessageService],
   bootstrap: [AppComponent]

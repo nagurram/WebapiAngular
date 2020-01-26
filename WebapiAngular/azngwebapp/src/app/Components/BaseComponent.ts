@@ -4,11 +4,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'app-base',
-    template: `
-        <div>
-            base works!!
-        </div>
-    `
+    template: ''
 })
 export class BaseComponent {
     validateAllFields(formGroup: FormGroup) {
