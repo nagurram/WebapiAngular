@@ -19,7 +19,7 @@ import { removeSpaces } from '../Validators/removeSpaces.validator';
 
 export class TicketComponent implements OnInit {
 
-    @ViewChild('downloadZipLink') private downloadZipLink: ElementRef;
+    @ViewChild('downloadZipLink', {static: false}) private downloadZipLink: ElementRef;
     indLoading: boolean = false;
     applications: IkeyValuePair[];
     users: IkeyValuePair[];
@@ -120,7 +120,7 @@ export class TicketComponent implements OnInit {
 
     goBack() {
         if (this.ticketForm.dirty) {
-            //todo Need to add a model to ask for confirmation of changes
+            //todo Need to add a model to ask for confirmation of
            /*  this.alertService.confirmThis("Your changes will be lost, you want to continue?", function () {
                 this.backtosummary();
             }, function () {
