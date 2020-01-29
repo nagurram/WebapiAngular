@@ -37,7 +37,7 @@ export class TicketComponent implements OnInit {
     title: string;
     ticketForm: FormGroup;
     fileblob: any;
-    constructor(private _adminservice: TicketService, private _route: ActivatedRoute, private location: Location, private formBuilder: FormBuilder, private router: Router,private datepipe: DatePipe) { }
+    constructor(private _tickservice: TicketService, private _route: ActivatedRoute, private location: Location, private formBuilder: FormBuilder, private router: Router,private datepipe: DatePipe) { }
 
     ngOnInit(): void {
         this.ticketId = 0;
@@ -135,70 +135,70 @@ export class TicketComponent implements OnInit {
     LoadTickets(): void {
         this.indLoading = true;
         this.title = "Ticket Summary";
-        this._adminservice.get(Global.BASE_TICKET_ENDPOINT)
+        this._tickservice.get(Global.BASE_TICKET_ENDPOINT)
             .subscribe(tickets => { this.tickets = tickets; this.indLoading = false; },
                 error => this.msg = <any>error);
     }
 
     LoadAttachments(id: number): void {
 
-        this._adminservice.getById(Global.BASE_TICKET_ENDPOINT + Global.BASE_TICKET_ATTCHEMENTS, id)
+        this._tickservice.getById(Global.BASE_TICKET_ENDPOINT + Global.BASE_TICKET_ATTCHEMENTS, id)
             .subscribe(attachments => { this.attachments = attachments.body; this.indLoading = false; },
                 error => this.msg = <any>error);
     }
 
     Loadapplications(): void {
 
-        this._adminservice.get(Global.BASE_TICKET_ENDPOINT + Global.BASE_TICKET_APPMASTER)
+        this._tickservice.get(Global.BASE_TICKET_ENDPOINT + Global.BASE_TICKET_APPMASTER)
             .subscribe(applications => { this.applications = applications; },
                 error => this.msg = <any>error);
     }
 
     Loadusers(): void {
 
-        this._adminservice.get(Global.BASE_TICKET_ENDPOINT + Global.BASE_TICKET_USERMASTER)
+        this._tickservice.get(Global.BASE_TICKET_ENDPOINT + Global.BASE_TICKET_USERMASTER)
             .subscribe(users => { this.users = users; },
                 error => this.msg = <any>error);
     }
 
     Loadmodules(): void {
 
-        this._adminservice.get(Global.BASE_TICKET_ENDPOINT + Global.BASE_TICKET_MODULEMASTER)
+        this._tickservice.get(Global.BASE_TICKET_ENDPOINT + Global.BASE_TICKET_MODULEMASTER)
             .subscribe(modules => { this.modules = modules; },
                 error => this.msg = <any>error);
     }
 
     Loadstatuses(): void {
 
-        this._adminservice.get(Global.BASE_TICKET_ENDPOINT + Global.BASE_TICKET_STATUSMASTER)
+        this._tickservice.get(Global.BASE_TICKET_ENDPOINT + Global.BASE_TICKET_STATUSMASTER)
             .subscribe(statuses => { this.statuses = statuses; },
                 error => this.msg = <any>error);
     }
 
     Loadpriorities(): void {
 
-        this._adminservice.get(Global.BASE_TICKET_ENDPOINT + Global.BASE_TICKET_PRIORITYMASTER)
+        this._tickservice.get(Global.BASE_TICKET_ENDPOINT + Global.BASE_TICKET_PRIORITYMASTER)
             .subscribe(priorities => { this.priorities = priorities; },
                 error => this.msg = <any>error);
     }
 
     Loadrootcauses(): void {
 
-        this._adminservice.get(Global.BASE_TICKET_ENDPOINT + Global.BASE_TICKET_RCMASTER)
+        this._tickservice.get(Global.BASE_TICKET_ENDPOINT + Global.BASE_TICKET_RCMASTER)
             .subscribe(rootcauses => { this.rootcauses = rootcauses; },
                 error => this.msg = <any>error);
     }
 
     Loadtypes(): void {
 
-        this._adminservice.get(Global.BASE_TICKET_ENDPOINT + Global.BASE_TICKET_TYPEMASTER)
+        this._tickservice.get(Global.BASE_TICKET_ENDPOINT + Global.BASE_TICKET_TYPEMASTER)
             .subscribe(types => { this.types = types; },
                 error => this.msg = <any>error);
     }
 
     GetTicketById(id: number): void {
         this.ticketId = id;
-        this._adminservice.getById(Global.BASE_TICKET_ENDPOINT, id)
+        this._tickservice.getById(Global.BASE_TICKET_ENDPOINT, id)
             .subscribe(ticket => {
                 this.ticket = ticket.body[0];
                 this.title = this.ticket.Title;
@@ -223,7 +223,7 @@ export class TicketComponent implements OnInit {
             return;
         }
         const tktresult: Ticket = Object.assign({}, this.ticketForm.getRawValue());
-        this._adminservice.put(Global.BASE_TICKET_ENDPOINT + Global.BASE_TICKET_UPDATE, tktresult.TicketId, tktresult).subscribe(
+        this._tickservice.put(Global.BASE_TICKET_ENDPOINT + Global.BASE_TICKET_UPDATE, tktresult.TicketId, tktresult).subscribe(
             data => {
                 if (data == 1) //Success
                 {
@@ -241,7 +241,7 @@ export class TicketComponent implements OnInit {
 
     fileEvent($event: { target: { files: { [x: string]: File; }; }; }) {
         const fileSelected: File = $event.target.files[0];
-        this._adminservice.uploadFile(Global.BASE_TICKET_ENDPOINT + Global.BASE_TICKET_UPLOAD + this.ticketId, fileSelected).subscribe(
+        this._tickservice.uploadFile(Global.BASE_TICKET_ENDPOINT + Global.BASE_TICKET_UPLOAD + this.ticketId, fileSelected).subscribe(
             data => {
                 if (data.Message == "1") //Success
                 {
@@ -262,7 +262,7 @@ export class TicketComponent implements OnInit {
     }
 
     downloadfile(id: number): void {
-        this._adminservice.get(Global.BASE_TICKET_ENDPOINT + Global.BASE_TICKET_FILE + id)
+        this._tickservice.get(Global.BASE_TICKET_ENDPOINT + Global.BASE_TICKET_FILE + id)
             .subscribe(response => {
                 //if (response) {
                 //    var condisposition = response.headers.get('Content-Disposition');

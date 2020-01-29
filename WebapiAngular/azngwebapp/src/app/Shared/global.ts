@@ -8,7 +8,7 @@
     public static BASE_TODO_UPDATE = "api/Todoapi/Updatetodo/";
     public static BASE_USER_ENDPOINT = "api/userapi/";
     //METHOD CONSTANTS
-    public static BASE_TICKET_ENDPOINT = "api/ticketapi/";
+    public static BASE_TICKET_ENDPOINT = "http://vmtest.australiaeast.cloudapp.azure.com/Dataapi/"+"api/ticketapi/";
 
     public static BASE_UPDATE_APPLICATION = "Updateapplication/";
     public static BASE_DELETE_APPLICATION ="deleteapplication/";

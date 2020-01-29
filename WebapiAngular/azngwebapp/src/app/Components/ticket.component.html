@@ -2,7 +2,7 @@
 
 
 <div class="container">
-    <div class="alert alert-info" role="alert" *ngIf="indLoading"><img src="../../images/loading.gif" width="32" height="32" /> Loading...</div>
+    <!-- <div class="alert alert-info" role="alert" *ngIf="indLoading"><img src="../../images/loading.gif" width="32" height="32" /> Loading...</div> -->
     <div *ngIf='tickets && tickets.length==0' class="alert alert-info" role="alert">No record found!</div>
     <div class='table-responsive' *ngIf="ticketId ==0">
         <table class="table table-striped table-bordered" *ngIf='tickets && tickets.length'>
@@ -38,7 +38,6 @@
     </div>
     <div *ngIf="ticket.TicketId>=0">
         <div [formGroup]="ticketForm" (ngSubmit)="saveticket()">
-            <alert></alert>
             <div class="row">
                 <div class="col-md-9">
                     <h2>{{ticketForm.controls['Title'].value}}</h2>
