@@ -49,211 +49,234 @@
                     </a>
                 </div>
             </div>
-            <div class="container">
-                <ul class="nav nav-tabs">
-                    <li class="active"><a data-toggle="tab" href="#home">Basic data</a></li>
-                    <li><a data-toggle="tab" href="#menu1">attachements</a></li>
-                    <li><a data-toggle="tab" href="#menu2">Audit</a></li>
-                </ul>
 
-                <div class="tab-content">
-                    <div id="home" class="tab-pane fade in active">
-                        <div class="row top-buffer">
-                            <div class="col-md-2 text-right">
-                                <label class="control-label " for="txtticketid">Ticket Id</label>
-                            </div>
-                            <div class="col-md-4">
-                                <input type="text" id="txtticketid" formControlName="TicketId" class="form-control">
-                            </div>
-                            <div class="col-md-2 text-right " [class.has-error]="ticketForm.controls['Title'].hasError('required')">
-                                <label class="control-label " for="txttitile">Title</label>
-                            </div><div class="col-md-4" [class.has-error]="ticketForm.controls['Title'].hasError('required')">
-                                <input type="text" id="txttitile" formControlName="Title" class="form-control">
-                                <div *ngIf="ticketForm.controls['Title'].touched && !ticketForm.controls['Title'].valid">
-                                    <span *ngIf="ticketForm.controls['Title'].hasError('required') " class="alert-danger">
-                                        Title is required
-                                    </span>
-                                </div>
-                            </div>
+            <tabset #tabset>
+                <tab heading="Basic data">
+                    <div class="row top-buffer">
+                        <div class="col-md-2 text-right">
+                            <label class="control-label " for="txtticketid">Ticket Id</label>
                         </div>
-                        <div class="row top-buffer">
-                            <div class="col-md-2 text-right " [class.has-error]="ticketForm.controls['TDescription'].hasError('required')">
-                                <label class="control-label " for="txtTDescription">Description</label>
-                            </div><div class="col-md-10" [class.has-error]="ticketForm.controls['TDescription'].hasError('required')">
-                                <textarea rows="4" formControlName="TDescription" id="txtTDescription" class="form-control" style="min-width: 100%"></textarea>
-                                <div *ngIf="ticketForm.controls['TDescription'].touched && !ticketForm.controls['TDescription'].valid">
-                                    <span *ngIf="ticketForm.controls['TDescription'].hasError('required') " class="alert-danger">
-                                        Ticket Description is required
-                                    </span>
-                                </div>
-                            </div>
+                        <div class="col-md-4">
+                            <input type="text" id="txtticketid" formControlName="TicketId" class="form-control">
                         </div>
-                        <div class="row top-buffer">
-                            <div class="col-md-2 text-right " [class.has-error]="ticketForm.controls['CreatedBy'].hasError('min')">
-                                <label class="control-label " for="txtCreatedBy">Created By</label>
-                            </div><div class="col-md-4" [class.has-error]="ticketForm.controls['CreatedBy'].hasError('min')">
-                                <dropdown [drpcollection]="users" formControlName="CreatedBy"></dropdown>
-
-                                <span *ngIf="ticketForm.controls['CreatedBy'].hasError('min')" class="alert-danger">
-                                    Please select Created By
-                                </span>
-                            </div>
-                            <div class="col-md-2 text-right " [class.has-error]="ticketForm.controls['StatusId'].hasError('min')">
-                                <label class="control-label " for="txtStatusId">Status</label>
-                            </div>
-                            <div class="col-md-4" [class.has-error]="ticketForm.controls['StatusId'].hasError('min')">
-                                <dropdown [drpcollection]="statuses" formControlName="StatusId"></dropdown>
-
-                                <span *ngIf="ticketForm.controls['StatusId'].hasError('min')" class="alert-danger">
-                                    Please select Status
-                                </span>
-                            </div>
+                        <div class="col-md-2 text-right "
+                            [class.has-error]="ticketForm.controls['Title'].hasError('required')">
+                            <label class="control-label " for="txttitile">Title</label>
                         </div>
-                        <div class="row top-buffer">
-                            <div class="col-md-2 text-right ">
-                                <label class="control-label " for="txtCreateddate">Created Date</label>
-                            </div>
-                            <div class="col-md-4">
-                                <input type="text" id="txtCreateddate" class="form-control" formControlName="Createddate"   />
-                            </div>
-                            <div class="col-md-2 text-right " [class.has-error]="ticketForm.controls['AssignedTo'].hasError('min')"><label class="control-label " for="txtAssignedTo">Assigned to</label></div><div class="col-md-4" [class.has-error]="ticketForm.controls['AssignedTo'].hasError('min')">
-                                <dropdown [drpcollection]="users" formControlName="AssignedTo"></dropdown>
-
-                                <span *ngIf="ticketForm.controls['AssignedTo'].hasError('min')" class="alert-danger">
-                                    Please select Assigned to
+                        <div class="col-md-4" [class.has-error]="ticketForm.controls['Title'].hasError('required')">
+                            <input type="text" id="txttitile" formControlName="Title" class="form-control">
+                            <div *ngIf="ticketForm.controls['Title'].touched && !ticketForm.controls['Title'].valid">
+                                <span *ngIf="ticketForm.controls['Title'].hasError('required') " class="alert-danger">
+                                    Title is required
                                 </span>
-                            </div>
-                        </div>
-                        <div class="row top-buffer">
-                            <div class="col-md-2 text-right" [class.has-error]="ticketForm.controls['PriorityId'].hasError('min')">
-                                <label class="control-label " for="txtPriorityId">Priority</label>
-                            </div>
-                            <div class="col-md-4" [class.has-error]="ticketForm.controls['PriorityId'].hasError('min')">
-                                <dropdown [drpcollection]="priorities" formControlName="PriorityId"></dropdown>
-
-                                <span *ngIf="ticketForm.controls['PriorityId'].hasError('min')" class="alert-danger">
-                                    Please select Priority
-                                </span>
-                            </div>
-                            <div class="col-md-2 text-right" [class.has-error]="ticketForm.controls['TypeId'].hasError('min')">
-                                <label class="control-label " for="txtTypeId">Ticket Type</label>
-                            </div>
-                            <div class="col-md-4" [class.has-error]="ticketForm.controls['TypeId'].hasError('min')">
-                                <dropdown [drpcollection]="types" formControlName="TypeId"></dropdown>
-
-                                <span *ngIf="ticketForm.controls['TypeId'].hasError('min')" class="alert-danger">
-                                    Please select Type
-                                </span>
-                            </div>
-                        </div>
-                        <div class="row top-buffer">
-                            <div class="col-md-2 text-right" [class.has-error]="ticketForm.controls['ApplicationId'].hasError('min')">
-                                <label class="control-label " for="txtApplicationId">Application</label>
-                            </div>
-                            <div class="col-md-4" [class.has-error]="ticketForm.controls['ApplicationId'].hasError('min')">
-                                <dropdown [drpcollection]="applications" formControlName="ApplicationId"></dropdown>
-
-                                <span *ngIf="ticketForm.controls['ApplicationId'].hasError('min')" class="alert-danger">
-                                    Please select Application
-                                </span>
-                            </div>
-                            <div class="col-md-2 text-right" [class.has-error]="ticketForm.controls['ModuleID'].hasError('min')">
-                                <label class="control-label " for="txtModuleID">Module</label>
-                            </div>
-                            <div class="col-md-4" [class.has-error]="ticketForm.controls['ModuleID'].hasError('min')">
-                                <dropdown [drpcollection]="modules" formControlName="ModuleID"></dropdown>
-
-
-                                <span *ngIf="ticketForm.controls['ModuleID'].hasError('min')" class="alert-danger">
-                                    Please select Module
-                                </span>
-                            </div>
-                        </div>
-
-                        <div class="row top-buffer">
-                            <div class="col-md-2 text-right" [class.has-error]="ticketForm.controls['RootCauseId'].hasError('min')">
-                                <label class="control-label " for="txtApplicationId">Root Cause</label>
-                            </div>
-                            <div class="col-md-4" [class.has-error]="ticketForm.controls['RootCauseId'].hasError('min')">
-                                <dropdown [drpcollection]="rootcauses" formControlName="RootCauseId"></dropdown>
-
-                                <span *ngIf="ticketForm.controls['RootCauseId'].hasError('min')" class="alert-danger">
-                                    Please select Root Cause
-                                </span>
-                            </div>
-                            <div class="col-md-2 text-right" [class.has-error]="ticketForm.controls['ResolutionDeadline'].hasError('required')">
-                                <label class="control-label " for="txtResolutionDeadline">Resolution Deadline</label>
-                            </div>
-                            <div class="col-md-4" [class.has-error]="ticketForm.controls['ResolutionDeadline'].hasError('required')">
-                                <input type="text" id="txtResolutionDeadline" class="form-control" formControlName="ResolutionDeadline">
-                                <span *ngIf="ticketForm.controls['ResolutionDeadline'].hasError('required')" class="alert-danger">
-                                    Please Enter Resolution Deadline
-                                </span>
-                                <span *ngIf="ticketForm.hasError('range')" class="alert-danger">
-                                    Resolution Deadline should be greater than create date
-                                </span>
-                            </div>
-                        </div>
-
-                        <div class="row top-buffer">
-                            <div class="col-md-2 text-right" [class.has-error]="ticketForm.controls['Coommnets'].hasError('required')"><label class="control-label " for="txtCoommnets">Comments</label></div>
-                            <div class="col-md-10" [class.has-error]="ticketForm.controls['Coommnets'].hasError('required')">
-                                <textarea rows="4" id="txtCoommnets" class="form-control" style="min-width: 100%" formControlName="Coommnets"></textarea>
-
-                                <div *ngIf="ticketForm.controls['Coommnets'].touched && !ticketForm.controls['Coommnets'].valid">
-                                    <span *ngIf="ticketForm.controls['Coommnets'].hasError('required') " class="alert-danger">
-                                        Coommnets required
-                                    </span>
-                                </div>
                             </div>
                         </div>
                     </div>
-                    <div id="menu1" class="tab-pane fade">
-                        <div class="container">
-                            <h3>attachements</h3>
-                            <div *ngIf='attachments && attachments.length==0' class="alert alert-info" role="alert">No record found!</div>
-                            <div class='table-responsive'>
-                                <table class="table table-striped table-bordered" *ngIf='attachments && attachments.length'>
-                                    <thead>
-                                        <tr>
-                                            <th>File Id</th>
-                                            <th>File Name</th>
-                                            <th>File Type</th>
-                                            <th>Upload date</th>
-                                            <th>Download</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr *ngFor="let tkt of attachments">
-
-                                            <td>{{tkt.Fileid}}</td>
-                                            <td>{{tkt.FileName}}</td>
-                                            <td>{{tkt.Filetype}}  <a (click)="downloadfile(tkt.Fileid)" href="#">Download</a> </td>
-                                            <td>{{tkt.UploadDate|date}}</td>
-                                            <td>  <a href="./api/ticketapi/GetfileAttachemnet/{{tkt.Fileid}}">Download</a> </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-
-                                <a class="download-zip-link" #downloadZipLink></a>
-                            </div>
-                            <div class='row'>
-                                <div class="col-md-9">
-                                    <label class="control-label " for="image1">  File</label>
-                                    <input id="fileupload" type="file" class="form-control" (change)=fileEvent($event) />
-                                </div>
-                                <div class="col-md-3 top-buffer">
-                                    <button title="Save" class="btn btn-primary">Upload</button>
-                                </div>
+                    <div class="row top-buffer">
+                        <div class="col-md-2 text-right "
+                            [class.has-error]="ticketForm.controls['TDescription'].hasError('required')">
+                            <label class="control-label " for="txtTDescription">Description</label>
+                        </div>
+                        <div class="col-md-10"
+                            [class.has-error]="ticketForm.controls['TDescription'].hasError('required')">
+                            <textarea rows="4" formControlName="TDescription" id="txtTDescription" class="form-control"
+                                style="min-width: 100%"></textarea>
+                            <div
+                                *ngIf="ticketForm.controls['TDescription'].touched && !ticketForm.controls['TDescription'].valid">
+                                <span *ngIf="ticketForm.controls['TDescription'].hasError('required') "
+                                    class="alert-danger">
+                                    Ticket Description is required
+                                </span>
                             </div>
                         </div>
                     </div>
-                    <div id="menu2" class="tab-pane fade">
-                        <h3>Audit Log</h3>
-                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+                    <div class="row top-buffer">
+                        <div class="col-md-2 text-right "
+                            [class.has-error]="ticketForm.controls['CreatedBy'].hasError('min')">
+                            <label class="control-label " for="txtCreatedBy">Created By</label>
+                        </div>
+                        <div class="col-md-4" [class.has-error]="ticketForm.controls['CreatedBy'].hasError('min')">
+                            <dropdown [drpcollection]="users" formControlName="CreatedBy"></dropdown>
+
+                            <span *ngIf="ticketForm.controls['CreatedBy'].hasError('min')" class="alert-danger">
+                                Please select Created By
+                            </span>
+                        </div>
+                        <div class="col-md-2 text-right "
+                            [class.has-error]="ticketForm.controls['StatusId'].hasError('min')">
+                            <label class="control-label " for="txtStatusId">Status</label>
+                        </div>
+                        <div class="col-md-4" [class.has-error]="ticketForm.controls['StatusId'].hasError('min')">
+                            <dropdown [drpcollection]="statuses" formControlName="StatusId"></dropdown>
+
+                            <span *ngIf="ticketForm.controls['StatusId'].hasError('min')" class="alert-danger">
+                                Please select Status
+                            </span>
+                        </div>
                     </div>
-                </div>
-            </div>
+                    <div class="row top-buffer">
+                        <div class="col-md-2 text-right ">
+                            <label class="control-label " for="txtCreateddate">Created Date</label>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" id="txtCreateddate" class="form-control" formControlName="Createddate" />
+                        </div>
+                        <div class="col-md-2 text-right "
+                            [class.has-error]="ticketForm.controls['AssignedTo'].hasError('min')"><label
+                                class="control-label " for="txtAssignedTo">Assigned to</label></div>
+                        <div class="col-md-4" [class.has-error]="ticketForm.controls['AssignedTo'].hasError('min')">
+                            <dropdown [drpcollection]="users" formControlName="AssignedTo"></dropdown>
+
+                            <span *ngIf="ticketForm.controls['AssignedTo'].hasError('min')" class="alert-danger">
+                                Please select Assigned to
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row top-buffer">
+                        <div class="col-md-2 text-right"
+                            [class.has-error]="ticketForm.controls['PriorityId'].hasError('min')">
+                            <label class="control-label " for="txtPriorityId">Priority</label>
+                        </div>
+                        <div class="col-md-4" [class.has-error]="ticketForm.controls['PriorityId'].hasError('min')">
+                            <dropdown [drpcollection]="priorities" formControlName="PriorityId"></dropdown>
+
+                            <span *ngIf="ticketForm.controls['PriorityId'].hasError('min')" class="alert-danger">
+                                Please select Priority
+                            </span>
+                        </div>
+                        <div class="col-md-2 text-right"
+                            [class.has-error]="ticketForm.controls['TypeId'].hasError('min')">
+                            <label class="control-label " for="txtTypeId">Ticket Type</label>
+                        </div>
+                        <div class="col-md-4" [class.has-error]="ticketForm.controls['TypeId'].hasError('min')">
+                            <dropdown [drpcollection]="types" formControlName="TypeId"></dropdown>
+
+                            <span *ngIf="ticketForm.controls['TypeId'].hasError('min')" class="alert-danger">
+                                Please select Type
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row top-buffer">
+                        <div class="col-md-2 text-right"
+                            [class.has-error]="ticketForm.controls['ApplicationId'].hasError('min')">
+                            <label class="control-label " for="txtApplicationId">Application</label>
+                        </div>
+                        <div class="col-md-4" [class.has-error]="ticketForm.controls['ApplicationId'].hasError('min')">
+                            <dropdown [drpcollection]="applications" formControlName="ApplicationId"></dropdown>
+
+                            <span *ngIf="ticketForm.controls['ApplicationId'].hasError('min')" class="alert-danger">
+                                Please select Application
+                            </span>
+                        </div>
+                        <div class="col-md-2 text-right"
+                            [class.has-error]="ticketForm.controls['ModuleID'].hasError('min')">
+                            <label class="control-label " for="txtModuleID">Module</label>
+                        </div>
+                        <div class="col-md-4" [class.has-error]="ticketForm.controls['ModuleID'].hasError('min')">
+                            <dropdown [drpcollection]="modules" formControlName="ModuleID"></dropdown>
+
+
+                            <span *ngIf="ticketForm.controls['ModuleID'].hasError('min')" class="alert-danger">
+                                Please select Module
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="row top-buffer">
+                        <div class="col-md-2 text-right"
+                            [class.has-error]="ticketForm.controls['RootCauseId'].hasError('min')">
+                            <label class="control-label " for="txtApplicationId">Root Cause</label>
+                        </div>
+                        <div class="col-md-4" [class.has-error]="ticketForm.controls['RootCauseId'].hasError('min')">
+                            <dropdown [drpcollection]="rootcauses" formControlName="RootCauseId"></dropdown>
+
+                            <span *ngIf="ticketForm.controls['RootCauseId'].hasError('min')" class="alert-danger">
+                                Please select Root Cause
+                            </span>
+                        </div>
+                        <div class="col-md-2 text-right"
+                            [class.has-error]="ticketForm.controls['ResolutionDeadline'].hasError('required')">
+                            <label class="control-label " for="txtResolutionDeadline">Resolution Deadline</label>
+                        </div>
+                        <div class="col-md-4"
+                            [class.has-error]="ticketForm.controls['ResolutionDeadline'].hasError('required')">
+                            <input type="text" id="txtResolutionDeadline" class="form-control"
+                                formControlName="ResolutionDeadline">
+                            <span *ngIf="ticketForm.controls['ResolutionDeadline'].hasError('required')"
+                                class="alert-danger">
+                                Please Enter Resolution Deadline
+                            </span>
+                            <span *ngIf="ticketForm.hasError('range')" class="alert-danger">
+                                Resolution Deadline should be greater than create date
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="row top-buffer">
+                        <div class="col-md-2 text-right"
+                            [class.has-error]="ticketForm.controls['Coommnets'].hasError('required')"><label
+                                class="control-label " for="txtCoommnets">Comments</label></div>
+                        <div class="col-md-10"
+                            [class.has-error]="ticketForm.controls['Coommnets'].hasError('required')">
+                            <textarea rows="4" id="txtCoommnets" class="form-control" style="min-width: 100%"
+                                formControlName="Coommnets"></textarea>
+
+                            <div
+                                *ngIf="ticketForm.controls['Coommnets'].touched && !ticketForm.controls['Coommnets'].valid">
+                                <span *ngIf="ticketForm.controls['Coommnets'].hasError('required') "
+                                    class="alert-danger">
+                                    Coommnets required
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                </tab>
+                <tab heading="attachements">
+                    <h3>attachements</h3>
+                    <div *ngIf='attachments && attachments.length==0' class="alert alert-info" role="alert">No
+                        record found!</div>
+                    <div class='table-responsive'>
+                        <table class="table table-striped table-bordered" *ngIf='attachments && attachments.length'>
+                            <thead>
+                                <tr>
+                                    <th>File Id</th>
+                                    <th>File Name</th>
+                                    <th>File Type</th>
+                                    <th>Upload date</th>
+                                    <th>Download</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let tkt of attachments">
+
+                                    <td>{{tkt.Fileid}}</td>
+                                    <td>{{tkt.FileName}}</td>
+                                    <td>{{tkt.Filetype}} <a (click)="downloadfile(tkt.Fileid)" href="#">Download</a>
+                                    </td>
+                                    <td>{{tkt.UploadDate|date}}</td>
+                                    <td> <a href="./api/ticketapi/GetfileAttachemnet/{{tkt.Fileid}}">Download</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <a class="download-zip-link" #downloadZipLink></a>
+                    </div>
+                    <div class='row'>
+                        <div class="col-md-9">
+                            <label class="control-label " for="image1"> File</label>
+                            <input id="fileupload" type="file" class="form-control" (change)=fileEvent($event) />
+                        </div>
+                        <div class="col-md-3 top-buffer">
+                            <button title="Save" class="btn btn-primary">Upload</button>
+                        </div>
+                    </div>
+                </tab>
+                <tab heading="Audit">
+                    <h3>Audit Log</h3>
+                    <p>Change date will be present here</p>
+                </tab>
+            </tabset>
         </div>
     </div>
 </div>

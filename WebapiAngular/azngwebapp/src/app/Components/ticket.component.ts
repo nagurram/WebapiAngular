@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, TemplateRef, ViewChild, ElementRef } from '@angular/core';
+﻿import { Component, OnInit, TemplateRef, ViewChild, ElementRef , ViewChildren , QueryList , AfterViewInit} from '@angular/core';
 import { TicketService } from '../Service/ticket.service';
 import { FormBuilder, FormGroup, Validators, FormControl, ValidatorFn } from '@angular/forms';
 import { IkeyValuePair } from '../Model/keyValuePair';
@@ -11,7 +11,7 @@ import { Location, DatePipe } from '@angular/common';
 import { DropdownComponent } from './dropdown.component';
 import { HttpHeaders } from '@angular/common/http';
 import { removeSpaces } from '../Validators/removeSpaces.validator';
-
+import { TabsetComponent, TabDirective } from 'ngx-bootstrap/tabs';
 
 @Component({
     templateUrl: './ticket.component.html'
@@ -20,6 +20,8 @@ import { removeSpaces } from '../Validators/removeSpaces.validator';
 export class TicketComponent implements OnInit {
 
     @ViewChild('downloadZipLink', {static: false}) private downloadZipLink: ElementRef;
+    @ViewChild('tabset', {static: false}) tabset: TabsetComponent;
+    disableSwitching: boolean;    
     indLoading: boolean = false;
     applications: IkeyValuePair[];
     users: IkeyValuePair[];
@@ -293,6 +295,10 @@ export class TicketComponent implements OnInit {
             alert('Please disable your Pop-up blocker and try again.');
         }
     }
+    
+    goto(id){
+        this.tabset.tabs[id].active = true;
+      }
 
 }
 

@@ -27,6 +27,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { TicketComponent } from './Components/ticket.component';
 import { DropdownComponent } from './Components/dropdown.component';
 import { TicketService } from '././Service/ticket.service';
+import {  AlertModule } from 'ngx-bootstrap/alert'
+import { TabsModule } from 'ngx-bootstrap/tabs';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,7 @@ import { TicketService } from '././Service/ticket.service';
   ],
   imports: [
     BrowserModule,NgbModule,BrowserAnimationsModule,
-    AppRoutingModule,FormsModule,BsDatepickerModule.forRoot(),ModalModule.forRoot(),HttpClientModule,ReactiveFormsModule
+    AppRoutingModule,FormsModule,BsDatepickerModule.forRoot(),ModalModule.forRoot(),AlertModule.forRoot(), TabsModule.forRoot(),HttpClientModule,ReactiveFormsModule
   ],
   providers: [{ provide: APP_BASE_HREF, useValue: '/angtodo/' },DatePipe,TodoService,AuthGuard, UserService, TicketService,{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor,
      multi: true }, MessageService],
