@@ -12,6 +12,7 @@ import { DropdownComponent } from './dropdown.component';
 import { HttpHeaders } from '@angular/common/http';
 import { removeSpaces } from '../Validators/removeSpaces.validator';
 import { TabsetComponent, TabDirective } from 'ngx-bootstrap/tabs';
+import { FileService } from '../Service/file.service';
 
 @Component({
     templateUrl: './ticket.component.html'
@@ -39,7 +40,8 @@ export class TicketComponent implements OnInit {
     title: string;
     ticketForm: FormGroup;
     fileblob: any;
-    constructor(private _tickservice: TicketService, private _route: ActivatedRoute, private location: Location, private formBuilder: FormBuilder, private router: Router,private datepipe: DatePipe) { }
+    constructor(private _tickservice: TicketService, private _route: ActivatedRoute, private location: Location,
+         private formBuilder: FormBuilder, private router: Router,private datepipe: DatePipe,private fileService: FileService) { }
 
     ngOnInit(): void {
         this.ticketId = 0;
@@ -264,19 +266,15 @@ export class TicketComponent implements OnInit {
     }
 
     downloadfile(id: number): void {
-        this._tickservice.get(Global.BASE_TICKET_ENDPOINT + Global.BASE_TICKET_FILE + id)
-            .subscribe(response => {
-                //if (response) {
-                //    var condisposition = response.headers.get('Content-Disposition');
-                //    console.log(response.headers.get('Content-Type'));
-                //    var contentType = response.headers.get('Content-Type');
-                //    var filename = response.headers.get('x-FileName');
-                //    this.downLoadResponse(response.body, contentType, filename);
-                //    //var blob = new Blob([response.body], { type: contentType });
-                //   // saveAs(blob, filename);
-                //}
-            },
-                error => this.msg = <any>error);
+        console.log('in download file file id : '+id);
+        this.fileService.downloadFile(Global.BASE_TICKET_ENDPOINT + Global.BASE_TICKET_FILE + id).subscribe(response => {
+			//let blob:any = new Blob([response.blob()], { type: 'text/json; charset=utf-8' });
+			//const url= window.URL.createObjectURL(blob);
+			//window.open(url);
+			window.location.href = response.url;
+			//fileSaver.saveAs(blob, 'employees.json');
+		}), error => console.log('Error downloading the file'),
+                 () => console.info('File downloaded successfully');
     }
 
     downLoadResponse(data: any, type: string, filename: string) {
