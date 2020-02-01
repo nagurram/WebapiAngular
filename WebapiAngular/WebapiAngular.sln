@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "webapp", "webapp\webapp.csproj", "{C0D9A03E-BAB3-4EE5-B9F4-A31F7EFF70C2}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ang4api", "ang4api\ang4api.csproj", "{0DCDE4F3-83FE-4789-9CF5-44CE72DBD91A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataApi", "DataApi\DataApi.csproj", "{1F1B098E-EF9E-415B-89D2-D4ABA49923D9}"
@@ -15,10 +13,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C0D9A03E-BAB3-4EE5-B9F4-A31F7EFF70C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C0D9A03E-BAB3-4EE5-B9F4-A31F7EFF70C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C0D9A03E-BAB3-4EE5-B9F4-A31F7EFF70C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C0D9A03E-BAB3-4EE5-B9F4-A31F7EFF70C2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0DCDE4F3-83FE-4789-9CF5-44CE72DBD91A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0DCDE4F3-83FE-4789-9CF5-44CE72DBD91A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0DCDE4F3-83FE-4789-9CF5-44CE72DBD91A}.Release|Any CPU.ActiveCfg = Release|Any CPU
