@@ -1,103 +1,95 @@
-<div class="container">
-
-    <ng-template #todoitem>
-        <div class="modal-header">
-            <h4 class="modal-title pull-left">Add New ToDo</h4>
-            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
+<ng-template #todoitem>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Add New ToDo</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <form [formGroup]="todoForm" (ngSubmit)="addtodoitem()">
         <div class="modal-body">
-            <form [formGroup]="todoForm" (ngSubmit)="addtodoitem()">
-
-
-                <div class="row top-buffer">
-                    <div class="col-md-3" [class.has-error]="todoForm.controls['Titile'].hasError('required')"><label
-                            for="txtTitile">Titile</label></div>
-                    <div class="col-md-9">
-                        <input type="text" id="txtTitile" formControlName="Titile" class="form-control">
-                        <div *ngIf="todoForm.controls['Titile'].touched && !todoForm.controls['Titile'].valid">
-                            <span *ngIf="todoForm.controls['Titile'].hasError('required') " class="alert-danger">
-                                Titile is required
-                            </span>
-                        </div>
+            <div class="row top-buffer">
+                <div class="col-md-3" [class.has-error]="todoForm.controls['Titile'].hasError('required')"><label
+                        for="txtTitile">Titile</label></div>
+                <div class="col-md-9">
+                    <input type="text" id="txtTitile" formControlName="Titile" class="form-control">
+                    <div *ngIf="todoForm.controls['Titile'].touched && !todoForm.controls['Titile'].valid">
+                        <span *ngIf="todoForm.controls['Titile'].hasError('required') " class="alert-danger">
+                            Titile is required
+                        </span>
                     </div>
                 </div>
-                <div class="row top-buffer">
-                    <div class="col-md-3" [class.has-error]="todoForm.controls['Description'].hasError('required')">
-                        <label for="txtDescription">Description</label></div>
-                    <div class="col-md-9">
-                        <textarea rows="4" id="txtDescription" formControlName="Description" class="form-control"
-                            style="min-width: 100%"></textarea>
-                        <div
-                            *ngIf="todoForm.controls['Description'].touched && !todoForm.controls['Description'].valid">
-                            <span *ngIf="todoForm.controls['Description'].hasError('required') " class="alert-danger">
-                                Description is required
-                            </span>
-                        </div>
+            </div>
+            <div class="row top-buffer">
+                <div class="col-md-3" [class.has-error]="todoForm.controls['Description'].hasError('required')">
+                    <label for="txtDescription">Description</label>
+                </div>
+                <div class="col-md-9">
+                    <textarea rows="4" id="txtDescription" formControlName="Description" class="form-control"
+                        style="min-width: 100%"></textarea>
+                    <div *ngIf="todoForm.controls['Description'].touched && !todoForm.controls['Description'].valid">
+                        <span *ngIf="todoForm.controls['Description'].hasError('required') " class="alert-danger">
+                            Description is required
+                        </span>
                     </div>
                 </div>
-                <div class="row top-buffer">
-                    <div class="col-md-3" [class.has-error]="todoForm.controls['ActionDate'].hasError('required')">
-                        <label for="txtDate">Date</label></div>
-                    <div class="col-md-9">
-
-                        <input type="text" id="txtDate" autocomplete="off" formControlName="ActionDate" bsDatepicker
-                            [bsConfig]="datepickerconfig" class="form-control">
-                        <div *ngIf="todoForm.controls['ActionDate'].touched && !todoForm.controls['ActionDate'].valid">
-                            <span *ngIf="todoForm.controls['ActionDate'].hasError('required') " class="alert-danger">
-                                Action Date is required
-                            </span>
-                        </div>
+            </div>
+            <div class="row top-buffer">
+                <div class="col-md-3" [class.has-error]="todoForm.controls['ActionDate'].hasError('required')">
+                    <label for="txtDate">Date</label>
+                </div>
+                <div class="col-md-9">
+                    <input type="text" id="txtDate" autocomplete="off" formControlName="ActionDate" bsDatepicker
+                        [bsConfig]="datepickerconfig" class="form-control">
+                    <div *ngIf="todoForm.controls['ActionDate'].touched && !todoForm.controls['ActionDate'].valid">
+                        <span *ngIf="todoForm.controls['ActionDate'].hasError('required') " class="alert-danger">
+                            Action Date is required
+                        </span>
                     </div>
                 </div>
-                <div class="row top-buffer">
-                    <div class="col-md-6">
-                        <button (click)="modalRef.hide()" class="btn btn-warning pull-right">Cancel</button>
-                    </div>
-                    <div class="col-md-6">
-                        <button type="submit" class="btn btn-primary">Save</button>
-
-                    </div>
-                </div>
-            </form>
-        </div>
-    </ng-template>
-
-    <div>
-        <div class="row top-buffer">
-            <div class="col-md-9"></div>
-            <div class="col-md-3">
-                <button (click)="openAddtodoModal(todoitem)" class="btn btn-primary pull-right">Add New item</button>
-
             </div>
         </div>
-        <div class='table-responsive  top-buffer'>
-
-            <table class="table table-striped table-bordered" *ngIf='todolist && todolist.length'>
-                <thead>
-                    <tr>
-                        <th>TodoId</th>
-                        <th>Title</th>
-                        <th>Description</th>
-                        <th>Action date</th>
-                        <th>IsActive</th>
-
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let tkt of todolist">
-                        <td>
-                            {{tkt.TodoId}}
-                        </td>
-                        <td>{{tkt.Titile}}</td>
-                        <td>{{tkt.Description}}</td>
-                        <td>{{tkt.actionDate|date: 'dd/MM/yyyy'}}</td>
-                        <td><input type="checkbox" [checked]="tkt.IsActive" disabled="disabled" /> </td>
-
-                    </tr>
-                </tbody>
-            </table>
+        <div class="modal-footer">
+            <div class="row">
+                <div class="col-md-6">
+                </div>
+                <div class="col-md-6">
+                    <button type="button" (click)="CancelItem()" class="btn btn-warning">Cancel</button>
+                    &nbsp;&nbsp;
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </div>
         </div>
+    </form>
+</ng-template>
+<div>
+    <div class="row top-buffer">
+        <div class="col-md-9"></div>
+        <div class="col-md-3">
+            <button (click)="openAddtodoModal(todoitem)" class="btn btn-primary pull-right">Add New item</button>
+        </div>
+    </div>
+    <div class='table-responsive  top-buffer'>
+        <table class="table table-striped table-bordered" *ngIf='todolist && todolist.length'>
+            <thead>
+                <tr>
+                    <th>TodoId</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Action date</th>
+                    <th>IsActive</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let tkt of todolist">
+                    <td>
+                        {{tkt.TodoId}}
+                    </td>
+                    <td>{{tkt.Titile}}</td>
+                    <td>{{tkt.Description}}</td>
+                    <td>{{tkt.actionDate|date: 'dd/MM/yyyy'}}</td>
+                    <td><input type="checkbox" [checked]="tkt.IsActive" disabled="disabled" /> </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>

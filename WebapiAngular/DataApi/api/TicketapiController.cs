@@ -231,22 +231,24 @@ namespace DataApi.api
             HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
             //try
             //{
-                var filelist = (TicketDB.FileUploads.Where(t => t.Fileid == id).Select(p => new { p.Fileid, p.Filedata, p.FileName, p.Filetype, p.UploadDate })).FirstOrDefault();
+            Log.Info("in GetfileAttachemnet  method and file id is :" + id);
+            var filelist = (TicketDB.FileUploads.Where(t => t.Fileid == id).Select(p => new { p.Fileid, p.Filedata, p.FileName, p.Filetype, p.UploadDate })).FirstOrDefault();
 
-                var memorycontent = new MemoryStream(filelist.Filedata);
-                //  string cotenttype = GetfileContenttype(filelist.Filetype);
+            var memorycontent = new MemoryStream(filelist.Filedata);
+            //  string cotenttype = GetfileContenttype(filelist.Filetype);
 
-                string fileres = Encoding.UTF8.GetString(filelist.Filedata, 0, filelist.Filedata.Length);
-                StreamContent  _rescontent= new StreamContent(memorycontent); ;// new StringContent(JsonConvert.SerializeObject(fileres), Encoding.UTF8, cotenttype);
-                return new downloadResult(memorycontent, Request, filelist.FileName);
-                /*
-                response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
-                response.Content.Headers.ContentType = new MediaTypeHeaderValue(cotenttype);
-                response.Content.Headers.Add("x-FileName", filelist.FileName);
-                var newFileName = Path.Combine(diskFolderPath, filelist.FileName);
-                File.WriteAllBytes(newFileName, filelist.Filedata);
-                return response;
-                */
+            string fileres = Encoding.UTF8.GetString(filelist.Filedata, 0, filelist.Filedata.Length);
+            StreamContent _rescontent = new StreamContent(memorycontent); ;// new StringContent(JsonConvert.SerializeObject(fileres), Encoding.UTF8, cotenttype);
+            Log.Info("in GetfileAttachemnet  method in last line");
+            return new downloadResult(memorycontent, Request, filelist.FileName);
+            /*
+            response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
+            response.Content.Headers.ContentType = new MediaTypeHeaderValue(cotenttype);
+            response.Content.Headers.Add("x-FileName", filelist.FileName);
+            var newFileName = Path.Combine(diskFolderPath, filelist.FileName);
+            File.WriteAllBytes(newFileName, filelist.Filedata);
+            return response;
+            */
             //}
             //catch (System.Exception e)
             //{

@@ -43,6 +43,7 @@ export class ToDoComponent  extends BaseComponent  implements OnInit {
       }
 
     addtodoitem() {
+        console.log('in addtodoitem');
         if (this.todoForm.status == 'INVALID') {
             this.validateAllFields(this.todoForm); 
             return;
@@ -81,6 +82,7 @@ export class ToDoComponent  extends BaseComponent  implements OnInit {
     }
 
     CancelItem() {
+        console.log('in cancel');
         this.modalRef.hide(); 
         this.Loadtodolist();
     }

@@ -24,16 +24,25 @@ import { NotAuthorizedComponent } from './Components/notauthorized.component';
 import { AddUserComponent } from './Components/add-user.component';
 import { BaseComponent } from './Components/BaseComponent';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { TicketComponent } from './Components/ticket.component';
+import { DropdownComponent } from './Components/dropdown.component';
+import { TicketService } from '././Service/ticket.service';
+import {  AlertModule } from 'ngx-bootstrap/alert'
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { FileService } from './Service/file.service';
+
 
 @NgModule({
   declarations: [
-    AppComponent,ToDoComponent,NgbDatePipe,LoginComponent, PageNotFoundComponent, MenuComponent,BaseComponent, NotAuthorizedComponent, AddUserComponent
+    AppComponent,ToDoComponent,NgbDatePipe,LoginComponent, PageNotFoundComponent, MenuComponent,BaseComponent, NotAuthorizedComponent, AddUserComponent,
+    TicketComponent,DropdownComponent
   ],
   imports: [
     BrowserModule,NgbModule,BrowserAnimationsModule,
-    AppRoutingModule,FormsModule,BsDatepickerModule.forRoot(),ModalModule.forRoot(),HttpClientModule,ReactiveFormsModule
+    AppRoutingModule,FormsModule,BsDatepickerModule.forRoot(),ModalModule.forRoot(),AlertModule.forRoot(), TabsModule.forRoot(),HttpClientModule,ReactiveFormsModule
   ],
-  providers: [{ provide: APP_BASE_HREF, useValue: '/angtodo/' },DatePipe,TodoService,AuthGuard, UserService, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }, MessageService],
+  providers: [{ provide: APP_BASE_HREF, useValue: '/angtodo/' },DatePipe,TodoService,AuthGuard, UserService,FileService, TicketService,{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor,
+     multi: true }, MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
