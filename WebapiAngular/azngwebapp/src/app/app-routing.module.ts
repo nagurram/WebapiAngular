@@ -10,11 +10,11 @@ import { TicketComponent } from './Components/ticket.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'angtodo', component: ToDoComponent },
+  { path: 'Home', component: ToDoComponent },
   { path: 'login', component: LoginComponent },
   { path: 'NotAuthorized', component: NotAuthorizedComponent },
   { path: 'adduser', component: AddUserComponent },
-  { path: 'Home', component: TicketComponent, canActivate: [AuthGuard] },
+  { path: 'Ticket', component: TicketComponent, canActivate: [AuthGuard] },
   { path: '**', component: PageNotFoundComponent, canActivate: [AuthGuard] }
   
 ];

@@ -40,6 +40,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
     }
 
     logout() {
+        this.messageService.setMessage(null);
         this.userService.userlogout();
     }
 
@@ -62,7 +63,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
             (data: any) => {
                 localStorage.setItem('userToken', data.access_token);
                 this.loadMenus();
-                this.router.navigate(['/angtodo']);
+                this.router.navigate(['/Home']);
             },
             err => {
                 this.msg = err.error.error_description;

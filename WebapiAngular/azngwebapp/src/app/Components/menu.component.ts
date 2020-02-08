@@ -54,6 +54,7 @@ export class MenuComponent implements OnInit {
 
     logout(): void {
         this.userModel = null;
+        this.messageService.setMessage(null);
         this.userService.userlogout();
         this.router.navigateByUrl('/login');
     }

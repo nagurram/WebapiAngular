@@ -1,10 +1,10 @@
-﻿import { HttpInterceptor, HttpRequest, HttpHandler, HttpUserEvent, HttpEvent } from "@angular/common/http";
-import { Observable } from "rxjs";
+﻿import { HttpInterceptor, HttpRequest, HttpHandler, HttpUserEvent, HttpEvent, HttpErrorResponse } from "@angular/common/http";
+import { Observable, throwError } from "rxjs";
 import { UserService } from "../Service/user.service";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { Location } from '@angular/common';
-import { map, filter, tap } from 'rxjs/operators';
+import { map, filter, tap, catchError, retry } from 'rxjs/operators';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -20,19 +20,20 @@ export class AuthInterceptor implements HttpInterceptor {
                 headers: req.headers.set("Authorization", "Bearer " + localStorage.getItem('userToken'))
             });
             return next.handle(clonedreq).pipe(
-                tap(
-                    succ => { },
-                    err => {
-                        if (err.status === 401)
-                            if (localStorage.getItem('userToken') != null) {
-                               // this.location.back();
-                                this.router.navigateByUrl('/NotAuthorized');
-                            }
-                            else {
-                                this.router.navigateByUrl('/login');
-                            }
+                retry(1),
+                catchError((error: HttpErrorResponse) => {
+                    let errorMessage = '';
+                    if (error.error instanceof ErrorEvent) {
+                        // client-side error
+                        errorMessage = `Error: ${error.error.message}`;
+                    } else {
+                        // server-side error
+                        errorMessage = `Error Status: ${error.status}\nMessage: ${error.message}`;
                     }
-                ));
+                    console.log(errorMessage);
+                    return throwError(errorMessage);
+                })
+            );
         }
         else {
             this.router.navigateByUrl('/login');

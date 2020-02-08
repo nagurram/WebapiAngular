@@ -27,10 +27,8 @@ namespace DataApi.api
         {
             try
             {
-                BLog.Info("in Json converion method");
                 var response = Request.CreateResponse(HttpStatusCode.OK);
                 response.Content = new StringContent(JsonConvert.SerializeObject(obj), Encoding.UTF8, "application/json");
-                BLog.Info(response);
                 return response;
             }
             catch(System.Exception e)

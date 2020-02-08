@@ -27,10 +27,14 @@ namespace DataApi.Providers
                 Resource _logedinUser = null;
                 using (TicketTrackerEntities2 _repo = new TicketTrackerEntities2())
                 {
-                    var user = (from p in _repo.Resources
-                                where p.Email.Equals(context.UserName, StringComparison.OrdinalIgnoreCase) && p.Pwd.Equals(context.Password)
-                                select p).FirstOrDefault();
+                    Log.Info("step 1 of authentication");
 
+                    var user = _repo.Resources.Where(c => c.Email.Equals(context.UserName, StringComparison.OrdinalIgnoreCase) && c.Pwd.Equals(context.Password))
+                        .FirstOrDefault();
+                    //var user = (from p in _repo.Resources
+                    //            where p.Email.Equals(context.UserName, StringComparison.OrdinalIgnoreCase) && p.Pwd.Equals(context.Password)
+                    //            select p).FirstOrDefault();
+                    Log.Info("step 2 of authentication");
                     if (user == null)
                     {
                         context.SetError("invalid_grant", "The user name or password is incorrect.");
@@ -52,6 +56,7 @@ namespace DataApi.Providers
                     identity.AddClaim(new Claim(ClaimTypes.Role, rl));
                 }
                 context.Validated(identity);
+                Log.Info("end of authentication");
             }
             catch (System.Exception ex)
             {
