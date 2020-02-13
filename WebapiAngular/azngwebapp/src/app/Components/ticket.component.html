@@ -43,7 +43,7 @@
                     <h2>{{ticketForm.controls['Title'].value}}</h2>
                 </div>
                 <div class="col-md-3  top-buffer">
-                    <button title="Save" class="btn btn-primary" (click)="saveticket()">Save</button>
+                    <button title="Save" class="btn btn-primary" (click)="saveticket()">Save</button>&nbsp;&nbsp;
                     <a href="javascript:void(0)" (click)="goBack()" class="btn btn-info btn-md">
                         <span class="glyphicon glyphicon-chevron-left"></span> Back
                     </a>
@@ -255,7 +255,7 @@
                                     <td>{{tkt.Filetype}} <a (click)="downloadfile(tkt.Fileid)" href="#">Download</a>
                                     </td>
                                     <td>{{tkt.UploadDate|date}}</td>
-                                    <td> <a href="./api/ticketapi/GetfileAttachemnet/{{tkt.Fileid}}">Download</a>
+                                    <td> <a href=".././dataapi/api/ticketapi/GetfileAttachemnet/{{tkt.Fileid}}">Download</a>
                                     </td>
                                 </tr>
                             </tbody>

@@ -30,9 +30,9 @@ namespace DataApi
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             HttpConfiguration config = new HttpConfiguration();
-            ConfigureOAuth(app);
-            WebApiConfig.Register(config);
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
+            ConfigureOAuth(app);
+            WebApiConfig.Register(config);            
             app.UseWebApi(config);
         }
 

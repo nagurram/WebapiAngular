@@ -23,7 +23,7 @@ namespace DataApi.Providers
             try
             {
                 Log.Info("in Login, User id is:  " + context.UserName + " , Pwd " + context.Password);
-                context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
+               // context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
                 Resource _logedinUser = null;
                 using (TicketTrackerEntities2 _repo = new TicketTrackerEntities2())
                 {
