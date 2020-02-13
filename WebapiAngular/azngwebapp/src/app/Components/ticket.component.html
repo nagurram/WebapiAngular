@@ -252,7 +252,7 @@
 
                                     <td>{{tkt.Fileid}}</td>
                                     <td>{{tkt.FileName}}</td>
-                                    <td>{{tkt.Filetype}} <a (click)="downloadfile(tkt.Fileid)" href="#">Download</a>
+                                    <td>{{tkt.Filetype}} <a (click)="downloadfile(tkt.Fileid)" >Download</a>
                                     </td>
                                     <td>{{tkt.UploadDate|date}}</td>
                                     <td> <a href=".././dataapi/api/ticketapi/GetfileAttachemnet/{{tkt.Fileid}}">Download</a>
