@@ -268,10 +268,13 @@ export class TicketComponent implements OnInit {
     downloadfile(id: number): void {
         console.log('in download file file id : '+id);
         this.fileService.downloadFile(Global.BASE_TICKET_ENDPOINT + Global.BASE_TICKET_FILE + id).subscribe(response => {
-			let blob:any = new Blob([response.blob()], { type: 'text' });
-			const url= window.URL.createObjectURL(blob);
-			window.open(url);
-			window.location.href = response.url;
+            this.downLoadResponse(response,'application/octet-stream','rent.pdf');
+            
+            
+            // let blob:any = new Blob([response], { type: 'application/octet-stream' });
+			// const url= window.URL.createObjectURL(blob);
+			// window.open(url);
+			//window.location.href = response.url;
 			//fileSaver.saveAs(blob, 'employees.json');
 		}), error => console.log('Error downloading the file'),
                  () => console.info('File downloaded successfully');
