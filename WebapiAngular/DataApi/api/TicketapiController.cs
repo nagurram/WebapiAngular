@@ -225,7 +225,7 @@ namespace DataApi.api
         }
 
 
-        [HttpGet, Route("GetfileAttachemnet/{id}"), AllowAnonymous]
+        [HttpGet, Route("GetfileAttachemnet/{id}")]
         public IHttpActionResult GetfileAttachemnet(int id)
         {
             HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);

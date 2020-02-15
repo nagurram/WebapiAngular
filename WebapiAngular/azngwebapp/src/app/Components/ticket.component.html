@@ -242,20 +242,16 @@
                                 <tr>
                                     <th>File Id</th>
                                     <th>File Name</th>
-                                    <th>File Type</th>
                                     <th>Upload date</th>
                                     <th>Download</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr *ngFor="let tkt of attachments">
-
                                     <td>{{tkt.Fileid}}</td>
                                     <td>{{tkt.FileName}}</td>
-                                    <td>{{tkt.Filetype}} <a  (click)="downloadfile(tkt.Fileid)" style="cursor: pointer;" >Download</a>
-                                    </td>
                                     <td>{{tkt.UploadDate|date}}</td>
-                                    <td> <a href=".././dataapi/api/ticketapi/GetfileAttachemnet/{{tkt.Fileid}}">Download</a>
+                                    <td> <a  (click)="downloadfile(tkt.Fileid,tkt.FileName)" style="cursor: pointer;" >Download</a>
                                     </td>
                                 </tr>
                             </tbody>

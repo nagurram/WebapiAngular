@@ -29,7 +29,6 @@ import { DropdownComponent } from './Components/dropdown.component';
 import { TicketService } from '././Service/ticket.service';
 import {  AlertModule } from 'ngx-bootstrap/alert'
 import { TabsModule } from 'ngx-bootstrap/tabs';
-import { FileService } from './Service/file.service';
 
 
 @NgModule({
@@ -41,7 +40,7 @@ import { FileService } from './Service/file.service';
     BrowserModule,NgbModule,BrowserAnimationsModule,
     AppRoutingModule,FormsModule,BsDatepickerModule.forRoot(),ModalModule.forRoot(),AlertModule.forRoot(), TabsModule.forRoot(),HttpClientModule,ReactiveFormsModule
   ],
-  providers: [{ provide: APP_BASE_HREF, useValue: '/angtodo/' },DatePipe,TodoService,AuthGuard, UserService,FileService, TicketService,{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor,
+  providers: [{ provide: APP_BASE_HREF, useValue: '/angtodo/' },DatePipe,TodoService,AuthGuard, UserService, TicketService,{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor,
      multi: true }, MessageService],
   bootstrap: [AppComponent]
 })

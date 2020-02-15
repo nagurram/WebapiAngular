@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
+import { tap } from 'rxjs/operators';
 //import 'rxjs/Rx';
 
 @Injectable()
@@ -72,5 +73,16 @@ export class TicketService {
         // .map((response: Response) => <any>response.json())
         // .catch(this.handleError);
     }
+
+    downloadFile(url: string){	
+   
+        return this._http.get(url,{responseType: 'arraybuffer'})
+        .pipe(
+           tap( // Log the result or error
+             data => console.log(data),
+             error => console.log(error)
+           )
+         );
+     }
 
 }

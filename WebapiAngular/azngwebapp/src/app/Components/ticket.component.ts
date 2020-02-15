@@ -12,7 +12,13 @@ import { DropdownComponent } from './dropdown.component';
 import { HttpHeaders } from '@angular/common/http';
 import { removeSpaces } from '../Validators/removeSpaces.validator';
 import { TabsetComponent, TabDirective } from 'ngx-bootstrap/tabs';
-import { FileService } from '../Service/file.service';
+import { saveAs } from 'file-saver';
+
+const MIME_TYPES = {
+    pdf: 'application/pdf',
+    xls: 'application/vnd.ms-excel',
+    xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetxml.sheet'
+  }
 
 @Component({
     templateUrl: './ticket.component.html'
@@ -40,8 +46,11 @@ export class TicketComponent implements OnInit {
     title: string;
     ticketForm: FormGroup;
     fileblob: any;
+
+
+
     constructor(private _tickservice: TicketService, private _route: ActivatedRoute, private location: Location,
-         private formBuilder: FormBuilder, private router: Router,private datepipe: DatePipe,private fileService: FileService) { }
+         private formBuilder: FormBuilder, private router: Router,private datepipe: DatePipe) { }
 
     ngOnInit(): void {
         this.ticketId = 0;
@@ -214,12 +223,12 @@ export class TicketComponent implements OnInit {
         this.LoadAttachments(id);
     }
 
-
     backtosummary(): void {
         this.ticketId = 0;
         this.ticket = new Ticket();
         this.router.navigate(['/Ticket']);
     }
+
     saveticket(): void {
         console.log(this.ticketForm);
         console.log(this.ticketForm.status);
@@ -262,48 +271,25 @@ export class TicketComponent implements OnInit {
                 this.msg = error;
             }
         );
-
     }
 
-    downloadfile(id: number): void {
+    downloadfile(id: number,fileName:string): void {
+
+        const EXT = fileName.substr(fileName.lastIndexOf('.') + 1);
         console.log('in download file file id : '+id);
-        this.fileService.downloadFile(Global.BASE_TICKET_ENDPOINT + Global.BASE_TICKET_FILE + id).subscribe(response => {
-            this.downLoadResponse(response,'application/octet-stream','rent.pdf');
-            
-            
-            // let blob:any = new Blob([response], { type: 'application/octet-stream' });
-			// const url= window.URL.createObjectURL(blob);
-			// window.open(url);
-			//window.location.href = response.url;
-			//fileSaver.saveAs(blob, 'employees.json');
-		}), error => console.log('Error downloading the file'),
+        this._tickservice.downloadFile(Global.BASE_TICKET_ENDPOINT + Global.BASE_TICKET_FILE + id)
+        .subscribe(data => {
+            //save it on the client machine.
+            saveAs(new Blob([data], {type: MIME_TYPES[EXT]}), fileName);
+          })
+        , error => console.log('Error downloading the file'),
                  () => console.info('File downloaded successfully');
-    }
-
-    downLoadResponse(data: any, type: string, filename: string) {
-        var blob = new Blob([data], { type: type });
-        const url = window.URL.createObjectURL(blob);
-
-        const link = this.downloadZipLink.nativeElement;
-        link.href = url;
-        link.download = filename;
-        link.click();
-
-        window.URL.revokeObjectURL(url)
-
-        var pwa = window.open(url);
-        if (!pwa || pwa.closed || typeof pwa.closed == 'undefined') {
-            alert('Please disable your Pop-up blocker and try again.');
-        }
     }
     
     goto(id){
         this.tabset.tabs[id].active = true;
       }
-
 }
-
-
 
 const statusValidator: ValidatorFn = (fg: FormGroup) => {
     const start = new Date(fg.get('Createddate').value);
