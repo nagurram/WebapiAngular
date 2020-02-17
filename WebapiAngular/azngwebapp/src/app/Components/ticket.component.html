@@ -44,7 +44,7 @@
                 </div>
                 <div class="col-md-3  top-buffer">
                     <button title="Save" class="btn btn-primary" (click)="saveticket()">Save</button>&nbsp;&nbsp;
-                    <a href="javascript:void(0)" (click)="goBack()" class="btn btn-info btn-md">
+                    <a href="javascript:void(0)" (click)="goBack(template)" class="btn btn-info btn-md">
                         <span class="glyphicon glyphicon-chevron-left"></span> Back
                     </a>
                 </div>
@@ -53,13 +53,13 @@
             <tabset #tabset>
                 <tab heading="Basic data">
                     <div class="row top-buffer">
-                        <div class="col-md-2 text-right">
-                            <label class="control-label " for="txtticketid">Ticket Id</label>
+                        <div class="col-md-2">
+                            <label class="control-label"  for="txtticketid" >Ticket Id</label>
                         </div>
                         <div class="col-md-4">
                             <input type="text" id="txtticketid" formControlName="TicketId" class="form-control">
                         </div>
-                        <div class="col-md-2 text-right "
+                        <div class="col-md-2"
                             [class.has-error]="ticketForm.controls['Title'].hasError('required')">
                             <label class="control-label " for="txttitile">Title</label>
                         </div>
@@ -73,7 +73,7 @@
                         </div>
                     </div>
                     <div class="row top-buffer">
-                        <div class="col-md-2 text-right "
+                        <div class="col-md-2"
                             [class.has-error]="ticketForm.controls['TDescription'].hasError('required')">
                             <label class="control-label " for="txtTDescription">Description</label>
                         </div>
@@ -91,7 +91,7 @@
                         </div>
                     </div>
                     <div class="row top-buffer">
-                        <div class="col-md-2 text-right "
+                        <div class="col-md-2"
                             [class.has-error]="ticketForm.controls['CreatedBy'].hasError('min')">
                             <label class="control-label " for="txtCreatedBy">Created By</label>
                         </div>
@@ -102,7 +102,7 @@
                                 Please select Created By
                             </span>
                         </div>
-                        <div class="col-md-2 text-right "
+                        <div class="col-md-2"
                             [class.has-error]="ticketForm.controls['StatusId'].hasError('min')">
                             <label class="control-label " for="txtStatusId">Status</label>
                         </div>
@@ -115,13 +115,13 @@
                         </div>
                     </div>
                     <div class="row top-buffer">
-                        <div class="col-md-2 text-right ">
+                        <div class="col-md-2  ">
                             <label class="control-label " for="txtCreateddate">Created Date</label>
                         </div>
                         <div class="col-md-4">
                             <input type="text" id="txtCreateddate" class="form-control" formControlName="Createddate" />
                         </div>
-                        <div class="col-md-2 text-right "
+                        <div class="col-md-2  "
                             [class.has-error]="ticketForm.controls['AssignedTo'].hasError('min')"><label
                                 class="control-label " for="txtAssignedTo">Assigned to</label></div>
                         <div class="col-md-4" [class.has-error]="ticketForm.controls['AssignedTo'].hasError('min')">
@@ -133,7 +133,7 @@
                         </div>
                     </div>
                     <div class="row top-buffer">
-                        <div class="col-md-2 text-right"
+                        <div class="col-md-2"
                             [class.has-error]="ticketForm.controls['PriorityId'].hasError('min')">
                             <label class="control-label " for="txtPriorityId">Priority</label>
                         </div>
@@ -144,7 +144,7 @@
                                 Please select Priority
                             </span>
                         </div>
-                        <div class="col-md-2 text-right"
+                        <div class="col-md-2"
                             [class.has-error]="ticketForm.controls['TypeId'].hasError('min')">
                             <label class="control-label " for="txtTypeId">Ticket Type</label>
                         </div>
@@ -157,7 +157,7 @@
                         </div>
                     </div>
                     <div class="row top-buffer">
-                        <div class="col-md-2 text-right"
+                        <div class="col-md-2"
                             [class.has-error]="ticketForm.controls['ApplicationId'].hasError('min')">
                             <label class="control-label " for="txtApplicationId">Application</label>
                         </div>
@@ -168,7 +168,7 @@
                                 Please select Application
                             </span>
                         </div>
-                        <div class="col-md-2 text-right"
+                        <div class="col-md-2"
                             [class.has-error]="ticketForm.controls['ModuleID'].hasError('min')">
                             <label class="control-label " for="txtModuleID">Module</label>
                         </div>
@@ -183,7 +183,7 @@
                     </div>
 
                     <div class="row top-buffer">
-                        <div class="col-md-2 text-right"
+                        <div class="col-md-2"
                             [class.has-error]="ticketForm.controls['RootCauseId'].hasError('min')">
                             <label class="control-label " for="txtApplicationId">Root Cause</label>
                         </div>
@@ -194,13 +194,13 @@
                                 Please select Root Cause
                             </span>
                         </div>
-                        <div class="col-md-2 text-right"
+                        <div class="col-md-2"
                             [class.has-error]="ticketForm.controls['ResolutionDeadline'].hasError('required')">
                             <label class="control-label " for="txtResolutionDeadline">Resolution Deadline</label>
                         </div>
                         <div class="col-md-4"
                             [class.has-error]="ticketForm.controls['ResolutionDeadline'].hasError('required')">
-                            <input type="text" id="txtResolutionDeadline" class="form-control"
+                            <input type="text" id="txtResolutionDeadline" class="form-control" bsDatepicker [bsConfig]="datepickerconfig"
                                 formControlName="ResolutionDeadline">
                             <span *ngIf="ticketForm.controls['ResolutionDeadline'].hasError('required')"
                                 class="alert-danger">
@@ -213,7 +213,7 @@
                     </div>
 
                     <div class="row top-buffer">
-                        <div class="col-md-2 text-right"
+                        <div class="col-md-2"
                             [class.has-error]="ticketForm.controls['Coommnets'].hasError('required')"><label
                                 class="control-label " for="txtCoommnets">Comments</label></div>
                         <div class="col-md-10"
@@ -276,3 +276,29 @@
         </div>
     </div>
 </div>
+
+<ng-template #template>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Confirm</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+     
+        <div class="modal-body">
+             <h4>
+			 changes will be lost do you want to leave the page?
+			 </h4>
+            
+        </div>
+        <div class="modal-footer">
+            <div class="row">
+                
+                <div class="col-md-6">
+                    <button type="button" (click)="backtosummary()" class="btn btn-warning">Go Back</button>
+                    &nbsp;&nbsp;
+                    <button type="button" (click)="CancelItem()" class="btn btn-primary">cancel</button>
+                </div>
+            </div>
+        </div>   
+</ng-template>

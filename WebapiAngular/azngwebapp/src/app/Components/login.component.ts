@@ -57,11 +57,11 @@ export class LoginComponent extends BaseComponent implements OnInit {
             this.validateAllFields(this.loginForm); 
             return;
         }
-        const result: LoginModel = Object.assign({}, this.loginForm.value);
-        this.loginForm.reset();
+        const result: LoginModel = Object.assign({}, this.loginForm.value);      
         this.userService.userAuthentication(result.Userid, result.Password).subscribe(
             (data: any) => {
                 localStorage.setItem('userToken', data.access_token);
+                this.loginForm.reset();
                 this.loadMenus();
                 this.router.navigate(['/Home']);
             },

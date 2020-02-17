@@ -13,6 +13,11 @@ import { HttpHeaders } from '@angular/common/http';
 import { removeSpaces } from '../Validators/removeSpaces.validator';
 import { TabsetComponent, TabDirective } from 'ngx-bootstrap/tabs';
 import { saveAs } from 'file-saver';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { BsDatepickerConfig} from 'ngx-bootstrap/datepicker';
+import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { BaseComponent } from './BaseComponent';
+import { ApplicationStateService } from '../Service/application-state.service';
 
 const MIME_TYPES = {
     pdf: 'application/pdf',
@@ -21,10 +26,11 @@ const MIME_TYPES = {
   }
 
 @Component({
-    templateUrl: './ticket.component.html'
+    templateUrl: './ticket.component.html',
+    styleUrls: ['./ticket.component.css']
 })
 
-export class TicketComponent implements OnInit {
+export class TicketComponent extends BaseComponent  implements OnInit {
 
     @ViewChild('downloadZipLink', {static: false}) private downloadZipLink: ElementRef;
     @ViewChild('tabset', {static: false}) tabset: TabsetComponent;
@@ -46,11 +52,16 @@ export class TicketComponent implements OnInit {
     title: string;
     ticketForm: FormGroup;
     fileblob: any;
-
-
+    modalRef: BsModalRef;
+    datepickerconfig: Partial<BsDatepickerConfig>;
 
     constructor(private _tickservice: TicketService, private _route: ActivatedRoute, private location: Location,
-         private formBuilder: FormBuilder, private router: Router,private datepipe: DatePipe) { }
+         private formBuilder: FormBuilder, private router: Router,private datepipe: DatePipe,private modalService: BsModalService,
+         private _appstate: ApplicationStateService) { 
+            super();
+            this.datepickerconfig= Object.assign({},{containerClass:'theme-dark-blue',  dateInputFormat: 'DD/MM/YYYY'})
+
+         }
 
     ngOnInit(): void {
         this.ticketId = 0;
@@ -131,7 +142,7 @@ export class TicketComponent implements OnInit {
     //}
 
 
-    goBack() {
+    goBack(template) {
         if (this.ticketForm.dirty) {
             //todo Need to add a model to ask for confirmation of
            /*  this.alertService.confirmThis("Your changes will be lost, you want to continue?", function () {
@@ -139,8 +150,13 @@ export class TicketComponent implements OnInit {
             }, function () {
                 return;
             }) */
+            this.modalRef = this.modalService.show(template, { animated: true, keyboard: true, backdrop: true, ignoreBackdropClick: true });
         }
         else {
+            if(this.modalRef!=null)
+            {
+            this.modalRef.hide(); 
+            }
             this.backtosummary();
         }
     }
@@ -226,6 +242,10 @@ export class TicketComponent implements OnInit {
     backtosummary(): void {
         this.ticketId = 0;
         this.ticket = new Ticket();
+        if(this.modalRef!=null)
+        {
+        this.modalRef.hide(); 
+        }
         this.router.navigate(['/Ticket']);
     }
 
@@ -289,6 +309,10 @@ export class TicketComponent implements OnInit {
     goto(id){
         this.tabset.tabs[id].active = true;
       }
+
+      CancelItem() {
+        this.modalRef.hide(); 
+    }
 }
 
 const statusValidator: ValidatorFn = (fg: FormGroup) => {

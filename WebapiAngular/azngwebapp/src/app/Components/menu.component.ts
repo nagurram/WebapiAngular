@@ -20,7 +20,8 @@ import { Router } from "@angular/router";
         </ul>
         </div>
       </nav>
-        </div>` 
+        </div>` ,
+        // styles: ['.navbar-nav {background-color:#337AB7 !important;}']
 })
 
 
