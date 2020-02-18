@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, TemplateRef, ViewChild, ElementRef , ViewChildren , QueryList , AfterViewInit} from '@angular/core';
+﻿import { Component, OnInit, TemplateRef, ViewChild, ElementRef, ViewChildren, QueryList, AfterViewInit } from '@angular/core';
 import { TicketService } from '../Service/ticket.service';
 import { FormBuilder, FormGroup, Validators, FormControl, ValidatorFn } from '@angular/forms';
 import { IkeyValuePair } from '../Model/keyValuePair';
@@ -14,27 +14,28 @@ import { removeSpaces } from '../Validators/removeSpaces.validator';
 import { TabsetComponent, TabDirective } from 'ngx-bootstrap/tabs';
 import { saveAs } from 'file-saver';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import { BsDatepickerConfig} from 'ngx-bootstrap/datepicker';
+import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { BaseComponent } from './BaseComponent';
 import { ApplicationStateService } from '../Service/application-state.service';
+import { Title } from '@angular/platform-browser';
 
 const MIME_TYPES = {
     pdf: 'application/pdf',
     xls: 'application/vnd.ms-excel',
     xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetxml.sheet'
-  }
+}
 
 @Component({
     templateUrl: './ticket.component.html',
     styleUrls: ['./ticket.component.css']
 })
 
-export class TicketComponent extends BaseComponent  implements OnInit {
+export class TicketComponent extends BaseComponent implements OnInit {
 
-    @ViewChild('downloadZipLink', {static: false}) private downloadZipLink: ElementRef;
-    @ViewChild('tabset', {static: false}) tabset: TabsetComponent;
-    disableSwitching: boolean;    
+    @ViewChild('downloadZipLink', { static: false }) private downloadZipLink: ElementRef;
+    @ViewChild('tabset', { static: false }) tabset: TabsetComponent;
+    disableSwitching: boolean;
     indLoading: boolean = false;
     applications: IkeyValuePair[];
     users: IkeyValuePair[];
@@ -56,12 +57,13 @@ export class TicketComponent extends BaseComponent  implements OnInit {
     datepickerconfig: Partial<BsDatepickerConfig>;
 
     constructor(private _tickservice: TicketService, private _route: ActivatedRoute, private location: Location,
-         private formBuilder: FormBuilder, private router: Router,private datepipe: DatePipe,private modalService: BsModalService,
-         private _appstate: ApplicationStateService) { 
-            super();
-            this.datepickerconfig= Object.assign({},{containerClass:'theme-dark-blue',  dateInputFormat: 'DD/MM/YYYY'})
-
-         }
+        private formBuilder: FormBuilder, private router: Router, private datepipe: DatePipe, private modalService: BsModalService,
+        private _appstate: ApplicationStateService, private titleService: Title) {
+        super();
+        this.datepickerconfig = Object.assign({}, { containerClass: 'theme-dark-blue', dateInputFormat: 'DD/MM/YYYY' })
+        this.title = 'Ticket Summary';
+        this.titleService.setTitle(this.title);
+    }
 
     ngOnInit(): void {
         this.ticketId = 0;
@@ -87,6 +89,7 @@ export class TicketComponent extends BaseComponent  implements OnInit {
                     this.ticketId = 0;
                     console.log('Loading all tickets');
                     this.LoadTickets();
+                    this.title = 'Ticket Summary';
                 }
             });
 
@@ -145,17 +148,16 @@ export class TicketComponent extends BaseComponent  implements OnInit {
     goBack(template) {
         if (this.ticketForm.dirty) {
             //todo Need to add a model to ask for confirmation of
-           /*  this.alertService.confirmThis("Your changes will be lost, you want to continue?", function () {
-                this.backtosummary();
-            }, function () {
-                return;
-            }) */
+            /*  this.alertService.confirmThis("Your changes will be lost, you want to continue?", function () {
+                 this.backtosummary();
+             }, function () {
+                 return;
+             }) */
             this.modalRef = this.modalService.show(template, { animated: true, keyboard: true, backdrop: true, ignoreBackdropClick: true });
         }
         else {
-            if(this.modalRef!=null)
-            {
-            this.modalRef.hide(); 
+            if (this.modalRef != null) {
+                this.modalRef.hide();
             }
             this.backtosummary();
         }
@@ -164,6 +166,7 @@ export class TicketComponent extends BaseComponent  implements OnInit {
     LoadTickets(): void {
         this.indLoading = true;
         this.title = "Ticket Summary";
+        this.titleService.setTitle(this.title);
         this._tickservice.get(Global.BASE_TICKET_ENDPOINT)
             .subscribe(tickets => { this.tickets = tickets; this.indLoading = false; },
                 error => this.msg = <any>error);
@@ -231,6 +234,7 @@ export class TicketComponent extends BaseComponent  implements OnInit {
             .subscribe(ticket => {
                 this.ticket = ticket.body[0];
                 this.title = this.ticket.Title;
+                this.titleService.setTitle(this.title);
                 this.ticketForm.setValue(Object.assign({}, this.ticket));
             },
                 error => this.msg = <any>error);
@@ -242,9 +246,8 @@ export class TicketComponent extends BaseComponent  implements OnInit {
     backtosummary(): void {
         this.ticketId = 0;
         this.ticket = new Ticket();
-        if(this.modalRef!=null)
-        {
-        this.modalRef.hide(); 
+        if (this.modalRef != null) {
+            this.modalRef.hide();
         }
         this.router.navigate(['/Ticket']);
     }
@@ -253,6 +256,7 @@ export class TicketComponent extends BaseComponent  implements OnInit {
         console.log(this.ticketForm);
         console.log(this.ticketForm.status);
         if (this.ticketForm.status == 'INVALID') {
+            this.validateAllFields(this.ticketForm);
             return;
         }
         const tktresult: Ticket = Object.assign({}, this.ticketForm.getRawValue());
@@ -293,25 +297,25 @@ export class TicketComponent extends BaseComponent  implements OnInit {
         );
     }
 
-    downloadfile(id: number,fileName:string): void {
+    downloadfile(id: number, fileName: string): void {
 
         const EXT = fileName.substr(fileName.lastIndexOf('.') + 1);
-        console.log('in download file file id : '+id);
+        console.log('in download file file id : ' + id);
         this._tickservice.downloadFile(Global.BASE_TICKET_ENDPOINT + Global.BASE_TICKET_FILE + id)
-        .subscribe(data => {
-            //save it on the client machine.
-            saveAs(new Blob([data], {type: MIME_TYPES[EXT]}), fileName);
-          })
-        , error => console.log('Error downloading the file'),
-                 () => console.info('File downloaded successfully');
+            .subscribe(data => {
+                //save it on the client machine.
+                saveAs(new Blob([data], { type: MIME_TYPES[EXT] }), fileName);
+            })
+            , error => console.log('Error downloading the file'),
+            () => console.info('File downloaded successfully');
     }
-    
-    goto(id){
-        this.tabset.tabs[id].active = true;
-      }
 
-      CancelItem() {
-        this.modalRef.hide(); 
+    goto(id) {
+        this.tabset.tabs[id].active = true;
+    }
+
+    CancelItem() {
+        this.modalRef.hide();
     }
 }
 

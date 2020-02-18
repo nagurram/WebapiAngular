@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: 'adduser', component: AddUserComponent },
   { path: 'Ticket', component: TicketComponent, canActivate: [AuthGuard] },
   { path: '**', component: PageNotFoundComponent, canActivate: [AuthGuard] }
-  
+
 ];
 
 @NgModule({

@@ -1,6 +1,7 @@
 ﻿import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { Title } from '@angular/platform-browser';
 @Component({
     template: `<h1> Page Not Authorized!</h1>
 <br/>
@@ -11,7 +12,9 @@ import { Location } from '@angular/common';
 })
 
 export class NotAuthorizedComponent {
-    constructor(private _router: Router, private location: Location) { }
+    constructor(private _router: Router, private location: Location, private titleService: Title) {
+        this.titleService.setTitle('Page Not Authorized!');
+    }
     goBack() {
         this.location.back();
     }

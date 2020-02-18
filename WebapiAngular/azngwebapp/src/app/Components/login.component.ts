@@ -18,6 +18,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
     routeCollection: any;
     loginmodel: LoginModel;
     msg: string;
+    loginclick: boolean = false;
     isLoginError: boolean = false;
 
     constructor(private userService: UserService, private router: Router, public messageService: MessageService, private formBuilder: FormBuilder) {
@@ -54,10 +55,11 @@ export class LoginComponent extends BaseComponent implements OnInit {
 
     authenticate() {
         if (this.loginForm.status == 'INVALID') {
-            this.validateAllFields(this.loginForm); 
+            this.validateAllFields(this.loginForm);
             return;
         }
-        const result: LoginModel = Object.assign({}, this.loginForm.value);      
+        this.loginclick = true;
+        const result: LoginModel = Object.assign({}, this.loginForm.value);
         this.userService.userAuthentication(result.Userid, result.Password).subscribe(
             (data: any) => {
                 localStorage.setItem('userToken', data.access_token);
@@ -67,6 +69,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
             },
             err => {
                 this.msg = err.error.error_description;
+                this.loginclick = true;
             });
     }
 }

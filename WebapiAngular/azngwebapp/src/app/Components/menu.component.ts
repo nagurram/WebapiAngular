@@ -21,7 +21,7 @@ import { Router } from "@angular/router";
         </div>
       </nav>
         </div>` ,
-        // styles: ['.navbar-nav {background-color:#337AB7 !important;}']
+    // styles: ['.navbar-nav {background-color:#337AB7 !important;}']
 })
 
 
@@ -31,7 +31,7 @@ export class MenuComponent implements OnInit {
     //routeCollection: IkeyValuePair[];
     subscription: Subscription;
     constructor(public messageService: MessageService, private userService: UserService, private router: Router) {
-       // this.routeCollection = [];
+        // this.routeCollection = [];
     }
 
     ngOnInit(): void {

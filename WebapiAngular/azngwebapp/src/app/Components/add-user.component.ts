@@ -8,7 +8,7 @@ import { Global } from '../Shared/global';
 import { Router, ActivatedRoute, Route } from '@angular/router';
 import { removeSpaces } from '../Validators/removeSpaces.validator';
 import { BaseComponent } from './BaseComponent';
-
+import { Title } from '@angular/platform-browser';
 
 
 @Component({
@@ -19,15 +19,16 @@ export class AddUserComponent extends BaseComponent implements OnInit {
   addUsermodel: AddUserModel;
   addUserForm: FormGroup;
   msg: string;
-  savedsuccess:boolean;
+  savedsuccess: boolean;
   //isValidationError: boolean = false;
 
-  constructor(private formBuilder: FormBuilder, private _userService: UserService) {
+  constructor(private formBuilder: FormBuilder, private _userService: UserService, private titleService: Title) {
     super();
+    this.titleService.setTitle('Add new User');
   }
 
   ngOnInit(): void {
-    this.savedsuccess=false;
+    this.savedsuccess = false;
     this.addUsermodel = new AddUserModel();
     this.addUserForm = this.formBuilder.group({});
     this.addUserForm = this.formBuilder.group({
@@ -40,7 +41,7 @@ export class AddUserComponent extends BaseComponent implements OnInit {
 
   adduser() {
     if (this.addUserForm.status == 'INVALID') {
-      this.validateAllFields(this.addUserForm); 
+      this.validateAllFields(this.addUserForm);
       return;
     }
     const result: AddUserModel = Object.assign({}, this.addUserForm.value);
@@ -50,22 +51,22 @@ export class AddUserComponent extends BaseComponent implements OnInit {
       data => {
         if (data == 1) //Success
         {
-          this.savedsuccess=true;
+          this.savedsuccess = true;
           console.log('User Saved!');
           this.msg = "User Saved!"
         }
         else {
-          this.savedsuccess=false;
+          this.savedsuccess = false;
           console.log('error');
           this.msg = "There is some issue in saving records, please contact to system administrator!"
         }
       },
       error => {
         console.log('error');
-        this.savedsuccess=false;
+        this.savedsuccess = false;
         this.msg = error;
       }
     );
-  } 
+  }
 
 }

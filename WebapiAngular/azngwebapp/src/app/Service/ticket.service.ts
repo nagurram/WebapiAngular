@@ -13,23 +13,23 @@ export class TicketService {
 
     get(url: string): Observable<any> {
         return this._http.get(url);
-           // .map((response: Response) => <any>response.json())
-          //  .catch(this.handleError);
+        // .map((response: Response) => <any>response.json())
+        //  .catch(this.handleError);
     }
 
-    getById(url: string, id: number): Observable<any> {        
+    getById(url: string, id: number): Observable<any> {
         return this._http.get(url + id, { observe: 'response' });
         //.map((response: Response) => <any>response.json())
-         //   .catch(this.handleError);
+        //   .catch(this.handleError);
     }
 
     post(url: string, model: any): Observable<any> {
         let body = JSON.stringify(model);
-        let headers = new HttpHeaders().set( 'Content-Type', 'application/json' );
-        let options =   { headers: headers };
+        let headers = new HttpHeaders().set('Content-Type', 'application/json');
+        let options = { headers: headers };
         return this._http.post(url, body, options);
-           // .map((response: Response) => <any>response.json())
-           // .catch(this.handleError);
+        // .map((response: Response) => <any>response.json())
+        // .catch(this.handleError);
     }
 
     put(url: string, id: number, model: any): Observable<any> {
@@ -37,16 +37,16 @@ export class TicketService {
         let headers = new HttpHeaders().set('Content-Type', 'application/json');
         let options = { headers: headers };
         return this._http.put(url + id, body, options);
-          //  .map((response: Response) => <any>response.json())
-          //  .catch(this.handleError);
+        //  .map((response: Response) => <any>response.json())
+        //  .catch(this.handleError);
     }
 
     delete(url: string, id: number): Observable<any> {
         let headers = new HttpHeaders().set('Content-Type', 'application/json');
         let options = { headers: headers };
         return this._http.delete(url + id, options);
-      //      .map((response: Response) => <any>response.json())
-         //   .catch(this.handleError);
+        //      .map((response: Response) => <any>response.json())
+        //   .catch(this.handleError);
     }
 
     private handleError(error: Response) {
@@ -54,7 +54,7 @@ export class TicketService {
         return Observable.throw(error.json() || 'Server error');
     }
 
-    uploadFile(url: string, fileToUpload: File ): Observable<any>  {
+    uploadFile(url: string, fileToUpload: File): Observable<any> {
         const _formData = new FormData();
         _formData.append('file', fileToUpload, fileToUpload.name);
         let body = _formData;
@@ -68,21 +68,21 @@ export class TicketService {
     postDownloadFile(url: string): Observable<any> {
         let body = JSON.stringify('');
         //let headers = ;
-       // let options = ;
+        // let options = ;
         return this._http.post(url, body, { responseType: 'blob', headers: new HttpHeaders().append('Content-Type', 'application/json') });
         // .map((response: Response) => <any>response.json())
         // .catch(this.handleError);
     }
 
-    downloadFile(url: string){	
-   
-        return this._http.get(url,{responseType: 'arraybuffer'})
-        .pipe(
-           tap( // Log the result or error
-             data => console.log(data),
-             error => console.log(error)
-           )
-         );
-     }
+    downloadFile(url: string) {
+
+        return this._http.get(url, { responseType: 'arraybuffer' })
+            .pipe(
+                tap( // Log the result or error
+                    data => console.log(data),
+                    error => console.log(error)
+                )
+            );
+    }
 
 }

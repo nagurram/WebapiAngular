@@ -8,6 +8,6 @@ import { IUserModel } from '../Model/userModel';
 export class MessageService {
     public message = new Subject<IUserModel>();
     setMessage(value: IUserModel) {
-        this.message.next(value); 
+        this.message.next(value);
     }
 }
