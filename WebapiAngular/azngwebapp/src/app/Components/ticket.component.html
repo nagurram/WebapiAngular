@@ -1,7 +1,7 @@
-﻿<title>{{title}}</title>
+﻿<title>{{pagetitile}}</title>
 
 
-<div class="container">
+<div class="container" (window:resize)="onResize($event)">
     <!-- <div class="alert alert-info" role="alert" *ngIf="indLoading"><img src="../../images/loading.gif" width="32" height="32" /> Loading...</div> -->
     <div *ngIf='tickets && tickets.length==0' class="alert alert-info" role="alert">No record found!</div>
     <div class='table-responsive' *ngIf="ticketId ==0">
@@ -54,7 +54,7 @@
                 <tab heading="Basic data">
                     <div class="row top-buffer">
                         <div class="col-md-2">
-                            <label class="control-label"  for="txtticketid" >Ticket Id</label>
+                            <label class="control-label"  for="txtticketid" [ngStyle]="{'text-align': (getIsMobileResolution) ? 'left' : 'right'}" >Ticket Id</label>
                         </div>
                         <div class="col-md-4">
                             <input type="text" id="txtticketid" formControlName="TicketId" class="form-control">

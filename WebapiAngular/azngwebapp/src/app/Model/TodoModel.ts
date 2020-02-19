@@ -3,5 +3,5 @@ export class TodoModel {
     Titile: string;
     Description: string;
     actionDate: Date;
-    IsActive:Boolean;
+    IsActive: Boolean;
 }

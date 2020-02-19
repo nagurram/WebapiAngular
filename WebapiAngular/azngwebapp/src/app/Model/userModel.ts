@@ -3,5 +3,5 @@
 export interface IUserModel {
     Userid: string,
     UserName: string,
-   routeCollection: IkeyValuePair[];    
+    routeCollection: IkeyValuePair[];
 }

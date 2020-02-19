@@ -34,16 +34,16 @@ export class ToDoComponent extends BaseComponent implements OnInit {
 
 
     constructor(private _todoService: TodoService, private formBuilder: FormBuilder, private modalService: BsModalService
-        , private titleService: Title) {
-        super();
+        , titleService: Title) {
+        super(titleService);
         this.datepickerconfig = Object.assign({}, { containerClass: 'theme-dark-blue', dateInputFormat: 'DD/MM/YYYY' });
-        this.titleService.setTitle('To Do List');
+        this.pagetitile = 'To Do List';
     }
 
     openAddtodoModal(template: TemplateRef<any>) {
         this.modalRef = this.modalService.show(template, { animated: true, keyboard: true, backdrop: true, ignoreBackdropClick: true });
         this.additems();
-        this.titleService.setTitle('Add a new Todo');
+        this.pagetitile = 'Add a new Todo';
     }
 
     addtodoitem() {

@@ -22,9 +22,9 @@ export class AddUserComponent extends BaseComponent implements OnInit {
   savedsuccess: boolean;
   //isValidationError: boolean = false;
 
-  constructor(private formBuilder: FormBuilder, private _userService: UserService, private titleService: Title) {
-    super();
-    this.titleService.setTitle('Add new User');
+  constructor(private formBuilder: FormBuilder, private _userService: UserService, titleService: Title) {
+    super(titleService);
+    this.pagetitile = 'Add new User';
   }
 
   ngOnInit(): void {

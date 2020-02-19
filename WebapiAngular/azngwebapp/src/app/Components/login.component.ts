@@ -7,6 +7,7 @@ import { MenuComponent } from './menu.component';
 import { MessageService } from '../Service/message.service';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { BaseComponent } from './BaseComponent';
+import { Title } from '@angular/platform-browser';
 
 @Component({
     templateUrl: './login.component.html'
@@ -21,8 +22,9 @@ export class LoginComponent extends BaseComponent implements OnInit {
     loginclick: boolean = false;
     isLoginError: boolean = false;
 
-    constructor(private userService: UserService, private router: Router, public messageService: MessageService, private formBuilder: FormBuilder) {
-        super();
+    constructor(private userService: UserService, private router: Router, public messageService: MessageService, 
+        private formBuilder: FormBuilder,titleService: Title) {
+        super(titleService);
     }
 
 

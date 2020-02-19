@@ -1,6 +1,7 @@
 import { FormGroup, FormControl } from "@angular/forms";
 import { Component } from '@angular/core';
 import { ApplicationStateService } from '../Service/application-state.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
     selector: 'app-base',
@@ -8,7 +9,47 @@ import { ApplicationStateService } from '../Service/application-state.service';
 })
 export class BaseComponent {
 
+    private _getIsMobileResolution: boolean = false;
+    private _pagetitile: string = "";
 
+    get pagetitile(): string {
+        return this._pagetitile;
+    }
+    set pagetitile(value: string) {
+        if (value !== this._pagetitile) {
+            this._pagetitile = value;
+            this.changetitile(value);
+        }
+    }
+
+    private _pagewidth: string = "";
+
+
+    get pagewidth(): string {
+        return this._pagewidth;
+    }
+    set pagewidth(value: string) {
+        if (value !== this._pagewidth) {
+            this._pagewidth = value;
+        }
+    }
+
+    get getIsMobileResolution(): boolean {
+        return this._getIsMobileResolution;
+    }
+    set getIsMobileResolution(value: boolean) {
+        if (value !== this._getIsMobileResolution) {
+            this._getIsMobileResolution = value;
+        }
+    }
+
+
+    constructor(protected titleService: Title) {
+    }
+
+    private changetitile(titile: string) {
+        this.titleService.setTitle(titile);
+    }
 
     validateAllFields(formGroup: FormGroup) {
         Object.keys(formGroup.controls).forEach(field => {
@@ -21,4 +62,14 @@ export class BaseComponent {
             }
         });
     }
+
+    onResize(event) {
+
+        const innerWidth = event.target.innerWidth;
+        console.log(innerWidth);
+     
+        if (innerWidth < 768) {
+          this.getIsMobileResolution=true;
+        }
+     }
 }
