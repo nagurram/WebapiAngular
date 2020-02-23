@@ -67,8 +67,8 @@ export class BaseComponent {
 
         const innerWidth = event.target.innerWidth;
         console.log(innerWidth);
-     
-        if (innerWidth < 768) {
+        this.getIsMobileResolution=false;
+        if (innerWidth < 992) {
           this.getIsMobileResolution=true;
         }
      }

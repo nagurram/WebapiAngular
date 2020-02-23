@@ -29,6 +29,9 @@ export class AuthInterceptor implements HttpInterceptor {
                     } else {
                         // server-side error
                         errorMessage = `Error Status: ${error.status}\nMessage: ${error.message}`;
+                        if (error.status == 401) {
+                            this.router.navigateByUrl('/login');
+                        }
                     }
                     console.log(errorMessage);
                     return throwError(errorMessage);
