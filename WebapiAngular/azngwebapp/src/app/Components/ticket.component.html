@@ -4,7 +4,7 @@
 <div class="container" (window:resize)="onResize($event)">
     <!-- <div class="alert alert-info" role="alert" *ngIf="indLoading"><img src="../../images/loading.gif" width="32" height="32" /> Loading...</div> -->
     <div *ngIf='tickets && tickets.length==0' class="alert alert-info" role="alert">No record found!</div>
-    <div class='table-responsive' *ngIf="ticketId ==0">
+    <div class='table-responsive' *ngIf="ticketId ==-1">
         <table class="table table-striped table-bordered" *ngIf='tickets && tickets.length'>
             <thead>
                 <tr>
@@ -60,10 +60,10 @@
                             <input type="text" id="txtticketid" formControlName="TicketId" class="form-control">
                         </div>
                         <div class="col-md-2"
-                            [class.has-error]="ticketForm.controls['Title'].hasError('required')">
+                            [class.has-error]="ticketForm.controls['Title'].touched && ticketForm.controls['Title'].hasError('required')">
                             <label class="control-label " for="txttitile" [ngStyle]="{'text-align': (getIsMobileResolution) ? 'left' : 'right'}">Title</label>
                         </div>
-                        <div class="col-md-4" [class.has-error]="ticketForm.controls['Title'].hasError('required')">
+                        <div class="col-md-4" [class.has-error]="ticketForm.controls['Title'].touched && ticketForm.controls['Title'].hasError('required')">
                             <input type="text" id="txttitile" formControlName="Title" class="form-control">
                             <div *ngIf="ticketForm.controls['Title'].touched && !ticketForm.controls['Title'].valid">
                                 <span *ngIf="ticketForm.controls['Title'].hasError('required') " class="alert-danger">
@@ -74,11 +74,11 @@
                     </div>
                     <div class="row top-buffer">
                         <div class="col-md-2"
-                            [class.has-error]="ticketForm.controls['TDescription'].hasError('required')">
+                            [class.has-error]="ticketForm.controls['TDescription'].touched && ticketForm.controls['TDescription'].hasError('required')">
                             <label class="control-label " for="txtTDescription" [ngStyle]="{'text-align': (getIsMobileResolution) ? 'left' : 'right'}">Description</label>
                         </div>
                         <div class="col-md-10"
-                            [class.has-error]="ticketForm.controls['TDescription'].hasError('required')">
+                            [class.has-error]="ticketForm.controls['TDescription'].touched && ticketForm.controls['TDescription'].hasError('required')">
                             <textarea rows="4" formControlName="TDescription" id="txtTDescription" class="form-control"
                                 style="min-width: 100%"></textarea>
                             <div
@@ -195,18 +195,18 @@
                             </span>
                         </div>
                         <div class="col-md-2"
-                            [class.has-error]="ticketForm.controls['ResolutionDeadline'].hasError('required')">
+                            [class.has-error]="ticketForm.controls['ResolutionDeadline'].touched && ticketForm.controls['ResolutionDeadline'].hasError('required')">
                             <label class="control-label " for="txtResolutionDeadline" [ngStyle]="{'text-align': (getIsMobileResolution) ? 'left' : 'right'}">Resolution Deadline</label>
                         </div>
                         <div class="col-md-4"
-                            [class.has-error]="ticketForm.controls['ResolutionDeadline'].hasError('required')">
+                            [class.has-error]="ticketForm.controls['ResolutionDeadline'].touched && ticketForm.controls['ResolutionDeadline'].hasError('required')">
                             <input type="text" id="txtResolutionDeadline" class="form-control" bsDatepicker [bsConfig]="datepickerconfig"
                                 formControlName="ResolutionDeadline">
-                            <span *ngIf="ticketForm.controls['ResolutionDeadline'].hasError('required')"
+                            <span *ngIf="ticketForm.controls['ResolutionDeadline'].touched && ticketForm.controls['ResolutionDeadline'].hasError('required')"
                                 class="alert-danger">
                                 Please Enter Resolution Deadline
                             </span>
-                            <span *ngIf="ticketForm.hasError('range')" class="alert-danger">
+                            <span *ngIf="ticketForm.controls['ResolutionDeadline'].touched && ticketForm.hasError('range') && !ticketForm.controls['ResolutionDeadline'].hasError('required')" class="alert-danger">
                                 Resolution Deadline should be greater than create date
                             </span>
                         </div>
@@ -214,18 +214,18 @@
 
                     <div class="row top-buffer">
                         <div class="col-md-2"
-                            [class.has-error]="ticketForm.controls['Coommnets'].hasError('required')"><label
+                            [class.has-error]="ticketForm.controls['Comments'].touched && ticketForm.controls['Comments'].hasError('required')"><label
                                 class="control-label " for="txtCoommnets" [ngStyle]="{'text-align': (getIsMobileResolution) ? 'left' : 'right'}">Comments</label></div>
                         <div class="col-md-10"
-                            [class.has-error]="ticketForm.controls['Coommnets'].hasError('required')">
+                            [class.has-error]="ticketForm.controls['Comments'].touched && ticketForm.controls['Comments'].hasError('required')">
                             <textarea rows="4" id="txtCoommnets" class="form-control" style="min-width: 100%"
-                                formControlName="Coommnets"></textarea>
+                                formControlName="Comments"></textarea>
 
                             <div
-                                *ngIf="ticketForm.controls['Coommnets'].touched && !ticketForm.controls['Coommnets'].valid">
-                                <span *ngIf="ticketForm.controls['Coommnets'].hasError('required') "
+                                *ngIf="ticketForm.controls['Comments'].touched && !ticketForm.controls['Comments'].valid">
+                                <span *ngIf="ticketForm.controls['Comments'].hasError('required') "
                                     class="alert-danger">
-                                    Coommnets required
+                                    Comments required
                                 </span>
                             </div>
                         </div>

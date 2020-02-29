@@ -45,7 +45,7 @@ namespace DataApi.api
         [HttpPut, Route("Updateticket/{id}")]
         public HttpResponseMessage Put(int id, [FromBody]Ticket value)
         {
-            Ticket _ticket = new Ticket() { TicketId = id, Title = value.Title, TDescription = value.TDescription, CreatedBy = value.CreatedBy, StatusId = value.StatusId, Createddate = value.Createddate, AssignedTo = value.AssignedTo, PriorityId = value.PriorityId, TypeId = value.TypeId, ApplicationId = value.ApplicationId, ModuleID = value.ModuleID, ResponseDeadline = value.ResponseDeadline, ResolutionDeadline = value.ResolutionDeadline, RootCauseId = value.RootCauseId, Coommnets = value.Coommnets, UpdatedBy = value.UpdatedBy, LastModifiedon = value.LastModifiedon };
+            Ticket _ticket = new Ticket() { TicketId = id, Title = value.Title, TDescription = value.TDescription, CreatedBy = value.CreatedBy, StatusId = value.StatusId, Createddate = value.Createddate, AssignedTo = value.AssignedTo, PriorityId = value.PriorityId, TypeId = value.TypeId, ApplicationId = value.ApplicationId, ModuleID = value.ModuleID, ResponseDeadline = value.ResponseDeadline, ResolutionDeadline = value.ResolutionDeadline, RootCauseId = value.RootCauseId, Comments = value.Comments, UpdatedBy = value.UpdatedBy, LastModifiedon = value.LastModifiedon };
             if (_ticket.TicketId == 0)
             {
                 TicketDB.Tickets.Add(_ticket);
@@ -65,7 +65,7 @@ namespace DataApi.api
                 from t in
                 TicketDB.Tickets
                 where t.TicketId == id
-                select new { t.TicketId, t.Title, t.TDescription, t.CreatedBy, t.StatusId, t.Createddate, t.AssignedTo, t.PriorityId, t.TypeId, t.ApplicationId, t.ModuleID, t.ResponseDeadline, t.ResolutionDeadline, t.RootCauseId, t.Coommnets, t.UpdatedBy, t.LastModifiedon }
+                select new { t.TicketId, t.Title, t.TDescription, t.CreatedBy, t.StatusId, t.Createddate, t.AssignedTo, t.PriorityId, t.TypeId, t.ApplicationId, t.ModuleID, t.ResponseDeadline, t.ResolutionDeadline, t.RootCauseId, t.Comments, t.UpdatedBy, t.LastModifiedon }
                 );
         }
 

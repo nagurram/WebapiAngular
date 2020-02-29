@@ -34,7 +34,7 @@ namespace DataApi.DBContext
         public Nullable<System.DateTime> ResponseDeadline { get; set; }
         public Nullable<System.DateTime> ResolutionDeadline { get; set; }
         public Nullable<int> RootCauseId { get; set; }
-        public string Coommnets { get; set; }
+        public string Comments { get; set; }
         public Nullable<int> UpdatedBy { get; set; }
         public Nullable<System.DateTime> LastModifiedon { get; set; }
     

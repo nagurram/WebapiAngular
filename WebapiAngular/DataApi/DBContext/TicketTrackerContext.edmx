@@ -164,7 +164,7 @@ warning 6002: The table/view 'TicketTracker.dbo.MenuPermission' does not have a 
           <Property Name="ResponseDeadline" Type="datetime" />
           <Property Name="ResolutionDeadline" Type="datetime" />
           <Property Name="RootCauseId" Type="int" />
-          <Property Name="Coommnets" Type="nvarchar" MaxLength="4000" />
+          <Property Name="Comments" Type="nvarchar" MaxLength="4000" />
           <Property Name="UpdatedBy" Type="int" />
           <Property Name="LastModifiedon" Type="datetime" />
         </EntityType>
@@ -684,7 +684,7 @@ warning 6002: The table/view 'TicketTracker.dbo.vw_user_permissions' does not ha
           <Property Name="ResponseDeadline" Type="DateTime" Precision="3" />
           <Property Name="ResolutionDeadline" Type="DateTime" Precision="3" />
           <Property Name="RootCauseId" Type="Int32" />
-          <Property Name="Coommnets" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="Comments" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedBy" Type="Int32" />
           <Property Name="LastModifiedon" Type="DateTime" Precision="3" />
           <NavigationProperty Name="ApplicationMaster" Relationship="Self.FK_Tickets_ApplicationMaster" FromRole="Tickets" ToRole="ApplicationMaster" />
@@ -1206,7 +1206,7 @@ warning 6002: The table/view 'TicketTracker.dbo.vw_user_permissions' does not ha
                 <ScalarProperty Name="ResponseDeadline" ColumnName="ResponseDeadline" />
                 <ScalarProperty Name="ResolutionDeadline" ColumnName="ResolutionDeadline" />
                 <ScalarProperty Name="RootCauseId" ColumnName="RootCauseId" />
-                <ScalarProperty Name="Coommnets" ColumnName="Coommnets" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="LastModifiedon" ColumnName="LastModifiedon" />
               </MappingFragment>

@@ -64,7 +64,7 @@ export class TicketComponent extends BaseComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.ticketId = 0;
+        this.ticketId = -1;
         this.Loadapplications();
         this.Loadusers();
         this.Loadmodules();
@@ -77,33 +77,33 @@ export class TicketComponent extends BaseComponent implements OnInit {
             .queryParams
             .subscribe(params => {
                 // Defaults to 0 if no query param provided.
-                this.ticketId = params.ticketId || 0;
-                if (this.ticketId > 0) {
-                    this.GetTicketById(this.ticketId);
-                   // console.log('in query params and ticket id : ' + this.ticketId);
+                this.ticketId = params.ticketId || -1;
+                if (this.ticketId >= 0) {
+                        this.GetTicketById(this.ticketId);
+                    // console.log('in query params and ticket id : ' + this.ticketId);
                 }
-                else {
+                else if (this.ticketId == -1) {
                     this.ticketForm.reset;
-                    this.ticketId = 0;
-                   // console.log('Loading all tickets');
+                    // this.ticketId = 0;
+                    // console.log('Loading all tickets');
                     this.LoadTickets();
                     this.pagetitile = 'Ticket Summary';
                 }
             });
 
-        if (this.ticketId == 0) {
+        if (this.ticketId == -1) {
             this.LoadTickets();
         }
 
         this.ticket = new Ticket();
-        this.ticket.TicketId = -1;
+        this.ticket.TicketId = 0;
         this.ticketForm = this.formBuilder.group({
             'TicketId': new FormControl(this.ticket.TicketId),
             'Title': new FormControl(this.ticket.Title, [removeSpaces, Validators.required]),
             'TDescription': new FormControl(this.ticket.TDescription, [removeSpaces, Validators.required]),
             'CreatedBy': new FormControl(this.ticket.CreatedBy, [Validators.required]),
             'StatusId': new FormControl(this.ticket.StatusId, [Validators.required, Validators.min(1)]),
-            'Createddate': new FormControl(this.ticket.Createddate, [Validators.required]),
+            'Createddate': new FormControl(this.ticket.Createddate).disable(),
             'AssignedTo': new FormControl(this.ticket.AssignedTo, [Validators.required, Validators.min(1)]),
             'PriorityId': new FormControl(this.ticket.PriorityId, [Validators.required, Validators.min(1)]),
             'TypeId': new FormControl(this.ticket.TypeId, [Validators.required, Validators.min(1)]),
@@ -112,7 +112,7 @@ export class TicketComponent extends BaseComponent implements OnInit {
             'ResponseDeadline': new FormControl(this.ticket.ResponseDeadline, [Validators.required]),
             'ResolutionDeadline': new FormControl(this.ticket.ResolutionDeadline, [Validators.required]),
             'RootCauseId': new FormControl(this.ticket.RootCauseId, [Validators.required, Validators.min(1)]),
-            'Coommnets': new FormControl(this.ticket.Coommnets, [removeSpaces, Validators.required]),
+            'Comments': new FormControl(this.ticket.Comments, [removeSpaces, Validators.required]),
             'UpdatedBy': new FormControl(this.ticket.UpdatedBy),
             'LastModifiedon': new FormControl(this.ticket.LastModifiedon)
         }, { validator: statusValidator });
@@ -275,9 +275,9 @@ export class TicketComponent extends BaseComponent implements OnInit {
             data => {
                 if (data.Message == "1") //Success
                 {
-                   // console.log(this.ticketId);
+                    // console.log(this.ticketId);
                     this.LoadAttachments(this.ticketId);
-                   // console.log(this.attachments)
+                    // console.log(this.attachments)
                     this.msg = "File Upload successfull"
                 }
                 else {
@@ -293,14 +293,14 @@ export class TicketComponent extends BaseComponent implements OnInit {
     downloadfile(id: number, fileName: string): void {
 
         const EXT = fileName.substr(fileName.lastIndexOf('.') + 1);
-       // console.log('in download file file id : ' + id);
+        // console.log('in download file file id : ' + id);
         this._tickservice.downloadFile(Global.BASE_TICKET_ENDPOINT + Global.BASE_TICKET_FILE + id)
             .subscribe(data => {
                 //save it on the client machine.
                 saveAs(new Blob([data], { type: MIME_TYPES[EXT] }), fileName);
             })
             , error =>// console.log('Error downloading the file'),
-            () => console.info('File downloaded successfully');
+                () => console.info('File downloaded successfully');
     }
 
     goto(id) {
@@ -315,9 +315,9 @@ export class TicketComponent extends BaseComponent implements OnInit {
 const statusValidator: ValidatorFn = (fg: FormGroup) => {
     const start = new Date(fg.get('Createddate').value);
     const end = new Date(fg.get('ResolutionDeadline').value);
-   // console.log(start);
-   // console.log(end);
-   // console.log(end > start);
+    // console.log(start);
+    // console.log(end);
+    // console.log(end > start);
     var diff = (start !== null && end !== null) ? end > start : 0
     return diff > 0
         ? null

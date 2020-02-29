@@ -13,7 +13,7 @@
     ResponseDeadline: Date;
     ResolutionDeadline: Date;
     RootCauseId: number;
-    Coommnets: string;
+    Comments: string;
     UpdatedBy: number;
     LastModifiedon: Date;
 }
