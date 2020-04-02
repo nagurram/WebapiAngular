@@ -30,7 +30,7 @@ import { TicketService } from '././Service/ticket.service';
 import { AlertModule } from 'ngx-bootstrap/alert'
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ApplicationStateService } from './Service/application-state.service';
-
+import { ButtonsModule } from 'ngx-bootstrap';
 
 @NgModule({
   declarations: [
@@ -39,7 +39,7 @@ import { ApplicationStateService } from './Service/application-state.service';
   ],
   imports: [
     BrowserModule, NgbModule, BrowserAnimationsModule,
-    AppRoutingModule, FormsModule, BsDatepickerModule.forRoot(), ModalModule.forRoot(), AlertModule.forRoot(), TabsModule.forRoot(), HttpClientModule, ReactiveFormsModule
+    AppRoutingModule, FormsModule, BsDatepickerModule.forRoot(),ButtonsModule.forRoot(), ModalModule.forRoot(), AlertModule.forRoot(), TabsModule.forRoot(), HttpClientModule, ReactiveFormsModule
   ],
   providers: [{ provide: APP_BASE_HREF, useValue: '/angtodo/' }, DatePipe, TodoService, AuthGuard, UserService, TicketService, {
     provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor,

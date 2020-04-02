@@ -1,19 +1,19 @@
 ﻿export class Ticket {
-    TicketId: number;
-    Title: string;
-    TDescription: string;
-    CreatedBy: number;
-    StatusId: number;
-    Createddate: Date;
-    AssignedTo: number;
-    PriorityId: number;
-    TypeId: number;
-    ApplicationId: number;
-    ModuleID: number;
-    ResponseDeadline: Date;
-    ResolutionDeadline: Date;
-    RootCauseId: number;
-    Comments: string;
-    UpdatedBy: number;
-    LastModifiedon: Date;
+    TicketId: number=0;
+    Title: string="";
+    TDescription: string="";
+    CreatedBy: number=-1;
+    StatusId: number=-1;
+    Createddate: Date = new Date();
+    AssignedTo: number=-1;
+    PriorityId: number=-1;
+    TypeId: number=-1;
+    ApplicationId: number=-1;
+    ModuleID: number=-1;
+    ResponseDeadline: Date= new Date();
+    ResolutionDeadline: Date= new Date();
+    RootCauseId: number=-1;
+    Comments: string="";
+    UpdatedBy: number=-1;
+    LastModifiedon: Date= new Date();
 }

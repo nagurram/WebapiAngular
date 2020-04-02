@@ -20,6 +20,7 @@ import { BaseComponent } from './BaseComponent';
 import { ApplicationStateService } from '../Service/application-state.service';
 import { Title } from '@angular/platform-browser';
 
+
 const MIME_TYPES = {
     pdf: 'application/pdf',
     xls: 'application/vnd.ms-excel',
@@ -65,25 +66,22 @@ export class TicketComponent extends BaseComponent implements OnInit {
 
     ngOnInit(): void {
         this.ticketId = -1;
-        this.Loadapplications();
-        this.Loadusers();
-        this.Loadmodules();
-        this.Loadstatuses();
-        this.Loadpriorities();
-        this.Loadrootcauses();
-        this.Loadtypes();
+        this.ticket = new Ticket();
         this.ticketForm = this.formBuilder.group({});
+        this.iniTicketdata();
         this.sub = this._route
             .queryParams
             .subscribe(params => {
                 // Defaults to 0 if no query param provided.
                 this.ticketId = params.ticketId || -1;
                 if (this.ticketId >= 0) {
-                        this.GetTicketById(this.ticketId);
-                    // console.log('in query params and ticket id : ' + this.ticketId);
+
+                    this.iniTicketdata();
+                    this.GetTicketById(this.ticketId);
+                    console.log('in query params and ticket id : ' + this.ticketId);
                 }
                 else if (this.ticketId == -1) {
-                    this.ticketForm.reset;
+
                     // this.ticketId = 0;
                     // console.log('Loading all tickets');
                     this.LoadTickets();
@@ -95,8 +93,16 @@ export class TicketComponent extends BaseComponent implements OnInit {
             this.LoadTickets();
         }
 
-        this.ticket = new Ticket();
-        this.ticket.TicketId = 0;
+    }
+
+    //ngOnDestroy() {
+    //    this.sub.unsubscribe();
+    //}
+
+    // #region LoadTicketData
+    iniTicketdata() {
+
+        this.ticket.TicketId = this.ticketId;
         this.ticketForm = this.formBuilder.group({
             'TicketId': new FormControl(this.ticket.TicketId),
             'Title': new FormControl(this.ticket.Title, [removeSpaces, Validators.required]),
@@ -115,7 +121,7 @@ export class TicketComponent extends BaseComponent implements OnInit {
             'Comments': new FormControl(this.ticket.Comments, [removeSpaces, Validators.required]),
             'UpdatedBy': new FormControl(this.ticket.UpdatedBy),
             'LastModifiedon': new FormControl(this.ticket.LastModifiedon)
-        }, { validator: statusValidator });
+        });
 
         this.ticketForm.controls['Createddate'].valueChanges.subscribe(value => {
             this.ticketForm.controls['Createddate'].setValue(this.datepipe.transform(value, 'dd/MM/yyyy'),
@@ -136,12 +142,7 @@ export class TicketComponent extends BaseComponent implements OnInit {
                 });
         });
     }
-
-    //ngOnDestroy() {
-    //    this.sub.unsubscribe();
-    //}
-
-
+    // #endregion 
     goBack(template) {
         if (this.ticketForm.dirty) {
             //todo Need to add a model to ask for confirmation of
@@ -167,7 +168,7 @@ export class TicketComponent extends BaseComponent implements OnInit {
             .subscribe(tickets => { this.tickets = tickets; this.indLoading = false; },
                 error => this.msg = <any>error);
     }
-
+    // #region Load DropdownData  
     LoadAttachments(id: number): void {
 
         this._tickservice.getById(Global.BASE_TICKET_ENDPOINT + Global.BASE_TICKET_ATTCHEMENTS, id)
@@ -223,31 +224,40 @@ export class TicketComponent extends BaseComponent implements OnInit {
             .subscribe(types => { this.types = types; },
                 error => this.msg = <any>error);
     }
-
+    // #endregion 
     GetTicketById(id: number): void {
         this.ticketId = id;
+        this.loaddropdowns();
+
         this._tickservice.getById(Global.BASE_TICKET_ENDPOINT, id)
             .subscribe(ticket => {
-                this.ticket = ticket.body[0];
-                this.pagetitile = this.ticket.Title;
-                this.ticketForm.setValue(Object.assign({}, this.ticket));
+                this.pagetitile = "";
+                if (id > 0) {
+                    this.ticket = ticket.body[0];
+                    this.pagetitile = this.ticket.Title;
+                    this.ticketForm.setValue(Object.assign({}, this.ticket));
+                }
             },
                 error => this.msg = <any>error);
 
         this.ticketForm.controls['TicketId'].disable();
-        this.LoadAttachments(id);
+        if (id > 0) {
+            this.LoadAttachments(id);
+        }
     }
 
     backtosummary(): void {
-        this.ticketId = 0;
+        this.ticketId = -1;
         this.ticket = new Ticket();
         if (this.modalRef != null) {
             this.modalRef.hide();
         }
+        this.ticket.TicketId = this.ticketId;
         this.router.navigate(['/Ticket']);
     }
 
     saveticket(): void {
+        console.log('in save');        
         if (this.ticketForm.status == 'INVALID') {
             this.validateAllFields(this.ticketForm);
             return;
@@ -310,16 +320,28 @@ export class TicketComponent extends BaseComponent implements OnInit {
     CancelItem() {
         this.modalRef.hide();
     }
+
+    loaddropdowns() {
+        this.Loadapplications();
+        this.Loadusers();
+        this.Loadmodules();
+        this.Loadstatuses();
+        this.Loadpriorities();
+        this.Loadrootcauses();
+        this.Loadtypes();
+    }
 }
 
 const statusValidator: ValidatorFn = (fg: FormGroup) => {
+    if(fg.get('TicketId').value<='0')
+    {
+        return null;
+    }
     const start = new Date(fg.get('Createddate').value);
     const end = new Date(fg.get('ResolutionDeadline').value);
     // console.log(start);
     // console.log(end);
     // console.log(end > start);
     var diff = (start !== null && end !== null) ? end > start : 0
-    return diff > 0
-        ? null
-        : { range: true };
+    return diff > 0 ? null : { range: true };
 };
