@@ -78,7 +78,7 @@ export class TicketComponent extends BaseComponent implements OnInit {
 
                     this.iniTicketdata();
                     this.GetTicketById(this.ticketId);
-                    console.log('in query params and ticket id : ' + this.ticketId);
+                    //console.log('in query params and ticket id : ' + this.ticketId);
                 }
                 else if (this.ticketId == -1) {
 
@@ -109,7 +109,7 @@ export class TicketComponent extends BaseComponent implements OnInit {
             'TDescription': new FormControl(this.ticket.TDescription, [removeSpaces, Validators.required]),
             'CreatedBy': new FormControl(this.ticket.CreatedBy, [Validators.required]),
             'StatusId': new FormControl(this.ticket.StatusId, [Validators.required, Validators.min(1)]),
-            'Createddate': new FormControl(this.ticket.Createddate).disable(),
+            'Createddate': new FormControl(this.ticket.Createddate, [Validators.required]),
             'AssignedTo': new FormControl(this.ticket.AssignedTo, [Validators.required, Validators.min(1)]),
             'PriorityId': new FormControl(this.ticket.PriorityId, [Validators.required, Validators.min(1)]),
             'TypeId': new FormControl(this.ticket.TypeId, [Validators.required, Validators.min(1)]),
@@ -134,6 +134,16 @@ export class TicketComponent extends BaseComponent implements OnInit {
         });
         this.ticketForm.controls['ResolutionDeadline'].valueChanges.subscribe(value => {
             this.ticketForm.controls['ResolutionDeadline'].setValue(this.datepipe.transform(value, 'dd/MM/yyyy'),
+                {
+                    onlySelf: false,
+                    emitEvent: false,
+                    emitModelToViewChange: false,
+                    emitViewToModelChange: false
+                });
+        });
+
+        this.ticketForm.controls['ResponseDeadline'].valueChanges.subscribe(value => {
+            this.ticketForm.controls['ResponseDeadline'].setValue(this.datepipe.transform(value, 'dd/MM/yyyy'),
                 {
                     onlySelf: false,
                     emitEvent: false,
@@ -257,7 +267,7 @@ export class TicketComponent extends BaseComponent implements OnInit {
     }
 
     saveticket(): void {
-        console.log('in save');        
+        //console.log('in save');
         if (this.ticketForm.status == 'INVALID') {
             this.validateAllFields(this.ticketForm);
             return;
@@ -333,8 +343,7 @@ export class TicketComponent extends BaseComponent implements OnInit {
 }
 
 const statusValidator: ValidatorFn = (fg: FormGroup) => {
-    if(fg.get('TicketId').value<='0')
-    {
+    if (fg.get('TicketId').value <= '0') {
         return null;
     }
     const start = new Date(fg.get('Createddate').value);

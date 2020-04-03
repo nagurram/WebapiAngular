@@ -8,9 +8,9 @@
         <div class="row top-buffer">
             <div class="col-md-10"></div>
             <div class="col-md-2">
-            <a [routerLink]="['/Ticket']" [queryParams]="{ ticketId:0  }"  class="btn btn-info btn-md">
-                <span class="glyphicon glyphicon-plus"></span> Create Ticket</a>
-        </div>
+                <a [routerLink]="['/Ticket']" [queryParams]="{ ticketId:0  }" class="btn btn-info btn-md">
+                    <span class="glyphicon glyphicon-plus"></span> Create Ticket</a>
+            </div>
         </div>
         <table class="table table-striped table-bordered top-buffer" *ngIf='tickets && tickets.length'>
             <thead>
@@ -50,7 +50,9 @@
                     <h2>{{ticketForm.controls['Title'].value}}</h2>
                 </div>
                 <div class="col-md-3  top-buffer">
-                    <button title="Save" class="btn btn-primary" (click)="saveticket()">Save</button>&nbsp;&nbsp;
+                    <button title="Save" class="btn btn-primary" (click)="saveticket()">
+                        <span class="glyphicon glyphicon-saved"></span>
+                        Save</button>&nbsp;&nbsp;
                     <a href="javascript:void(0)" (click)="goBack(template)" class="btn btn-info btn-md">
                         <span class="glyphicon glyphicon-chevron-left"></span> Back
                     </a>
@@ -58,19 +60,23 @@
             </div>
 
             <tabset #tabset>
-                <tab heading="Basic data">
+                <tab>
+                    <ng-template tabHeading><i><span class="glyphicon glyphicon-pencil" ></span> </i>Basic data</ng-template>
                     <div class="row top-buffer">
                         <div class="col-md-2">
-                            <label class="control-label"  for="txtticketid" [ngStyle]="{'text-align': (getIsMobileResolution) ? 'left' : 'right'}" >Ticket Id</label>
+                            <label class="control-label" for="txtticketid"
+                                [ngStyle]="{'text-align': (getIsMobileResolution) ? 'left' : 'right'}">Ticket Id</label>
                         </div>
                         <div class="col-md-4">
                             <input type="text" id="txtticketid" formControlName="TicketId" class="form-control">
                         </div>
                         <div class="col-md-2"
                             [class.has-error]="ticketForm.controls['Title'].touched && ticketForm.controls['Title'].hasError('required')">
-                            <label class="control-label " for="txttitile" [ngStyle]="{'text-align': (getIsMobileResolution) ? 'left' : 'right'}">Title</label>
+                            <label class="control-label " for="txttitile"
+                                [ngStyle]="{'text-align': (getIsMobileResolution) ? 'left' : 'right'}">Title</label>
                         </div>
-                        <div class="col-md-4" [class.has-error]="ticketForm.controls['Title'].touched && ticketForm.controls['Title'].hasError('required')">
+                        <div class="col-md-4"
+                            [class.has-error]="ticketForm.controls['Title'].touched && ticketForm.controls['Title'].hasError('required')">
                             <input type="text" id="txttitile" formControlName="Title" class="form-control">
                             <div *ngIf="ticketForm.controls['Title'].touched && !ticketForm.controls['Title'].valid">
                                 <span *ngIf="ticketForm.controls['Title'].hasError('required') " class="alert-danger">
@@ -82,7 +88,8 @@
                     <div class="row top-buffer">
                         <div class="col-md-2"
                             [class.has-error]="ticketForm.controls['TDescription'].touched && ticketForm.controls['TDescription'].hasError('required')">
-                            <label class="control-label " for="txtTDescription" [ngStyle]="{'text-align': (getIsMobileResolution) ? 'left' : 'right'}">Description</label>
+                            <label class="control-label " for="txtTDescription"
+                                [ngStyle]="{'text-align': (getIsMobileResolution) ? 'left' : 'right'}">Description</label>
                         </div>
                         <div class="col-md-10"
                             [class.has-error]="ticketForm.controls['TDescription'].touched && ticketForm.controls['TDescription'].hasError('required')">
@@ -98,9 +105,10 @@
                         </div>
                     </div>
                     <div class="row top-buffer">
-                        <div class="col-md-2"
-                            [class.has-error]="ticketForm.controls['CreatedBy'].hasError('min')">
-                            <label class="control-label " for="txtCreatedBy" [ngStyle]="{'text-align': (getIsMobileResolution) ? 'left' : 'right'}">Created By</label>
+                        <div class="col-md-2" [class.has-error]="ticketForm.controls['CreatedBy'].hasError('min')">
+                            <label class="control-label " for="txtCreatedBy"
+                                [ngStyle]="{'text-align': (getIsMobileResolution) ? 'left' : 'right'}">Created
+                                By</label>
                         </div>
                         <div class="col-md-4" [class.has-error]="ticketForm.controls['CreatedBy'].hasError('min')">
                             <dropdown [drpcollection]="users" formControlName="CreatedBy"></dropdown>
@@ -109,9 +117,9 @@
                                 Please select Created By
                             </span>
                         </div>
-                        <div class="col-md-2"
-                            [class.has-error]="ticketForm.controls['StatusId'].hasError('min')">
-                            <label class="control-label " for="txtStatusId" [ngStyle]="{'text-align': (getIsMobileResolution) ? 'left' : 'right'}">Status</label>
+                        <div class="col-md-2" [class.has-error]="ticketForm.controls['StatusId'].hasError('min')">
+                            <label class="control-label " for="txtStatusId"
+                                [ngStyle]="{'text-align': (getIsMobileResolution) ? 'left' : 'right'}">Status</label>
                         </div>
                         <div class="col-md-4" [class.has-error]="ticketForm.controls['StatusId'].hasError('min')">
                             <dropdown [drpcollection]="statuses" formControlName="StatusId"></dropdown>
@@ -123,14 +131,18 @@
                     </div>
                     <div class="row top-buffer">
                         <div class="col-md-2  ">
-                            <label class="control-label " for="txtCreateddate" [ngStyle]="{'text-align': (getIsMobileResolution) ? 'left' : 'right'}">Created Date</label>
+                            <label class="control-label " for="txtCreateddate"
+                                [ngStyle]="{'text-align': (getIsMobileResolution) ? 'left' : 'right'}">Created
+                                Date</label>
                         </div>
                         <div class="col-md-4">
-                            <input type="text" id="txtCreateddate" class="form-control" formControlName="Createddate" />
+                            <input type="text" id="txtCreateddate" class="form-control" bsDatepicker
+                                [bsConfig]="datepickerconfig" formControlName="Createddate" />
                         </div>
-                        <div class="col-md-2  "
-                            [class.has-error]="ticketForm.controls['AssignedTo'].hasError('min')"><label
-                                class="control-label " for="txtAssignedTo" [ngStyle]="{'text-align': (getIsMobileResolution) ? 'left' : 'right'}">Assigned to</label></div>
+                        <div class="col-md-2  " [class.has-error]="ticketForm.controls['AssignedTo'].hasError('min')">
+                            <label class="control-label " for="txtAssignedTo"
+                                [ngStyle]="{'text-align': (getIsMobileResolution) ? 'left' : 'right'}">Assigned
+                                to</label></div>
                         <div class="col-md-4" [class.has-error]="ticketForm.controls['AssignedTo'].hasError('min')">
                             <dropdown [drpcollection]="users" formControlName="AssignedTo"></dropdown>
 
@@ -140,9 +152,9 @@
                         </div>
                     </div>
                     <div class="row top-buffer">
-                        <div class="col-md-2"
-                            [class.has-error]="ticketForm.controls['PriorityId'].hasError('min')">
-                            <label class="control-label " for="txtPriorityId" [ngStyle]="{'text-align': (getIsMobileResolution) ? 'left' : 'right'}">Priority</label>
+                        <div class="col-md-2" [class.has-error]="ticketForm.controls['PriorityId'].hasError('min')">
+                            <label class="control-label " for="txtPriorityId"
+                                [ngStyle]="{'text-align': (getIsMobileResolution) ? 'left' : 'right'}">Priority</label>
                         </div>
                         <div class="col-md-4" [class.has-error]="ticketForm.controls['PriorityId'].hasError('min')">
                             <dropdown [drpcollection]="priorities" formControlName="PriorityId"></dropdown>
@@ -151,9 +163,10 @@
                                 Please select Priority
                             </span>
                         </div>
-                        <div class="col-md-2"
-                            [class.has-error]="ticketForm.controls['TypeId'].hasError('min')">
-                            <label class="control-label " for="txtTypeId" [ngStyle]="{'text-align': (getIsMobileResolution) ? 'left' : 'right'}">Ticket Type</label>
+                        <div class="col-md-2" [class.has-error]="ticketForm.controls['TypeId'].hasError('min')">
+                            <label class="control-label " for="txtTypeId"
+                                [ngStyle]="{'text-align': (getIsMobileResolution) ? 'left' : 'right'}">Ticket
+                                Type</label>
                         </div>
                         <div class="col-md-4" [class.has-error]="ticketForm.controls['TypeId'].hasError('min')">
                             <dropdown [drpcollection]="types" formControlName="TypeId"></dropdown>
@@ -164,9 +177,9 @@
                         </div>
                     </div>
                     <div class="row top-buffer">
-                        <div class="col-md-2"
-                            [class.has-error]="ticketForm.controls['ApplicationId'].hasError('min')">
-                            <label class="control-label " for="txtApplicationId" [ngStyle]="{'text-align': (getIsMobileResolution) ? 'left' : 'right'}">Application</label>
+                        <div class="col-md-2" [class.has-error]="ticketForm.controls['ApplicationId'].hasError('min')">
+                            <label class="control-label " for="txtApplicationId"
+                                [ngStyle]="{'text-align': (getIsMobileResolution) ? 'left' : 'right'}">Application</label>
                         </div>
                         <div class="col-md-4" [class.has-error]="ticketForm.controls['ApplicationId'].hasError('min')">
                             <dropdown [drpcollection]="applications" formControlName="ApplicationId"></dropdown>
@@ -175,9 +188,9 @@
                                 Please select Application
                             </span>
                         </div>
-                        <div class="col-md-2"
-                            [class.has-error]="ticketForm.controls['ModuleID'].hasError('min')">
-                            <label class="control-label " for="txtModuleID" [ngStyle]="{'text-align': (getIsMobileResolution) ? 'left' : 'right'}">Module</label>
+                        <div class="col-md-2" [class.has-error]="ticketForm.controls['ModuleID'].hasError('min')">
+                            <label class="control-label " for="txtModuleID"
+                                [ngStyle]="{'text-align': (getIsMobileResolution) ? 'left' : 'right'}">Module</label>
                         </div>
                         <div class="col-md-4" [class.has-error]="ticketForm.controls['ModuleID'].hasError('min')">
                             <dropdown [drpcollection]="modules" formControlName="ModuleID"></dropdown>
@@ -190,9 +203,10 @@
                     </div>
 
                     <div class="row top-buffer">
-                        <div class="col-md-2"
-                            [class.has-error]="ticketForm.controls['RootCauseId'].hasError('min')">
-                            <label class="control-label " for="txtApplicationId" [ngStyle]="{'text-align': (getIsMobileResolution) ? 'left' : 'right'}">Root Cause</label>
+                        <div class="col-md-2" [class.has-error]="ticketForm.controls['RootCauseId'].hasError('min')">
+                            <label class="control-label " for="txtApplicationId"
+                                [ngStyle]="{'text-align': (getIsMobileResolution) ? 'left' : 'right'}">Root
+                                Cause</label>
                         </div>
                         <div class="col-md-4" [class.has-error]="ticketForm.controls['RootCauseId'].hasError('min')">
                             <dropdown [drpcollection]="rootcauses" formControlName="RootCauseId"></dropdown>
@@ -203,26 +217,50 @@
                         </div>
                         <div class="col-md-2"
                             [class.has-error]="ticketForm.controls['ResolutionDeadline'].touched && ticketForm.controls['ResolutionDeadline'].hasError('required')">
-                            <label class="control-label " for="txtResolutionDeadline" [ngStyle]="{'text-align': (getIsMobileResolution) ? 'left' : 'right'}">Resolution Deadline</label>
+                            <label class="control-label " for="txtResolutionDeadline"
+                                [ngStyle]="{'text-align': (getIsMobileResolution) ? 'left' : 'right'}">Resolution
+                                Deadline</label>
                         </div>
                         <div class="col-md-4"
                             [class.has-error]="ticketForm.controls['ResolutionDeadline'].touched && ticketForm.controls['ResolutionDeadline'].hasError('required')">
-                            <input type="text" id="txtResolutionDeadline" class="form-control" bsDatepicker [bsConfig]="datepickerconfig"
-                                formControlName="ResolutionDeadline">
-                            <span *ngIf="ticketForm.controls['ResolutionDeadline'].touched && ticketForm.controls['ResolutionDeadline'].hasError('required')"
+                            <input type="text" id="txtResolutionDeadline" class="form-control" bsDatepicker
+                                [bsConfig]="datepickerconfig" formControlName="ResolutionDeadline">
+                            <span
+                                *ngIf="ticketForm.controls['ResolutionDeadline'].touched && ticketForm.controls['ResolutionDeadline'].hasError('required')"
                                 class="alert-danger">
                                 Please Enter Resolution Deadline
                             </span>
-<!--                             <span *ngIf="ticketForm.controls['ResolutionDeadline'].touched && ticketForm.hasError('range') && !ticketForm.controls['ResolutionDeadline'].hasError('required')" class="alert-danger">
+                            <!--                             <span *ngIf="ticketForm.controls['ResolutionDeadline'].touched && ticketForm.hasError('range') && !ticketForm.controls['ResolutionDeadline'].hasError('required')" class="alert-danger">
                                 Resolution Deadline should be greater than create date
                             </span> -->
                         </div>
                     </div>
-
                     <div class="row top-buffer">
                         <div class="col-md-2"
-                            [class.has-error]="ticketForm.controls['Comments'].touched && ticketForm.controls['Comments'].hasError('required')"><label
-                                class="control-label " for="txtCoommnets" [ngStyle]="{'text-align': (getIsMobileResolution) ? 'left' : 'right'}">Comments</label></div>
+                            [class.has-error]="ticketForm.controls['ResponseDeadline'].touched && ticketForm.controls['ResponseDeadline'].hasError('required')">
+                            <label class="control-label " for="txtResponseDeadline"
+                                [ngStyle]="{'text-align': (getIsMobileResolution) ? 'left' : 'right'}">Response
+                                Deadline</label>
+                        </div>
+                        <div class="col-md-4"
+                            [class.has-error]="ticketForm.controls['ResponseDeadline'].touched && ticketForm.controls['ResponseDeadline'].hasError('required')">
+                            <input type="text" id="txtResponseDeadline" class="form-control" bsDatepicker
+                                [bsConfig]="datepickerconfig" formControlName="ResponseDeadline">
+                            <span
+                                *ngIf="ticketForm.controls['ResponseDeadline'].touched && ticketForm.controls['ResponseDeadline'].hasError('required')"
+                                class="alert-danger">
+                                Please Enter Response Deadline
+                            </span>
+
+                        </div>
+                        <div class="col-md-6"></div>
+                    </div>
+                    <div class="row top-buffer">
+                        <div class="col-md-2"
+                            [class.has-error]="ticketForm.controls['Comments'].touched && ticketForm.controls['Comments'].hasError('required')">
+                            <label class="control-label " for="txtCoommnets"
+                                [ngStyle]="{'text-align': (getIsMobileResolution) ? 'left' : 'right'}">Comments</label>
+                        </div>
                         <div class="col-md-10"
                             [class.has-error]="ticketForm.controls['Comments'].touched && ticketForm.controls['Comments'].hasError('required')">
                             <textarea rows="4" id="txtCoommnets" class="form-control" style="min-width: 100%"
@@ -239,8 +277,9 @@
                     </div>
 
                 </tab>
-                <tab heading="attachements">
-                    <h3>attachements</h3>
+                <tab>
+                    <ng-template tabHeading><i><span class="glyphicon glyphicon-paperclip" ></span> </i>Attachments</ng-template>
+                    <h3>Attachements</h3>
                     <div *ngIf='attachments && attachments.length==0' class="alert alert-info" role="alert">No
                         record found!</div>
                     <div class='table-responsive'>
@@ -258,7 +297,8 @@
                                     <td>{{tkt.Fileid}}</td>
                                     <td>{{tkt.FileName}}</td>
                                     <td>{{tkt.UploadDate|date}}</td>
-                                    <td> <a  (click)="downloadfile(tkt.Fileid,tkt.FileName)" style="cursor: pointer;" >Download</a>
+                                    <td> <a (click)="downloadfile(tkt.Fileid,tkt.FileName)"
+                                            style="cursor: pointer;">Download</a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -291,21 +331,21 @@
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-     
-        <div class="modal-body">
-             <h4>
-			 changes will be lost do you want to leave the page?
-			 </h4>
-            
-        </div>
-        <div class="modal-footer">
-            <div class="row">
-                
-                <div class="col-md-6">
-                    <button type="button" (click)="backtosummary()" class="btn btn-warning">Go Back</button>
-                    &nbsp;&nbsp;
-                    <button type="button" (click)="CancelItem()" class="btn btn-primary">cancel</button>
-                </div>
+
+    <div class="modal-body">
+        <h4>
+            changes will be lost do you want to leave the page?
+        </h4>
+
+    </div>
+    <div class="modal-footer">
+        <div class="row">
+
+            <div class="col-md-6">
+                <button type="button" (click)="backtosummary()" class="btn btn-warning">Go Back</button>
+                &nbsp;&nbsp;
+                <button type="button" (click)="CancelItem()" class="btn btn-primary">cancel</button>
             </div>
-        </div>   
+        </div>
+    </div>
 </ng-template>

@@ -1,6 +1,6 @@
 <ng-template #todoitem>
     <div class="modal-header">
-        <h4 class="modal-title pull-left">Add New ToDo</h4>
+        <h4 class="modal-title pull-left"><span class="glyphicon glyphicon-save"></span> Add New ToDo</h4>
         <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -53,9 +53,9 @@
                 <div class="col-md-6">
                 </div>
                 <div class="col-md-6">
-                    <button type="button" (click)="CancelItem()" class="btn btn-warning">Cancel</button>
+                    <button type="button" (click)="CancelItem()" class="btn btn-warning"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
                     &nbsp;&nbsp;
-                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-saved"></span> Save</button>
                 </div>
             </div>
         </div>
@@ -65,7 +65,7 @@
     <div class="row top-buffer">
         <div class="col-md-9"></div>
         <div class="col-md-3">
-            <button (click)="openAddtodoModal(todoitem)" class="btn btn-primary pull-right">Add New item</button>
+            <button (click)="openAddtodoModal(todoitem)" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-plus"></span> Add New item</button>
         </div>
     </div>
     <div class='table-responsive  top-buffer'>

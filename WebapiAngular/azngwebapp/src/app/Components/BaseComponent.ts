@@ -52,7 +52,7 @@ export class BaseComponent {
     }
 
     validateAllFields(formGroup: FormGroup) {
-        console.log('in validations');
+       // console.log('in validations');
         Object.keys(formGroup.controls).forEach(field => {
             const control = formGroup.get(field);
             if (control instanceof FormControl) {
@@ -67,7 +67,7 @@ export class BaseComponent {
     onResize(event) {
 
         const innerWidth = event.target.innerWidth;
-        console.log(innerWidth);
+       // console.log(innerWidth);
         this.getIsMobileResolution=false;
         if (innerWidth < 992) {
           this.getIsMobileResolution=true;
