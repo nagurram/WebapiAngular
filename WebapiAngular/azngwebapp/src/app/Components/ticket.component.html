@@ -19,10 +19,10 @@
                     <th>Title</th>
                     <th>Type</th>
                     <th>Created date</th>
-                    <th>status</th>
+                    <th>Status</th>
                     <th>Priority</th>
                     <th>Created by</th>
-                    <th> Application</th>
+                    <th>Application</th>
                     <th>Assigned To</th>
                 </tr>
             </thead>
@@ -61,7 +61,8 @@
 
             <tabset #tabset>
                 <tab>
-                    <ng-template tabHeading><i><span class="glyphicon glyphicon-pencil" ></span> </i>Basic data</ng-template>
+                    <ng-template tabHeading><i><span class="glyphicon glyphicon-pencil"></span> </i>Basic data
+                    </ng-template>
                     <div class="row top-buffer">
                         <div class="col-md-2">
                             <label class="control-label" for="txtticketid"
@@ -278,7 +279,8 @@
 
                 </tab>
                 <tab>
-                    <ng-template tabHeading><i><span class="glyphicon glyphicon-paperclip" ></span> </i>Attachments</ng-template>
+                    <ng-template tabHeading><i><span class="glyphicon glyphicon-paperclip"></span> </i>Attachments
+                    </ng-template>
                     <h3>Attachements</h3>
                     <div *ngIf='attachments && attachments.length==0' class="alert alert-info" role="alert">No
                         record found!</div>
@@ -334,7 +336,7 @@
 
     <div class="modal-body">
         <h4>
-            changes will be lost do you want to leave the page?
+            New Changes will be lost do you want to leave the page?
         </h4>
 
     </div>
@@ -342,9 +344,9 @@
         <div class="row">
 
             <div class="col-md-6">
-                <button type="button" (click)="backtosummary()" class="btn btn-warning">Go Back</button>
+                <button type="button" (click)="backtosummary()" class="btn btn-warning"><span class="glyphicon glyphicon-chevron-left"></span> Go Back</button>
                 &nbsp;&nbsp;
-                <button type="button" (click)="CancelItem()" class="btn btn-primary">cancel</button>
+                <button type="button" (click)="CancelItem()" class="btn btn-primary"><span class="glyphicon glyphicon-remove"></span>cancel</button>
             </div>
         </div>
     </div>

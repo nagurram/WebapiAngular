@@ -121,7 +121,7 @@ export class TicketComponent extends BaseComponent implements OnInit {
             'Comments': new FormControl(this.ticket.Comments, [removeSpaces, Validators.required]),
             'UpdatedBy': new FormControl(this.ticket.UpdatedBy),
             'LastModifiedon': new FormControl(this.ticket.LastModifiedon)
-        });
+        },{ validator: statusValidator });
 
         this.ticketForm.controls['Createddate'].valueChanges.subscribe(value => {
             this.ticketForm.controls['Createddate'].setValue(this.datepipe.transform(value, 'dd/MM/yyyy'),

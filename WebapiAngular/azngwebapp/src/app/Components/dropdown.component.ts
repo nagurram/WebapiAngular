@@ -4,7 +4,7 @@ import { Form, FormGroup, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angul
 
 @Component({
     selector: 'dropdown',
-    template: ` <select  class="form-control" [disabled]="disabled"   (change)="onChange($event.target.value)" (blur)="onTouched()" >
+    template: ` <select  class="form-control" [disabled]="disabled" (change)="onChange($event.target.value)" (blur)="onTouched()" >
                                 <option value=-1>Select</option>
                                 <option *ngFor="let coll of drpcollection" [value]="coll.Id" [selected]="coll.Id ==value" >{{coll.keyValue}}</option>
                             </select>`,
@@ -14,7 +14,7 @@ import { Form, FormGroup, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angul
 export class DropdownComponent implements ControlValueAccessor {
 
     value: number;
-    onChange: () => void;
+    onChange: (value: any) => void;
     onTouched: () => void;
     disabled: boolean;
     show: boolean = false;
