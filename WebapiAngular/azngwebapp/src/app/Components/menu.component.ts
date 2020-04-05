@@ -10,7 +10,7 @@ import { Router } from "@angular/router";
     selector: 'menu-items',
     template: `<div *ngIf='userModel'>
     <nav class='navbar navbar-inverse' >
-        <div class='container-fluid' >
+        
             <ul class='nav navbar-nav' >
                <li  *ngFor="let cols of userModel.routeCollection"> <a [routerLink]="[cols.key]" routerLinkActive="active" > {{ cols.keyValue }} </a></li >
             </ul>
@@ -18,7 +18,6 @@ import { Router } from "@angular/router";
         <li><a href="#"><span class="glyphicon glyphicon-user"></span> {{userModel.UserName}}</a></li>
         <li><a href="#" (click)="logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
         </ul>
-        </div>
       </nav>
         </div>` ,
     // styles: ['.navbar-nav {background-color:#337AB7 !important;}']

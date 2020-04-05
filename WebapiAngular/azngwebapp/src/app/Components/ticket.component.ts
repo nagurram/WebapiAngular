@@ -34,8 +34,8 @@ const MIME_TYPES = {
 
 export class TicketComponent extends BaseComponent implements OnInit {
 
-    @ViewChild('downloadZipLink', { static: false }) private downloadZipLink: ElementRef;
-    @ViewChild('tabset', { static: false }) tabset: TabsetComponent;
+    @ViewChild('downloadZipLink') private downloadZipLink: ElementRef;
+    @ViewChild('tabset') tabset: TabsetComponent;
     disableSwitching: boolean;
     indLoading: boolean = false;
     applications: IkeyValuePair[];
