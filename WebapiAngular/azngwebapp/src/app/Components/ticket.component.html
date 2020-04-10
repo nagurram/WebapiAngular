@@ -4,15 +4,16 @@
 <div  (window:resize)="onResize($event)">
     <!-- <div class="alert alert-info" role="alert" *ngIf="indLoading"><img src="../../images/loading.gif" width="32" height="32" /> Loading...</div> -->
     <div *ngIf='tickets && tickets.length==0' class="alert alert-info" role="alert">No record found!</div>
-    <div class='table-responsive' *ngIf="ticketId ==-1">
+    <div  *ngIf="ticketId ==-1">
         <div class="row top-buffer">
             <div class="col-md-10"></div>
             <div class="col-md-2">
                 <a [routerLink]="['/Ticket']" [queryParams]="{ ticketId:0  }" class="btn btn-info btn-md">
                     <span class="glyphicon glyphicon-plus"></span> Create Ticket</a>
             </div>
+           
         </div>
-        <table class="table table-striped table-bordered" *ngIf='tickets && tickets.length'>
+        <table class="table table-striped table-bordered  top-buffer" *ngIf='tickets && tickets.length'>
             <thead>
                 <tr>
                     <th>Ticket Id</th>

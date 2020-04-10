@@ -244,6 +244,14 @@ export class TicketComponent extends BaseComponent implements OnInit {
                 this.pagetitile = "";
                 if (id > 0) {
                     this.ticket = ticket.body[0];
+                    var adate=this.datepipe.transform(this.ticket.Createddate, 'dd/MM/yyyy');
+                    console.log(adate);
+                    this.ticket.Createddate=new Date(adate);
+                    adate=this.datepipe.transform(this.ticket.ResolutionDeadline, 'dd/MM/yyyy');
+                    this.ticket.ResolutionDeadline=new Date(adate);
+                    adate=this.datepipe.transform(this.ticket.ResponseDeadline, 'dd/MM/yyyy');
+                    this.ticket.ResponseDeadline=new Date(adate);
+                    console.log(this.ticket);
                     this.pagetitile = this.ticket.Title;
                     this.ticketForm.setValue(Object.assign({}, this.ticket));
                 }
@@ -346,11 +354,11 @@ const statusValidator: ValidatorFn = (fg: FormGroup) => {
     if (fg.get('TicketId').value <= '0') {
         return null;
     }
-    const start = new Date(fg.get('Createddate').value);
-    const end = new Date(fg.get('ResolutionDeadline').value);
-    // console.log(start);
-    // console.log(end);
-    // console.log(end > start);
+    const start = new Date(this.datepipe.transform(fg.get('Createddate').value, 'dd/MM/yyyy'));
+    const end =new Date(this.datepipe.transform(fg.get('ResolutionDeadline').value, 'dd/MM/yyyy')); 
+     console.log(start);
+     console.log(end);
+     console.log(end > start);
     var diff = (start !== null && end !== null) ? end > start : 0
     return diff > 0 ? null : { range: true };
 };
