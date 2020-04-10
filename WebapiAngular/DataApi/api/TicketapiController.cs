@@ -46,7 +46,7 @@ namespace DataApi.api
         [HttpPut, Route("Updateticket/{id}")]
         public HttpResponseMessage Put(int id, [FromBody]Ticket value)
         {
-            Ticket _ticket = new Ticket() { TicketId = id, Title = value.Title, TDescription = value.TDescription, CreatedBy = value.CreatedBy, StatusId = value.StatusId, Createddate = Convert.ToDateTime(value.Createddate.Value.ToString("MM/dd/yyyy")), AssignedTo = value.AssignedTo, PriorityId = value.PriorityId, TypeId = value.TypeId, ApplicationId = value.ApplicationId, ModuleID = value.ModuleID, ResponseDeadline = Convert.ToDateTime(value.ResponseDeadline.Value.ToString("MM/dd/yyyy")), ResolutionDeadline = Convert.ToDateTime(value.ResolutionDeadline.Value.ToString("MM/dd/yyyy")) , RootCauseId = value.RootCauseId, Comments = value.Comments, UpdatedBy = Convert.ToInt32(GetClaimValue(Constants.UserId)), LastModifiedon = value.LastModifiedon };
+            Ticket _ticket = new Ticket() { TicketId = id, Title = value.Title, TDescription = value.TDescription, CreatedBy = value.CreatedBy, StatusId = value.StatusId, Createddate = value.Createddate, AssignedTo = value.AssignedTo, PriorityId = value.PriorityId, TypeId = value.TypeId, ApplicationId = value.ApplicationId, ModuleID = value.ModuleID, ResponseDeadline = value.ResponseDeadline, ResolutionDeadline = value.ResolutionDeadline, RootCauseId = value.RootCauseId, Comments = value.Comments, UpdatedBy = Convert.ToInt32(GetClaimValue(Constants.UserId)), LastModifiedon = value.LastModifiedon };
             if (_ticket.TicketId == 0)
             {
                 TicketDB.Tickets.Add(_ticket);

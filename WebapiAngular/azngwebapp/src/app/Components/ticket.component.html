@@ -149,7 +149,7 @@
                             <dropdown [drpcollection]="users" formControlName="AssignedTo"></dropdown>
 
                             <span *ngIf="ticketForm.controls['AssignedTo'].hasError('min')" class="alert-danger">
-                                Please select Assigned to
+                                Please select Assigned to 
                             </span>
                         </div>
                     </div>
@@ -232,9 +232,9 @@
                                 class="alert-danger">
                                 Please Enter Resolution Deadline
                             </span>
-                            <!--                             <span *ngIf="ticketForm.controls['ResolutionDeadline'].touched && ticketForm.hasError('range') && !ticketForm.controls['ResolutionDeadline'].hasError('required')" class="alert-danger">
+                                                      <span *ngIf="ticketForm.controls['ResolutionDeadline'].touched && ticketForm.hasError('range') && !ticketForm.controls['ResolutionDeadline'].hasError('required')" class="alert-danger">
                                 Resolution Deadline should be greater than create date
-                            </span> -->
+                            </span>
                         </div>
                     </div>
                     <div class="row top-buffer">
