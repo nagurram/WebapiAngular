@@ -1,0 +1,312 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using LSDataApi.DBContext;
+using LSDataApi.Models;
+using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+using LSDataApi.DBContext;
+using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Authorization;
+using LSDataApi.api;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
+using LsDataApi.Common;
+using System.Text;
+using System.Net.Http;
+
+
+namespace DataApi.api
+{
+
+    [Route("api/Ticketapi")]
+    [Authorize(Roles = "Admin,BasicUser")]
+    [EnableCors("_myAllowAllOrigins")]
+    public class TicketapiController : BaseAPIController
+    {
+
+        private readonly ILogger<TicketapiController> Log;
+        private readonly IWebHostEnvironment _hostingEnvironment;
+        string diskFolderPath = "";
+        public TicketapiController(ILogger<TicketapiController> logger, IWebHostEnvironment hostingEnvironment)
+        {
+            Log = logger;
+            _hostingEnvironment = hostingEnvironment;
+            string webRootPath = _hostingEnvironment.WebRootPath;
+            string contentRootPath = _hostingEnvironment.ContentRootPath;
+            diskFolderPath= Path.Combine(contentRootPath, "App_Data");
+        }
+
+
+        #region "Basic data"
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            var _lstticket = from t in TicketDB.Tickets
+                             join um in TicketDB.UserMaster on t.CreatedBy equals um.UserId
+                             join pm in TicketDB.PriorityMaster on t.PriorityId equals pm.PriorityId
+                             join am in TicketDB.ApplicationMaster on t.ApplicationId equals am.ApplicationId
+                             join um2 in TicketDB.UserMaster on t.AssignedTo equals um2.UserId
+                             join st in TicketDB.StatusMaster on t.StatusId equals st.StatusId
+                             join tp in TicketDB.TypeMaster on t.TypeId equals tp.TypeId
+                             select new { t.TicketId, t.Title, t.Createddate, pm.PriorityDescription, createdby = um.Lname + ", " + um.Fname, am.ApplicationName, AssignedTo = um2.Lname + ", " + um2.Fname, status = st.StatusDescription, tkttype = tp.TypeDescription };
+
+            return Ok(_lstticket);
+        }
+
+        [HttpPut, Route("Updateticket/{id}")]
+        public async Task<IActionResult> Put(int id, [FromBody]Tickets value)
+        {
+            Tickets _ticket = new Tickets() { TicketId = id, Title = value.Title, Tdescription = value.Tdescription, CreatedBy = value.CreatedBy, StatusId = value.StatusId, Createddate = value.Createddate, AssignedTo = value.AssignedTo, PriorityId = value.PriorityId, TypeId = value.TypeId, ApplicationId = value.ApplicationId, ModuleId = value.ModuleId, ResponseDeadline = value.ResponseDeadline, ResolutionDeadline = value.ResolutionDeadline, RootCauseId = value.RootCauseId, Comments = value.Comments, UpdatedBy = Convert.ToInt32(GetClaimValue(Constants.UserId)), LastModifiedon = value.LastModifiedon };
+            if (_ticket.TicketId == 0)
+            {
+                TicketDB.Tickets.Add(_ticket);
+            }
+            else
+            {
+                TicketDB.Entry(_ticket).State = EntityState.Modified;
+            }
+            return Ok(TicketDB.SaveChanges());
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> Get(int id)
+        {
+            return Ok(
+                from t in
+                TicketDB.Tickets
+                where t.TicketId == id
+                select new { t.TicketId, t.Title, t.Tdescription, t.CreatedBy, t.StatusId, t.Createddate, t.AssignedTo, t.PriorityId, t.TypeId, t.ApplicationId, t.ModuleId, t.ResponseDeadline, t.ResolutionDeadline, t.RootCauseId, t.Comments, t.UpdatedBy, t.LastModifiedon }
+                );
+        }
+
+        [HttpGet]
+        [Route("AppMaster")]
+        public async Task<IActionResult> AppMaster()
+        {
+            return await BAppMaster();
+        }
+
+        [HttpGet]
+        [Route("RootcauseMaster")]
+        public async Task<IActionResult> RootcauseMaster()
+        {
+            return await BRootCauseMaster();
+        }
+
+        [HttpGet]
+        [Route("ModuleMaster")]
+        public async Task<IActionResult> ModuleMaster()
+        {
+            return await BModuleMaster();
+        }
+
+        [HttpGet]
+        [Route("PriorityMaster")]
+        public async Task<IActionResult> PriorityMaster()
+        {
+            return await BPriorityMaster();
+        }
+
+        [HttpGet]
+        [Route("StatusMaster")]
+        public async Task<IActionResult> StatusMaster()
+        {
+            return await BStatusMaster();
+        }
+
+        [HttpGet]
+        [Route("UserMaster")]
+        public async Task<IActionResult> UserMaster()
+        {
+            return await BUserMaster();
+        }
+
+        [HttpGet]
+        [Route("TypeMaster")]
+        public async Task<IActionResult> TypeMaster()
+        {
+            return await BTypeMaster();
+        }
+        #endregion
+
+        #region "file upload"
+
+        [HttpGet, Route("Getattachments/{id}")]
+        public async Task<IActionResult> GetTicketAttachemnets(int id)
+        {
+            var filelist = (TicketDB.FileUpload.Where(t => t.TicketId == id).Select(p => new { p.Fileid, p.FileName, p.Filetype, p.UploadDate })).ToList();
+            return Ok(filelist);
+        }
+
+
+
+        //[HttpPost, Route("Uploadattachments/{id}")]
+        //public async Task<HttpResponseMessage> PostFormDataAsync(int id)
+        //{
+        //    #region "Commented code"
+        //    /*
+        //    // Check if the request contains multipart/form-data.
+        //    if (!Request.Content.IsMimeMultipartContent())
+        //    {
+        //        throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
+        //    }
+
+        //    string root = HttpContext.Current.Server.MapPath("~/App_Data");
+        //    var provider = new MultipartFormDataStreamProvider(root);
+
+        //    try
+        //    {
+        //        // Read the form data.
+        //        await Request.Content.ReadAsMultipartAsync(provider);
+
+        //        // This illustrates how to get the file names.
+        //        foreach (MultipartFileData file in provider.FileData)
+        //        {
+        //            Log.Debug(file.Headers.ContentDisposition.FileName);
+        //            Log.Debug("Server file path: " + file.LocalFileName);
+        //        }
+        //        return Request.CreateResponse(HttpStatusCode.OK);
+        //    }
+        //    catch (System.Exception e)
+        //    {
+        //        Log.Debug(e.Message);
+        //        return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e);
+        //    }
+
+        //    */
+        //    #endregion
+
+        //    var path = Path.GetTempPath();
+
+        //    if (!Request.Content.IsMimeMultipartContent("form-data"))
+        //    {
+        //        throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.UnsupportedMediaType));
+        //    }
+
+        //    MultipartFormDataStreamProvider streamProvider = new MultipartFormDataStreamProvider(path);
+        //    try
+        //    {
+        //        await Request.Content.ReadAsMultipartAsync(streamProvider);
+
+        //        foreach (MultipartFileData fileData in streamProvider.FileData)
+        //        {
+        //            string fileName = "";
+        //            if (string.IsNullOrEmpty(fileData.Headers.ContentDisposition.FileName))
+        //            {
+        //                fileName = Guid.NewGuid().ToString();
+        //            }
+        //            fileName = fileData.Headers.ContentDisposition.FileName;
+        //            if (fileName.StartsWith("\"") && fileName.EndsWith("\""))
+        //            {
+        //                fileName = fileName.Trim('"');
+        //            }
+        //            if (fileName.Contains(@"/") || fileName.Contains(@"\"))
+        //            {
+        //                fileName = Path.GetFileName(fileName);
+        //            }
+
+        //            var newFileName = Path.Combine(diskFolderPath, fileName);
+        //            var fileInfo = new FileInfo(newFileName);
+        //            if (fileInfo.Exists)
+        //            {
+        //                fileName = fileInfo.Name.Replace(fileInfo.Extension, "");
+        //                fileName = fileName + (new Random().Next(0, 10000)) + fileInfo.Extension;
+
+        //                newFileName = Path.Combine(diskFolderPath, fileName);
+        //            }
+
+        //            if (!Directory.Exists(fileInfo.Directory.FullName))
+        //            {
+        //                Directory.CreateDirectory(fileInfo.Directory.FullName);
+        //            }
+
+        //             System.IO.File.Move(fileData.LocalFileName, newFileName);
+
+        //            await SaveToDB(newFileName, id);
+
+        //        }
+        //        return Request.CreateErrorResponse(OK, "1");
+        //    }
+        //    catch (System.Exception e)
+        //    {
+        //        Log.LogError(null,e);
+        //        return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e);
+        //    }
+        //}
+
+
+        //[HttpGet, Route("GetfileAttachemnet/{id}")]
+        //public IHttpActionResult GetfileAttachemnet(int id)
+        //{
+        //   // HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
+        //    //try
+        //    //{
+        //    Log.LogInformation("in GetfileAttachemnet  method and file id is :" + id);
+        //    var filelist = (TicketDB.FileUpload.Where(t => t.Fileid == id).Select(p => new { p.Fileid, p.Filedata, p.FileName, p.Filetype, p.UploadDate })).FirstOrDefault();
+
+        //    var memorycontent = new MemoryStream(filelist.Filedata);
+        //    //  string cotenttype = GetfileContenttype(filelist.Filetype);
+
+        //    string fileres = Encoding.UTF8.GetString(filelist.Filedata, 0, filelist.Filedata.Length);
+        //    StreamContent _rescontent = new StreamContent(memorycontent); ;// new StringContent(JsonConvert.SerializeObject(fileres), Encoding.UTF8, cotenttype);
+        //    Log.LogInformation("in GetfileAttachemnet  method in last line");
+        //    return new downloadResult(memorycontent, Request, filelist.FileName);
+        //    /*
+        //    response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
+        //    response.Content.Headers.ContentType = new MediaTypeHeaderValue(cotenttype);
+        //    response.Content.Headers.Add("x-FileName", filelist.FileName);
+        //    var newFileName = Path.Combine(diskFolderPath, filelist.FileName);
+        //    File.WriteAllBytes(newFileName, filelist.Filedata);
+        //    return response;
+        //    */
+        //    //}
+        //    //catch (System.Exception e)
+        //    //{
+        //    //    Log.Debug(e.Message);
+        //    //    return new HttpActionResult(Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e);)
+        //    //}
+        //}
+        
+        private async Task<int> SaveToDB(string filename, int ticketid)
+        {
+            try
+            {
+                FileInfo fileStream = new FileInfo(filename);
+
+                var fileupload = new FileUpload();
+
+                byte[] filecontent = new byte[fileStream.Length];
+                FileStream imagestream = fileStream.OpenRead();
+                imagestream.Read(filecontent, 0, filecontent.Length);
+                imagestream.Close();
+                fileupload.Filedata = filecontent;
+                fileupload.FileName = fileStream.Name;
+                fileupload.UploadDate = DateTime.Now;
+                fileupload.Filetype = fileStream.Name.Split('.')[1].ToString();
+                fileupload.TicketId = ticketid;
+                TicketDB.FileUpload.Add(fileupload);
+                TicketDB.SaveChanges();
+
+                if ((System.IO.File.Exists(filename)))
+                {
+                    System.IO.File.Delete(filename);
+                }
+
+                return 1;
+            }
+            catch (System.Exception e)
+            {
+                Log.LogDebug(e.Message);
+                return 0;
+            }
+        }
+
+
+        #endregion
+    }
+}
