@@ -1,47 +1,43 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using LSDataApi.DBContext;
-using LSDataApi.Models;
-using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
-using LSDataApi.DBContext;
-using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Authorization;
+﻿using LSDataApi;
 using LSDataApi.api;
+using LSDataApi.DBContext;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
 using System.IO;
-using LsDataApi.Common;
-using System.Text;
+using System.Linq;
 using System.Net.Http;
-
+using System.Security.Claims;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace DataApi.api
 {
-
-    [Route("api/Ticketapi")]
+    [Microsoft.AspNetCore.Mvc.Route("api/Ticketapi")]
     [Authorize(Roles = "Admin,BasicUser")]
     [EnableCors("_myAllowAllOrigins")]
     public class TicketapiController : BaseAPIController
     {
-
         private readonly ILogger<TicketapiController> Log;
         private readonly IWebHostEnvironment _hostingEnvironment;
-        string diskFolderPath = "";
+        private string diskFolderPath = "";
+
         public TicketapiController(ILogger<TicketapiController> logger, IWebHostEnvironment hostingEnvironment)
         {
             Log = logger;
             _hostingEnvironment = hostingEnvironment;
             string webRootPath = _hostingEnvironment.WebRootPath;
             string contentRootPath = _hostingEnvironment.ContentRootPath;
-            diskFolderPath= Path.Combine(contentRootPath, "App_Data");
+            diskFolderPath = Path.Combine(contentRootPath, "App_Data");
         }
 
-
         #region "Basic data"
+
         [HttpGet]
         public async Task<IActionResult> Get()
         {
@@ -60,7 +56,7 @@ namespace DataApi.api
         [HttpPut, Route("Updateticket/{id}")]
         public async Task<IActionResult> Put(int id, [FromBody]Tickets value)
         {
-            Tickets _ticket = new Tickets() { TicketId = id, Title = value.Title, Tdescription = value.Tdescription, CreatedBy = value.CreatedBy, StatusId = value.StatusId, Createddate = value.Createddate, AssignedTo = value.AssignedTo, PriorityId = value.PriorityId, TypeId = value.TypeId, ApplicationId = value.ApplicationId, ModuleId = value.ModuleId, ResponseDeadline = value.ResponseDeadline, ResolutionDeadline = value.ResolutionDeadline, RootCauseId = value.RootCauseId, Comments = value.Comments, UpdatedBy = Convert.ToInt32(GetClaimValue(Constants.UserId)), LastModifiedon = value.LastModifiedon };
+            Tickets _ticket = new Tickets() { TicketId = id, Title = value.Title, Tdescription = value.Tdescription, CreatedBy = value.CreatedBy, StatusId = value.StatusId, Createddate = value.Createddate, AssignedTo = value.AssignedTo, PriorityId = value.PriorityId, TypeId = value.TypeId, ApplicationId = value.ApplicationId, ModuleId = value.ModuleId, ResponseDeadline = value.ResponseDeadline, ResolutionDeadline = value.ResolutionDeadline, RootCauseId = value.RootCauseId, Comments = value.Comments, UpdatedBy = Convert.ToInt32(GetClaimValue(ClaimTypes.Name)), LastModifiedon = value.LastModifiedon };
             if (_ticket.TicketId == 0)
             {
                 TicketDB.Tickets.Add(_ticket);
@@ -132,7 +128,8 @@ namespace DataApi.api
         {
             return await BTypeMaster();
         }
-        #endregion
+
+        #endregion "Basic data"
 
         #region "file upload"
 
@@ -143,136 +140,78 @@ namespace DataApi.api
             return Ok(filelist);
         }
 
+        [HttpPost, Route("Uploadattachments/{id}"), DisableRequestSizeLimit]
+        public IActionResult PostFormDataAsync(int id)
+        {
+            var path = Path.GetTempPath();
+            var file = Request.Form.Files[0];
 
+            MultipartFormDataStreamProvider streamProvider = new MultipartFormDataStreamProvider(path);
+            try
+            {
+                if (file.Length > 0)
+                {
+                    string fileName = "";
+                    if (string.IsNullOrEmpty(file.FileName))
+                    {
+                        fileName = Guid.NewGuid().ToString();
+                    }
+                    fileName = file.FileName;
+                    if (fileName.StartsWith("\"") && fileName.EndsWith("\""))
+                    {
+                        fileName = fileName.Trim('"');
+                    }
+                    if (fileName.Contains(@"/") || fileName.Contains(@"\"))
+                    {
+                        fileName = Path.GetFileName(fileName);
+                    }
 
-        //[HttpPost, Route("Uploadattachments/{id}")]
-        //public async Task<HttpResponseMessage> PostFormDataAsync(int id)
-        //{
-        //    #region "Commented code"
-        //    /*
-        //    // Check if the request contains multipart/form-data.
-        //    if (!Request.Content.IsMimeMultipartContent())
-        //    {
-        //        throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
-        //    }
+                    var newFileName = Path.Combine(diskFolderPath, fileName);
+                    var fileInfo = new FileInfo(newFileName);
+                    if (fileInfo.Exists)
+                    {
+                        fileName = fileInfo.Name.Replace(fileInfo.Extension, "");
+                        fileName = fileName + (new Random().Next(0, 10000)) + fileInfo.Extension;
 
-        //    string root = HttpContext.Current.Server.MapPath("~/App_Data");
-        //    var provider = new MultipartFormDataStreamProvider(root);
+                        newFileName = Path.Combine(diskFolderPath, fileName);
+                    }
 
-        //    try
-        //    {
-        //        // Read the form data.
-        //        await Request.Content.ReadAsMultipartAsync(provider);
+                    if (!Directory.Exists(fileInfo.Directory.FullName))
+                    {
+                        Directory.CreateDirectory(fileInfo.Directory.FullName);
+                    }
+                    using (var stream = new FileStream(newFileName, FileMode.Create))
+                    {
+                        file.CopyTo(stream);
+                    }
+                    SaveToDB(newFileName, id);
+                }
+                return Ok(new { Message = "1" });
+            }
+            catch (System.Exception e)
+            {
+                Log.LogError(null, e);
+                return Ok(new { Message = "0" });
+            }
+        }
 
-        //        // This illustrates how to get the file names.
-        //        foreach (MultipartFileData file in provider.FileData)
-        //        {
-        //            Log.Debug(file.Headers.ContentDisposition.FileName);
-        //            Log.Debug("Server file path: " + file.LocalFileName);
-        //        }
-        //        return Request.CreateResponse(HttpStatusCode.OK);
-        //    }
-        //    catch (System.Exception e)
-        //    {
-        //        Log.Debug(e.Message);
-        //        return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e);
-        //    }
+        [HttpGet, Route("GetfileAttachemnet/{id}")]
+        public IActionResult GetfileAttachemnet(int id)
+        {
+            Log.LogInformation("in GetfileAttachemnet  method and file id is :" + id);
+            var filelist = (TicketDB.FileUpload.Where(t => t.Fileid == id).Select(p => new { p.Fileid, p.Filedata, p.FileName, p.Filetype, p.UploadDate })).FirstOrDefault();
 
-        //    */
-        //    #endregion
+            var memorycontent = new MemoryStream(filelist.Filedata);
+            //  string cotenttype = GetfileContenttype(filelist.Filetype);
 
-        //    var path = Path.GetTempPath();
+            string fileres = Encoding.UTF8.GetString(filelist.Filedata, 0, filelist.Filedata.Length);
+            StreamContent _rescontent = new StreamContent(memorycontent); ;// new StringContent(JsonConvert.SerializeObject(fileres), Encoding.UTF8, cotenttype);
+            Log.LogInformation("in GetfileAttachemnet  method in last line");
 
-        //    if (!Request.Content.IsMimeMultipartContent("form-data"))
-        //    {
-        //        throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.UnsupportedMediaType));
-        //    }
+            return File(memorycontent, new DownloadResult().GetfileContenttype(filelist.Filetype), filelist.FileName);
+        }
 
-        //    MultipartFormDataStreamProvider streamProvider = new MultipartFormDataStreamProvider(path);
-        //    try
-        //    {
-        //        await Request.Content.ReadAsMultipartAsync(streamProvider);
-
-        //        foreach (MultipartFileData fileData in streamProvider.FileData)
-        //        {
-        //            string fileName = "";
-        //            if (string.IsNullOrEmpty(fileData.Headers.ContentDisposition.FileName))
-        //            {
-        //                fileName = Guid.NewGuid().ToString();
-        //            }
-        //            fileName = fileData.Headers.ContentDisposition.FileName;
-        //            if (fileName.StartsWith("\"") && fileName.EndsWith("\""))
-        //            {
-        //                fileName = fileName.Trim('"');
-        //            }
-        //            if (fileName.Contains(@"/") || fileName.Contains(@"\"))
-        //            {
-        //                fileName = Path.GetFileName(fileName);
-        //            }
-
-        //            var newFileName = Path.Combine(diskFolderPath, fileName);
-        //            var fileInfo = new FileInfo(newFileName);
-        //            if (fileInfo.Exists)
-        //            {
-        //                fileName = fileInfo.Name.Replace(fileInfo.Extension, "");
-        //                fileName = fileName + (new Random().Next(0, 10000)) + fileInfo.Extension;
-
-        //                newFileName = Path.Combine(diskFolderPath, fileName);
-        //            }
-
-        //            if (!Directory.Exists(fileInfo.Directory.FullName))
-        //            {
-        //                Directory.CreateDirectory(fileInfo.Directory.FullName);
-        //            }
-
-        //             System.IO.File.Move(fileData.LocalFileName, newFileName);
-
-        //            await SaveToDB(newFileName, id);
-
-        //        }
-        //        return Request.CreateErrorResponse(OK, "1");
-        //    }
-        //    catch (System.Exception e)
-        //    {
-        //        Log.LogError(null,e);
-        //        return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e);
-        //    }
-        //}
-
-
-        //[HttpGet, Route("GetfileAttachemnet/{id}")]
-        //public IHttpActionResult GetfileAttachemnet(int id)
-        //{
-        //   // HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
-        //    //try
-        //    //{
-        //    Log.LogInformation("in GetfileAttachemnet  method and file id is :" + id);
-        //    var filelist = (TicketDB.FileUpload.Where(t => t.Fileid == id).Select(p => new { p.Fileid, p.Filedata, p.FileName, p.Filetype, p.UploadDate })).FirstOrDefault();
-
-        //    var memorycontent = new MemoryStream(filelist.Filedata);
-        //    //  string cotenttype = GetfileContenttype(filelist.Filetype);
-
-        //    string fileres = Encoding.UTF8.GetString(filelist.Filedata, 0, filelist.Filedata.Length);
-        //    StreamContent _rescontent = new StreamContent(memorycontent); ;// new StringContent(JsonConvert.SerializeObject(fileres), Encoding.UTF8, cotenttype);
-        //    Log.LogInformation("in GetfileAttachemnet  method in last line");
-        //    return new downloadResult(memorycontent, Request, filelist.FileName);
-        //    /*
-        //    response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
-        //    response.Content.Headers.ContentType = new MediaTypeHeaderValue(cotenttype);
-        //    response.Content.Headers.Add("x-FileName", filelist.FileName);
-        //    var newFileName = Path.Combine(diskFolderPath, filelist.FileName);
-        //    File.WriteAllBytes(newFileName, filelist.Filedata);
-        //    return response;
-        //    */
-        //    //}
-        //    //catch (System.Exception e)
-        //    //{
-        //    //    Log.Debug(e.Message);
-        //    //    return new HttpActionResult(Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e);)
-        //    //}
-        //}
-        
-        private async Task<int> SaveToDB(string filename, int ticketid)
+        private int SaveToDB(string filename, int ticketid)
         {
             try
             {
@@ -306,7 +245,6 @@ namespace DataApi.api
             }
         }
 
-
-        #endregion
+        #endregion "file upload"
     }
 }

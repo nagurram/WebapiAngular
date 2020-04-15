@@ -1,50 +1,54 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Web;
 using System.Web.Http;
 
-namespace LSDataApi.api
+namespace LSDataApi
 {
-    public class downloadResult: IHttpActionResult
+    public class DownloadResult : IHttpActionResult
 
     {
-        MemoryStream bookStuff;
-        string PdfFileName;
-        HttpRequestMessage httpRequestMessage;
-        HttpResponseMessage httpResponseMessage;
-        public downloadResult(MemoryStream data, HttpRequestMessage request, string filename)
+        private MemoryStream bookStuff;
+        private string PdfFileName;
+        private HttpRequestMessage httpRequestMessage;
+        private HttpResponseMessage httpResponseMessage;
+
+        public DownloadResult(MemoryStream data, HttpRequestMessage request, string filename)
         {
             bookStuff = data;
             httpRequestMessage = request;
             PdfFileName = filename;
         }
+
+        public DownloadResult()
+        {
+        }
+
         public System.Threading.Tasks.Task<HttpResponseMessage> ExecuteAsync(System.Threading.CancellationToken cancellationToken)
         {
             httpResponseMessage = httpRequestMessage.CreateResponse(HttpStatusCode.OK);
             httpResponseMessage.Content = new StreamContent(bookStuff);
-            //httpResponseMessage.Content = new ByteArrayContent(bookStuff.ToArray());  
+            //httpResponseMessage.Content = new ByteArrayContent(bookStuff.ToArray());
             httpResponseMessage.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment");
             httpResponseMessage.Content.Headers.ContentDisposition.FileName = PdfFileName;
             httpResponseMessage.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
 
             return System.Threading.Tasks.Task.FromResult(httpResponseMessage);
         }
-        private string GetfileContenttype(string filetype)
+
+        public string GetfileContenttype(string filetype)
         {
             return BuildMappings()['.' + filetype];
         }
 
-
         private static IDictionary<string, string> BuildMappings()
         {
             var mappings = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase) {
- 
+
                 #region Big freaking list of mime types
-            
+
                 // maps both ways,
                 // extension -> mime type
                 //   and
@@ -54,7 +58,7 @@ namespace LSDataApi.api
                 // some mime types can map to multiple extensions, so to get a deterministic mapping,
                 // add those to the dictionary specifcially
                 //
-                // combination of values from Windows 7 Registry and 
+                // combination of values from Windows 7 Registry and
                 // from C:\Windows\System32\inetsrv\config\applicationHost.config
                 // some added, including .7z and .dat
                 //
@@ -707,9 +711,8 @@ namespace LSDataApi.api
                 {"video/x-la-asf", ".lsf"},
                 {"video/x-ms-asf", ".asf"},
                 {"x-world/x-vrml", ".xof"},
- 
-                #endregion
- 
+
+                #endregion Big freaking list of mime types
                 };
             return mappings;
         }

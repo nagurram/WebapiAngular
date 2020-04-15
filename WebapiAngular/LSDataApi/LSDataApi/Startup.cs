@@ -1,28 +1,29 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using AutoMapper;
+using LSDataApi.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using System;
 using System.Text;
-using LSDataApi.Services;
+using System.Threading.Tasks;
 using WebApi.Helpers;
-using AutoMapper;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 
 namespace LSDataApi
 {
     public class Startup
     {
-        readonly string MyAllowSpecificOrigins = "_myAllowAllOrigins";
+        private readonly string MyAllowSpecificOrigins = "_myAllowAllOrigins";
         private readonly IWebHostEnvironment _env;
         private readonly IConfiguration _configuration;
+
         //https://jasonwatmore.com/post/2019/10/14/aspnet-core-3-simple-api-for-authentication-registration-and-user-management
         public Startup(IWebHostEnvironment env, IConfiguration configuration)
         {
@@ -35,15 +36,22 @@ namespace LSDataApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<KestrelServerOptions>(
+            _configuration.GetSection("Kestrel"));
             services.AddCors(options =>
             {
                 options.AddPolicy(name: MyAllowSpecificOrigins,
                                   builder =>
                                   {
-                                      builder.WithOrigins("*")
+                                      builder.AllowAnyOrigin()
                                                     .AllowAnyHeader()
                                                     .AllowAnyMethod();
                                   });
+            });
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.SuppressModelStateInvalidFilter = true;
+                options.SuppressConsumesConstraintForFormFileParameters = true;
             });
             services.AddControllers();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -86,6 +94,7 @@ namespace LSDataApi
                     ValidateAudience = false
                 };
             });
+            services.AddControllers().AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
             services.AddTransient<IUserService, UserService>();
         }
 
@@ -106,6 +115,10 @@ namespace LSDataApi
                 .AllowAnyOrigin()
                 .AllowAnyMethod()
                 .AllowAnyHeader());
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            });
 
             app.UseAuthentication();
             app.UseAuthorization();

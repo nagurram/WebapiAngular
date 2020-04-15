@@ -9,18 +9,20 @@ namespace LSDataApi.Services
     public interface IUserService
     {
         Resource Authenticate(string username, string password);
+
         Resource GetById(int id);
+
+        IList<string> UserRoles(int userId);
     }
 
     public class UserService : IUserService
     {
-
         private readonly ILogger<UserService> Log;
+
         public UserService(ILogger<UserService> logger)
         {
             Log = logger;
         }
-
 
         public Resource Authenticate(string username, string password)
         {
@@ -29,27 +31,37 @@ namespace LSDataApi.Services
             Resource _logedinUser = null;
             //using (TicketTrackerContext TicketDB = new TicketTrackerContext())
             //{
-            Log.LogInformation("step 1 of authentication");
-            using (TicketTrackerContext TicketDB = new TicketTrackerContext())
+            try
             {
-                var user = TicketDB.Resource.Where(c => c.Email.Equals(username, StringComparison.OrdinalIgnoreCase) && c.Pwd.Equals(password))
-                    .FirstOrDefault();
-                //var user = (from p in TicketDB.Resources
-                //            where p.Email.Equals(context.UserName, StringComparison.OrdinalIgnoreCase) && p.Pwd.Equals(context.Password)
-                //            select p).FirstOrDefault();
-                Log.LogInformation("step 2 of authentication");
-                if (user == null)
+                Log.LogInformation("step 1 of authentication");
+                using (TicketTrackerContext TicketDB = new TicketTrackerContext())
                 {
-                    Log.LogInformation("invalid_grant", "The user name or password is incorrect.");
-                    return _logedinUser;
-                }
+                    var user = TicketDB.Resource.SingleOrDefault(x => x.Email == username);
 
-                user.Pwd = "";
-                _logedinUser = (Resource)user;
+                    Log.LogInformation("step 2 of authentication");
+                    if (user == null)
+                    {
+                        Log.LogInformation("invalid_grant", "The user name or password is incorrect.");
+                        return _logedinUser;
+                    }
+                    else if (!user.Pwd.Equals(password, StringComparison.OrdinalIgnoreCase))
+                    {
+                        Log.LogInformation("invalid_grant", "The user name or password is incorrect.");
+                        return _logedinUser;
+                    }
+
+                    user.Pwd = "";
+                    _logedinUser = (Resource)user;
+                }
+                // authentication successful
+                return _logedinUser;
+                //}
             }
-            // authentication successful
-            return _logedinUser;
-            //}
+            catch (System.Exception e)
+            {
+                Log.LogError(e, "in Authenticate", null);
+                return _logedinUser;
+            }
         }
 
         public Resource GetById(int id)
@@ -61,6 +73,22 @@ namespace LSDataApi.Services
                 _logedinUser = TicketDB.Resource.Find(id);
             }
             return _logedinUser;
+        }
+
+        public IList<string> UserRoles(int userId)
+        {
+            IList<string> roles = null;
+            using (TicketTrackerContext _repo = new TicketTrackerContext())
+            {
+                List<int> rolelist = (from r in _repo.UserRoles
+                                      where r.UserId == userId
+                                      select r.RoleId).ToList();
+
+                roles = (from rm in _repo.RoleMaster
+                         where rolelist.Contains(rm.RoleId)
+                         select rm.RoleDescription).ToList();
+            }
+            return roles;
         }
     }
 }

@@ -1,21 +1,18 @@
-﻿using Newtonsoft.Json;
+﻿using LsDataApi.Common;
+using LSDataApi.DBContext;
+using LSDataApi.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System.Text;
-using LSDataApi.Models;
-using System.Security.Principal;
 using System.Security.Claims;
-using LSDataApi.DBContext;
+using System.Threading.Tasks;
 
 namespace LSDataApi.api
 {
     public class BaseAPIController : ControllerBase
     {
-
         ///http://bitoftech.net/2015/03/11/asp-net-identity-2-1-roles-based-authorization-authentication-asp-net-web-api/
         /// http://bitoftech.net/2014/06/01/token-based-authentication-asp-net-web-api-2-owin-asp-net-identity/
         /// http://www.dotnetmob.com/angular-5-tutorial/angular-5-login-and-logout-with-web-api-using-token-based-authentication/
@@ -50,44 +47,52 @@ namespace LSDataApi.api
 
         [ProducesResponseType(StatusCodes.Status200OK)]
         protected async Task<IActionResult> BUserMaster()
-      {
-          return Ok(TicketDB.UserMaster.Select(p => new keyvalueModel { Id = p.UserId, keyValue = p.Fname + ", " + p.Lname, IsDeleted = p.IsDeleted }).AsEnumerable());
-      }
+        {
+            return Ok(TicketDB.UserMaster.Select(p => new keyvalueModel { Id = p.UserId, keyValue = p.Fname + ", " + p.Lname, IsDeleted = p.IsDeleted }).AsEnumerable());
+        }
 
+        protected async Task<IActionResult> BStatusMaster()
+        {
+            return Ok(TicketDB.StatusMaster.Select(p => new keyvalueModel { Id = p.StatusId, keyValue = p.StatusDescription, IsDeleted = p.IsDeleted }).AsEnumerable());
+        }
 
-      protected async Task<IActionResult> BStatusMaster()
-      {
-          return Ok(TicketDB.StatusMaster.Select(p => new keyvalueModel { Id = p.StatusId, keyValue = p.StatusDescription, IsDeleted = p.IsDeleted }).AsEnumerable());
-      }
+        protected async Task<IActionResult> BPriorityMaster()
+        {
+            return Ok(TicketDB.PriorityMaster.Select(p => new keyvalueModel { Id = p.PriorityId, keyValue = p.PriorityDescription, IsDeleted = p.IsDeleted }).AsEnumerable());
+        }
 
+        protected async Task<IActionResult> BModuleMaster()
+        {
+            return Ok(TicketDB.ModuleMaster.Select(p => new keyvalueModel { Id = p.ModuleId, keyValue = p.ModuleName, IsDeleted = p.IsDeleted }).AsEnumerable());
+        }
 
-      protected async Task<IActionResult> BPriorityMaster()
-      {
-          return Ok(TicketDB.PriorityMaster.Select(p => new keyvalueModel { Id = p.PriorityId, keyValue = p.PriorityDescription, IsDeleted = p.IsDeleted }).AsEnumerable());
-      }
+        protected async Task<IActionResult> BTypeMaster()
+        {
+            return Ok(TicketDB.TypeMaster.Select(p => new keyvalueModel { Id = p.TypeId, keyValue = p.TypeDescription, IsDeleted = p.IsDeleted }).AsEnumerable());
+        }
 
+        protected async Task<IActionResult> BRootCauseMaster()
+        {
+            return Ok(TicketDB.RootCauseMaster.Select(p => new keyvalueModel { Id = p.RootCauseId, keyValue = p.Description, IsDeleted = p.Isdelete }).AsEnumerable());
+        }
 
-      protected async Task<IActionResult> BModuleMaster()
-      {
-          return Ok(TicketDB.ModuleMaster.Select(p => new keyvalueModel { Id = p.ModuleId, keyValue = p.ModuleName, IsDeleted = p.IsDeleted }).AsEnumerable());
-      }
+        protected string GetClaimValue(string name)
+        {
+            if (name == Constants.UserId)
+            {
+                name = ClaimTypes.Name;
+            }
 
-      protected async Task<IActionResult> BTypeMaster()
-      {
-          return Ok(TicketDB.TypeMaster.Select(p => new keyvalueModel { Id = p.TypeId, keyValue = p.TypeDescription, IsDeleted = p.IsDeleted }).AsEnumerable());
-      }
+            string _retunval = "";
 
-      protected async Task<IActionResult> BRootCauseMaster()
-      {
-          return Ok(TicketDB.RootCauseMaster.Select(p => new keyvalueModel { Id = p.RootCauseId, keyValue = p.Description, IsDeleted = p.Isdelete }).AsEnumerable());
-      }
-
-      protected  string GetClaimValue(string name)
-      {
-          ClaimsIdentity claimsIdentity = User.Identity as ClaimsIdentity;
-          var claim = claimsIdentity == null ? null : claimsIdentity?.FindFirst(name);
-          return claim == null ? null : claim.Value;
-      }
-      
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            // Gets list of claims.
+            IEnumerable<Claim> claim = identity.Claims;
+            var calimVal = claim
+                               .Where(x => x.Type == name)
+                               .FirstOrDefault();
+            _retunval = Convert.ToString(calimVal.Value);
+            return _retunval;
+        }
     }
 }

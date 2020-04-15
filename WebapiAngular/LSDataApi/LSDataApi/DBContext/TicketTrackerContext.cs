@@ -1,6 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 namespace LSDataApi.DBContext
@@ -8,6 +6,7 @@ namespace LSDataApi.DBContext
     public partial class TicketTrackerContext : DbContext
     {
         private IConfiguration Configuration { get; set; }
+
         public TicketTrackerContext()
         {
             var builder = new ConfigurationBuilder()

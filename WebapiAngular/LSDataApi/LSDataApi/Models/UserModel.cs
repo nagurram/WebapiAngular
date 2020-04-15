@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace LSDataApi.Models
+﻿namespace LSDataApi.Models
 {
     public class UserModel
     {
@@ -11,12 +6,5 @@ namespace LSDataApi.Models
         public string LastName { get; set; }
         public string EmailId { get; set; }
         public string Roleid { get; set; }
-
-
-        
-
-
-
-
     }
 }

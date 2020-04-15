@@ -1,23 +1,20 @@
-﻿using System;
+﻿using LSDataApi.DBContext;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using LSDataApi.DBContext;
 
 namespace LSDataApi.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
     public class ApplicationMastersController : ControllerBase
     {
         private readonly TicketTrackerContext _context;
 
-        public ApplicationMastersController(TicketTrackerContext context)
+        public ApplicationMastersController()
         {
-            _context = context;
+            _context = new TicketTrackerContext();
         }
 
         // GET: api/ApplicationMasters

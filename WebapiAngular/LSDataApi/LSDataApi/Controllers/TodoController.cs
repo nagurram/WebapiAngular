@@ -1,22 +1,12 @@
-﻿using System;
+﻿using LSDataApi.DBContext;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Linq;
-using LSDataApi.DBContext;
-using LSDataApi.Models;
-using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
-using LSDataApi.DBContext;
-using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Authorization;
-using LSDataApi.api;
-using Microsoft.AspNetCore.Hosting;
-using System.IO;
-using LsDataApi.Common;
-using System.Text;
-using System.Net.Http;
 
 namespace LSDataApi.api
 {
@@ -26,13 +16,13 @@ namespace LSDataApi.api
     [Authorize]
     public class TodoController : BaseAPIController
     {
-
         private readonly ILogger<TodoController> Log;
 
         public TodoController(ILogger<TodoController> logger)
         {
             Log = logger;
         }
+
         /// <summary>
         /// Returns All Todo List items
         /// </summary>
@@ -43,18 +33,17 @@ namespace LSDataApi.api
             var _lsttodoe = new List<TodoList>();
             try
             {
-              var   _lsttodo = (from t in TicketDB.TodoList
+                var _lsttodo = (from t in TicketDB.TodoList
 
-                               select new { t.TodoId, t.Userid, t.Titile, t.Description, t.ActionDate, t.IsActive }).ToList();
+                                select new { t.TodoId, t.Userid, t.Titile, t.Description, t.ActionDate, t.IsActive }).ToList();
                 return Ok(_lsttodo);
             }
-            catch(System.Exception e)
+            catch (System.Exception e)
             {
-                Log.LogError(null,e);
+                Log.LogError(null, e);
             }
             return Ok(_lsttodoe);
         }
-
 
         [HttpPut, Route("Updatetodo/{id}")]
         public async Task<IActionResult> Put(int id, [FromBody]TodoList value)
@@ -66,11 +55,9 @@ namespace LSDataApi.api
             }
             else
             {
-                TicketDB.Entry(_todoitem).State =  EntityState.Modified;
+                TicketDB.Entry(_todoitem).State = EntityState.Modified;
             }
             return Ok(TicketDB.SaveChanges());
         }
-
-
     }
 }
