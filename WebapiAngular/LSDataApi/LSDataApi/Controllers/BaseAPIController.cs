@@ -23,7 +23,7 @@ namespace LSDataApi.api
 
         protected readonly TicketTrackerContext TicketDB = new TicketTrackerContext();
         /*
-        protected async Task<IActionResult> ToJson(dynamic obj)
+        protected IActionResult ToJson(dynamic obj)
         {
             try
             {
@@ -40,38 +40,38 @@ namespace LSDataApi.api
         */
 
         [ProducesResponseType(StatusCodes.Status200OK)]
-        protected async Task<IActionResult> BAppMaster()
+        protected IActionResult BAppMaster()
         {
             return Ok(TicketDB.ApplicationMaster.Select(p => new keyvalueModel { Id = p.ApplicationId, keyValue = p.ApplicationName, IsDeleted = p.IsDeleted }).AsEnumerable());
         }
 
         [ProducesResponseType(StatusCodes.Status200OK)]
-        protected async Task<IActionResult> BUserMaster()
+        protected IActionResult BUserMaster()
         {
             return Ok(TicketDB.UserMaster.Select(p => new keyvalueModel { Id = p.UserId, keyValue = p.Fname + ", " + p.Lname, IsDeleted = p.IsDeleted }).AsEnumerable());
         }
 
-        protected async Task<IActionResult> BStatusMaster()
+        protected IActionResult BStatusMaster()
         {
             return Ok(TicketDB.StatusMaster.Select(p => new keyvalueModel { Id = p.StatusId, keyValue = p.StatusDescription, IsDeleted = p.IsDeleted }).AsEnumerable());
         }
 
-        protected async Task<IActionResult> BPriorityMaster()
+        protected IActionResult BPriorityMaster()
         {
             return Ok(TicketDB.PriorityMaster.Select(p => new keyvalueModel { Id = p.PriorityId, keyValue = p.PriorityDescription, IsDeleted = p.IsDeleted }).AsEnumerable());
         }
 
-        protected async Task<IActionResult> BModuleMaster()
+        protected IActionResult BModuleMaster()
         {
             return Ok(TicketDB.ModuleMaster.Select(p => new keyvalueModel { Id = p.ModuleId, keyValue = p.ModuleName, IsDeleted = p.IsDeleted }).AsEnumerable());
         }
 
-        protected async Task<IActionResult> BTypeMaster()
+        protected IActionResult BTypeMaster()
         {
             return Ok(TicketDB.TypeMaster.Select(p => new keyvalueModel { Id = p.TypeId, keyValue = p.TypeDescription, IsDeleted = p.IsDeleted }).AsEnumerable());
         }
 
-        protected async Task<IActionResult> BRootCauseMaster()
+        protected IActionResult BRootCauseMaster()
         {
             return Ok(TicketDB.RootCauseMaster.Select(p => new keyvalueModel { Id = p.RootCauseId, keyValue = p.Description, IsDeleted = p.Isdelete }).AsEnumerable());
         }

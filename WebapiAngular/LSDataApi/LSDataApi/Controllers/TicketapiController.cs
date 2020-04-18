@@ -39,7 +39,7 @@ namespace DataApi.api
         #region "Basic data"
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public  IActionResult Get()
         {
             var _lstticket = from t in TicketDB.Tickets
                              join um in TicketDB.UserMaster on t.CreatedBy equals um.UserId
@@ -54,7 +54,7 @@ namespace DataApi.api
         }
 
         [HttpPut, Route("Updateticket/{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody]Tickets value)
+        public  IActionResult Put(int id, [FromBody]Tickets value)
         {
             Tickets _ticket = new Tickets() { TicketId = id, Title = value.Title, Tdescription = value.Tdescription, CreatedBy = value.CreatedBy, StatusId = value.StatusId, Createddate = value.Createddate, AssignedTo = value.AssignedTo, PriorityId = value.PriorityId, TypeId = value.TypeId, ApplicationId = value.ApplicationId, ModuleId = value.ModuleId, ResponseDeadline = value.ResponseDeadline, ResolutionDeadline = value.ResolutionDeadline, RootCauseId = value.RootCauseId, Comments = value.Comments, UpdatedBy = Convert.ToInt32(GetClaimValue(ClaimTypes.Name)), LastModifiedon = value.LastModifiedon };
             if (_ticket.TicketId == 0)
@@ -70,7 +70,7 @@ namespace DataApi.api
 
         [HttpGet]
         [Route("{id}")]
-        public async Task<IActionResult> Get(int id)
+        public  IActionResult Get(int id)
         {
             return Ok(
                 from t in
@@ -82,51 +82,51 @@ namespace DataApi.api
 
         [HttpGet]
         [Route("AppMaster")]
-        public async Task<IActionResult> AppMaster()
+        public  IActionResult AppMaster()
         {
-            return await BAppMaster();
+            return   BAppMaster();
         }
 
         [HttpGet]
         [Route("RootcauseMaster")]
-        public async Task<IActionResult> RootcauseMaster()
+        public  IActionResult RootcauseMaster()
         {
-            return await BRootCauseMaster();
+            return   BRootCauseMaster();
         }
 
         [HttpGet]
         [Route("ModuleMaster")]
-        public async Task<IActionResult> ModuleMaster()
+        public  IActionResult ModuleMaster()
         {
-            return await BModuleMaster();
+            return   BModuleMaster();
         }
 
         [HttpGet]
         [Route("PriorityMaster")]
-        public async Task<IActionResult> PriorityMaster()
+        public  IActionResult PriorityMaster()
         {
-            return await BPriorityMaster();
+            return   BPriorityMaster();
         }
 
         [HttpGet]
         [Route("StatusMaster")]
-        public async Task<IActionResult> StatusMaster()
+        public  IActionResult StatusMaster()
         {
-            return await BStatusMaster();
+            return   BStatusMaster();
         }
 
         [HttpGet]
         [Route("UserMaster")]
-        public async Task<IActionResult> UserMaster()
+        public  IActionResult UserMaster()
         {
-            return await BUserMaster();
+            return   BUserMaster();
         }
 
         [HttpGet]
         [Route("TypeMaster")]
-        public async Task<IActionResult> TypeMaster()
+        public  IActionResult TypeMaster()
         {
-            return await BTypeMaster();
+            return   BTypeMaster();
         }
 
         #endregion "Basic data"
@@ -134,14 +134,14 @@ namespace DataApi.api
         #region "file upload"
 
         [HttpGet, Route("Getattachments/{id}")]
-        public async Task<IActionResult> GetTicketAttachemnets(int id)
+        public  IActionResult GetTicketAttachemnets(int id)
         {
             var filelist = (TicketDB.FileUpload.Where(t => t.TicketId == id).Select(p => new { p.Fileid, p.FileName, p.Filetype, p.UploadDate })).ToList();
             return Ok(filelist);
         }
 
         [HttpPost, Route("Uploadattachments/{id}"), DisableRequestSizeLimit]
-        public IActionResult PostFormDataAsync(int id)
+        public IActionResult PostFormData(int id)
         {
             var path = Path.GetTempPath();
             var file = Request.Form.Files[0];

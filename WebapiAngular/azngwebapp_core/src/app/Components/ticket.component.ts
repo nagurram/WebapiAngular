@@ -306,7 +306,7 @@ export class TicketComponent extends BaseComponent implements OnInit {
             data => {
                 if (data.Message == "1") //Success
                 {
-                    // console.log(this.ticketId);
+                   // $('#fileupload').val('');
                     this.LoadAttachments(this.ticketId);
                     // console.log(this.attachments)
                     this.msg = "File Upload successfull"

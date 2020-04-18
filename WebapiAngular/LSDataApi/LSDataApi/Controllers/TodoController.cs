@@ -28,7 +28,7 @@ namespace LSDataApi.api
         /// </summary>
         /// <returns></returns>
         [HttpGet, Route("todolist")]
-        public async Task<IActionResult> Get()
+        public IActionResult Get()
         {
             var _lsttodoe = new List<TodoList>();
             try
@@ -46,7 +46,7 @@ namespace LSDataApi.api
         }
 
         [HttpPut, Route("Updatetodo/{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody]TodoList value)
+        public IActionResult Put(int id, [FromBody]TodoList value)
         {
             TodoList _todoitem = new TodoList() { TodoId = value.TodoId, Userid = value.Userid, Titile = value.Titile, Description = value.Description, ActionDate = value.ActionDate, IsActive = value.IsActive };
             if (_todoitem.TodoId == 0)

@@ -24,17 +24,26 @@ namespace LSDataApi.api
             Log = logger;
         }
 
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> Get()
+        [HttpGet,ProducesResponseType(StatusCodes.Status200OK)]
+        public IActionResult Get()
         {
-            return await BAppMaster();
+            return BAppMaster();
+        }
+        [HttpGet,Route("GetById/{id}")]
+        public IActionResult GetById(int id)
+        {
+            return  Ok(TicketDB.ApplicationMaster.Find(id));
         }
 
+
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody]keyvalueModel value)
+        public IActionResult Post([FromBody]keyvalueModel value)
         {
-            TicketDB.ApplicationMaster.Add(new ApplicationMaster() { ApplicationId = value.Id, ApplicationName = value.keyValue, IsDeleted = false });
-            return Ok(TicketDB.SaveChanges());
+            var app = new ApplicationMaster() { ApplicationId = value.Id, ApplicationName = value.keyValue, IsDeleted = false };
+            TicketDB.ApplicationMaster.Add(app);
+            TicketDB.SaveChanges();
+            TicketDB.Dispose();
+            return CreatedAtAction(nameof(GetById), new { id = app.ApplicationId });
         }
 
         /// <summary>
@@ -44,7 +53,7 @@ namespace LSDataApi.api
         /// <param name="value"></param>
         /// <returns></returns>
         [HttpPut, Route("updateapplication/{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody]keyvalueModel value)
+        public IActionResult Put(int id, [FromBody]keyvalueModel value)
         {
             ApplicationMaster _applicationMaster = new ApplicationMaster() { ApplicationId = value.Id, ApplicationName = value.keyValue, IsDeleted = false };
             TicketDB.Entry(_applicationMaster).State = EntityState.Modified;
@@ -57,7 +66,7 @@ namespace LSDataApi.api
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete, Route("deleteapplication/{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public IActionResult Delete(int id)
         {
             TicketDB.ApplicationMaster.Remove(TicketDB.ApplicationMaster.FirstOrDefault(x => x.ApplicationId == id));
             TicketDB.SaveChanges();
@@ -70,7 +79,7 @@ namespace LSDataApi.api
         /// <param name="value"></param>
         /// <returns></returns>
         [HttpPost, Route("adduser")]
-        public async Task<IActionResult> adduser([FromBody]UserModel value)
+        public IActionResult adduser([FromBody]UserModel value)
         {
             var _lstResource = new List<Resource>();
             try

@@ -15,6 +15,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WebApi.Helpers;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
+using Microsoft.OpenApi.Models;
 
 namespace LSDataApi
 {
@@ -95,6 +96,11 @@ namespace LSDataApi
                     ValidateAudience = false
                 };
             });
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+            });
             services.AddControllers().AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
             services.AddTransient<IUserService, UserService>();
         }
@@ -102,7 +108,7 @@ namespace LSDataApi
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
-            loggerFactory.AddFile("Logs/DataApi-{Date}.txt");
+           // loggerFactory.AddFile("Logs/DataApi-{Date}.txt");
             if (env.IsDevelopment())
             {
                 // _logger.LogInformation("In Development environment");
@@ -123,7 +129,15 @@ namespace LSDataApi
 
             app.UseAuthentication();
             app.UseAuthorization();
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
 
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
