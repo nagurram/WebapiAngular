@@ -14,7 +14,6 @@ using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace DataApi.api
 {
@@ -39,7 +38,7 @@ namespace DataApi.api
         #region "Basic data"
 
         [HttpGet]
-        public  IActionResult Get()
+        public IActionResult Get()
         {
             var _lstticket = from t in TicketDB.Tickets
                              join um in TicketDB.UserMaster on t.CreatedBy equals um.UserId
@@ -54,7 +53,7 @@ namespace DataApi.api
         }
 
         [HttpPut, Route("Updateticket/{id}")]
-        public  IActionResult Put(int id, [FromBody]Tickets value)
+        public IActionResult Put(int id, [FromBody]Tickets value)
         {
             Tickets _ticket = new Tickets() { TicketId = id, Title = value.Title, Tdescription = value.Tdescription, CreatedBy = value.CreatedBy, StatusId = value.StatusId, Createddate = value.Createddate, AssignedTo = value.AssignedTo, PriorityId = value.PriorityId, TypeId = value.TypeId, ApplicationId = value.ApplicationId, ModuleId = value.ModuleId, ResponseDeadline = value.ResponseDeadline, ResolutionDeadline = value.ResolutionDeadline, RootCauseId = value.RootCauseId, Comments = value.Comments, UpdatedBy = Convert.ToInt32(GetClaimValue(ClaimTypes.Name)), LastModifiedon = value.LastModifiedon };
             if (_ticket.TicketId == 0)
@@ -70,7 +69,7 @@ namespace DataApi.api
 
         [HttpGet]
         [Route("{id}")]
-        public  IActionResult Get(int id)
+        public IActionResult Get(int id)
         {
             return Ok(
                 from t in
@@ -82,51 +81,51 @@ namespace DataApi.api
 
         [HttpGet]
         [Route("AppMaster")]
-        public  IActionResult AppMaster()
+        public IActionResult AppMaster()
         {
-            return   BAppMaster();
+            return BAppMaster();
         }
 
         [HttpGet]
         [Route("RootcauseMaster")]
-        public  IActionResult RootcauseMaster()
+        public IActionResult RootcauseMaster()
         {
-            return   BRootCauseMaster();
+            return BRootCauseMaster();
         }
 
         [HttpGet]
         [Route("ModuleMaster")]
-        public  IActionResult ModuleMaster()
+        public IActionResult ModuleMaster()
         {
-            return   BModuleMaster();
+            return BModuleMaster();
         }
 
         [HttpGet]
         [Route("PriorityMaster")]
-        public  IActionResult PriorityMaster()
+        public IActionResult PriorityMaster()
         {
-            return   BPriorityMaster();
+            return BPriorityMaster();
         }
 
         [HttpGet]
         [Route("StatusMaster")]
-        public  IActionResult StatusMaster()
+        public IActionResult StatusMaster()
         {
-            return   BStatusMaster();
+            return BStatusMaster();
         }
 
         [HttpGet]
         [Route("UserMaster")]
-        public  IActionResult UserMaster()
+        public IActionResult UserMaster()
         {
-            return   BUserMaster();
+            return BUserMaster();
         }
 
         [HttpGet]
         [Route("TypeMaster")]
-        public  IActionResult TypeMaster()
+        public IActionResult TypeMaster()
         {
-            return   BTypeMaster();
+            return BTypeMaster();
         }
 
         #endregion "Basic data"
@@ -134,7 +133,7 @@ namespace DataApi.api
         #region "file upload"
 
         [HttpGet, Route("Getattachments/{id}")]
-        public  IActionResult GetTicketAttachemnets(int id)
+        public IActionResult GetTicketAttachemnets(int id)
         {
             var filelist = (TicketDB.FileUpload.Where(t => t.TicketId == id).Select(p => new { p.Fileid, p.FileName, p.Filetype, p.UploadDate })).ToList();
             return Ok(filelist);

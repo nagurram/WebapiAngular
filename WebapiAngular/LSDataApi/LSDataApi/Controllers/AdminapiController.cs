@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace LSDataApi.api
 {
@@ -24,17 +23,17 @@ namespace LSDataApi.api
             Log = logger;
         }
 
-        [HttpGet,ProducesResponseType(StatusCodes.Status200OK)]
+        [HttpGet, ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult Get()
         {
             return BAppMaster();
         }
-        [HttpGet,Route("GetById/{id}")]
+
+        [HttpGet, Route("GetById/{id}")]
         public IActionResult GetById(int id)
         {
-            return  Ok(TicketDB.ApplicationMaster.Find(id));
+            return Ok(TicketDB.ApplicationMaster.Find(id));
         }
-
 
         [HttpPost]
         public IActionResult Post([FromBody]keyvalueModel value)
