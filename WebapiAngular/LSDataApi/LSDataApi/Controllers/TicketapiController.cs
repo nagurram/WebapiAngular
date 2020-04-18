@@ -191,7 +191,7 @@ namespace DataApi.api
             catch (System.Exception e)
             {
                 Log.LogError(null, e);
-                return Ok(new { Message = "0" });
+                return Ok(new { Message = e.StackTrace });
             }
         }
 

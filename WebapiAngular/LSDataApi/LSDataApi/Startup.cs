@@ -54,6 +54,7 @@ namespace LSDataApi
                 options.SuppressConsumesConstraintForFormFileParameters = true;
             });
             services.AddControllers();
+            //services.AddControllers().AddNewtonsoftJson(); ;
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             // configure strongly typed settings objects
             var appSettingsSection = _configuration.GetSection("AppSettings");
