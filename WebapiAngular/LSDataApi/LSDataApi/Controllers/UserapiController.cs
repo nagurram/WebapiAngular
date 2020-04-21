@@ -74,6 +74,10 @@ namespace LSDataApi.api
             });
         }
 
+        /// <summary>
+        /// Get menus
+        /// </summary>
+        /// <returns></returns>
         [HttpGet, Route("GetMenuitems")]
         public IActionResult GetMenuitms()
         {
@@ -95,6 +99,10 @@ namespace LSDataApi.api
             return Ok(new { Userid = userid, UserName = userName, routeCollection = menus });
         }
 
+        /// <summary>
+        /// Logout
+        /// </summary>
+        /// <returns></returns>
         [HttpPost, AllowAnonymous]
         [Route("Logout")]
         public IActionResult Logout()

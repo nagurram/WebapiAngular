@@ -23,18 +23,32 @@ namespace LSDataApi.api
             Log = logger;
         }
 
+        /// <summary>
+        /// Gets list of applications
+        /// </summary>
+        /// <returns></returns>
         [HttpGet, ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult Get()
         {
             return BAppMaster();
         }
 
+        /// <summary>
+        /// Gets list of application  by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet, Route("GetById/{id}")]
         public IActionResult GetById(int id)
         {
             return Ok(TicketDB.ApplicationMaster.Find(id));
         }
 
+        /// <summary>
+        /// Create new Application
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult Post([FromBody]keyvalueModel value)
         {
@@ -73,7 +87,7 @@ namespace LSDataApi.api
         }
 
         /// <summary>
-        /// Add user
+        /// Add new user
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>

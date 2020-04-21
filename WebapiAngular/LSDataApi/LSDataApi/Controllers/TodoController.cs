@@ -44,6 +44,12 @@ namespace LSDataApi.api
             return Ok(_lsttodoe);
         }
 
+        /// <summary>
+        /// Update todo item
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
         [HttpPut, Route("Updatetodo/{id}")]
         public IActionResult Put(int id, [FromBody]TodoList value)
         {
@@ -56,7 +62,8 @@ namespace LSDataApi.api
             {
                 TicketDB.Entry(_todoitem).State = EntityState.Modified;
             }
-            return Ok(TicketDB.SaveChanges());
+            TicketDB.SaveChanges();
+            return Ok(1);
         }
     }
 }

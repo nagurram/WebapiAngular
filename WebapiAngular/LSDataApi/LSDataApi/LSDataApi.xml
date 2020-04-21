@@ -1,0 +1,169 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>LSDataApi</name>
+    </assembly>
+    <members>
+        <member name="M:LSDataApi.api.AdminapiController.Get">
+            <summary>
+            Gets list of applications
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:LSDataApi.api.AdminapiController.GetById(System.Int32)">
+            <summary>
+            Gets list of application  by id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LSDataApi.api.AdminapiController.Post(LSDataApi.Models.keyvalueModel)">
+            <summary>
+            Create new Application
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LSDataApi.api.AdminapiController.Put(System.Int32,LSDataApi.Models.keyvalueModel)">
+            <summary>
+            update Application details
+            </summary>
+            <param name="id"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LSDataApi.api.AdminapiController.Delete(System.Int32)">
+            <summary>
+            Delete Application
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LSDataApi.api.AdminapiController.adduser(LSDataApi.Models.UserModel)">
+            <summary>
+            Add new user
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="F:LSDataApi.api.BaseAPIController.TicketDB">
+            http://bitoftech.net/2015/03/11/asp-net-identity-2-1-roles-based-authorization-authentication-asp-net-web-api/
+             http://bitoftech.net/2014/06/01/token-based-authentication-asp-net-web-api-2-owin-asp-net-identity/
+             http://www.dotnetmob.com/angular-5-tutorial/angular-5-login-and-logout-with-web-api-using-token-based-authentication/
+             https://medium.com/aviabird/http-interceptor-angular2-way-e57dc2842462
+             https://scotch.io/@kashyapmukkamala/using-http-interceptor-with-angular2
+             https://www.youtube.com/watch?v=rbHSTJBhJ44
+             https://medium.com/better-programming/creating-angular-webapp-for-multiple-views-and-screen-sizes-50fe8a83c433
+        </member>
+        <member name="M:LSDataApi.api.TodoController.Get">
+            <summary>
+            Returns All Todo List items
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:LSDataApi.api.TodoController.Put(System.Int32,LSDataApi.DBContext.TodoList)">
+            <summary>
+            Update todo item
+            </summary>
+            <param name="id"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LSDataApi.api.UserapiController.GetMenuitms">
+            <summary>
+            Get menus
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:LSDataApi.api.UserapiController.Logout">
+            <summary>
+            Logout
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DataApi.api.TicketapiController.Get">
+            <summary>
+            This method is for getting all tickets
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DataApi.api.TicketapiController.Put(System.Int32,LSDataApi.DBContext.Tickets)">
+            <summary>
+            Update ticket details
+            </summary>
+            <param name="id"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DataApi.api.TicketapiController.Get(System.Int32)">
+            <summary>
+            Get ticket by Id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DataApi.api.TicketapiController.AppMaster">
+            <summary>
+            Get all Applications list
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DataApi.api.TicketapiController.RootcauseMaster">
+            <summary>
+            Gets all Rootcause list
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DataApi.api.TicketapiController.ModuleMaster">
+            <summary>
+            Gets all Module list
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DataApi.api.TicketapiController.PriorityMaster">
+            <summary>
+            Gets all Priority list
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DataApi.api.TicketapiController.StatusMaster">
+            <summary>
+            Gets all Status list
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DataApi.api.TicketapiController.UserMaster">
+            <summary>
+            Gets all User list
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DataApi.api.TicketapiController.TypeMaster">
+            <summary>
+            Gets all Type list
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DataApi.api.TicketapiController.GetTicketAttachemnets(System.Int32)">
+            <summary>
+            Gets attachment by id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DataApi.api.TicketapiController.PostFormData(System.Int32)">
+            <summary>
+            Upload attachment by ticket id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DataApi.api.TicketapiController.GetfileAttachemnet(System.Int32)">
+            <summary>
+            Download attachment by attachment  by id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

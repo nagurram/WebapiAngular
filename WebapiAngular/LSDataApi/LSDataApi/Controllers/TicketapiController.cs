@@ -37,6 +37,10 @@ namespace DataApi.api
 
         #region "Basic data"
 
+        /// <summary>
+        /// This method is for getting all tickets
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult Get()
         {
@@ -52,6 +56,12 @@ namespace DataApi.api
             return Ok(_lstticket);
         }
 
+        /// <summary>
+        /// Update ticket details
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
         [HttpPut, Route("Updateticket/{id}")]
         public IActionResult Put(int id, [FromBody]Tickets value)
         {
@@ -67,6 +77,11 @@ namespace DataApi.api
             return Ok(TicketDB.SaveChanges());
         }
 
+        /// <summary>
+        /// Get ticket by Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("{id}")]
         public IActionResult Get(int id)
@@ -79,6 +94,10 @@ namespace DataApi.api
                 );
         }
 
+        /// <summary>
+        /// Get all Applications list
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("AppMaster")]
         public IActionResult AppMaster()
@@ -86,6 +105,10 @@ namespace DataApi.api
             return BAppMaster();
         }
 
+        /// <summary>
+        /// Gets all Rootcause list
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("RootcauseMaster")]
         public IActionResult RootcauseMaster()
@@ -93,6 +116,10 @@ namespace DataApi.api
             return BRootCauseMaster();
         }
 
+        /// <summary>
+        /// Gets all Module list
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("ModuleMaster")]
         public IActionResult ModuleMaster()
@@ -100,6 +127,10 @@ namespace DataApi.api
             return BModuleMaster();
         }
 
+        /// <summary>
+        /// Gets all Priority list
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("PriorityMaster")]
         public IActionResult PriorityMaster()
@@ -107,6 +138,10 @@ namespace DataApi.api
             return BPriorityMaster();
         }
 
+        /// <summary>
+        /// Gets all Status list
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("StatusMaster")]
         public IActionResult StatusMaster()
@@ -114,6 +149,10 @@ namespace DataApi.api
             return BStatusMaster();
         }
 
+        /// <summary>
+        /// Gets all User list
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("UserMaster")]
         public IActionResult UserMaster()
@@ -121,6 +160,10 @@ namespace DataApi.api
             return BUserMaster();
         }
 
+        /// <summary>
+        /// Gets all Type list
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("TypeMaster")]
         public IActionResult TypeMaster()
@@ -132,6 +175,11 @@ namespace DataApi.api
 
         #region "file upload"
 
+        /// <summary>
+        /// Gets attachment by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet, Route("Getattachments/{id}")]
         public IActionResult GetTicketAttachemnets(int id)
         {
@@ -139,6 +187,11 @@ namespace DataApi.api
             return Ok(filelist);
         }
 
+        /// <summary>
+        /// Upload attachment by ticket id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPost, Route("Uploadattachments/{id}"), DisableRequestSizeLimit]
         public IActionResult PostFormData(int id)
         {
@@ -194,6 +247,11 @@ namespace DataApi.api
             }
         }
 
+        /// <summary>
+        /// Download attachment by attachment  by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet, Route("GetfileAttachemnet/{id}")]
         public IActionResult GetfileAttachemnet(int id)
         {
