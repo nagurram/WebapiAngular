@@ -1,0 +1,22 @@
+﻿#!/bin/bash 
+echo "Deployment is in progress"
+systemctl stop kestrel-webapi.service
+rm -R /home/narendra/Coding/dataapi/LSDataApi/bin
+cd /home/narendra/Coding/dataapi/LSDataApi
+dotnet restore 
+echo "web packages restored"
+dotnet build
+echo "build complete"
+dotnet publish
+echo "Publish complete"
+chmod -R 757 /home/narendra/Coding/dataapi/LSDataApi/bin/Debug/netcoreapp3.1
+mv /home/narendra/Coding/dataapi/LSDataApi/bin/Debug/netcoreapp3.1/appSettings.json /home/narendra/Coding/dataapi/LSDataApi/bin/Debug/netcoreapp3.1/appsettings.json
+echo "web services is restarted"
+mkdir /home/narendra/Coding/dataapi/LSDataApi/bin/Debug/netcoreapp3.1/newdir
+cp  /home/narendra/Coding/dataapi/LSDataApi/bin/Debug/netcoreapp3.1/appsettings.json /home/narendra/Coding/dataapi/LSDataApi/bin/Debug/netcoreapp3.1/newdir
+mv /home/narendra/Coding/dataapi/LSDataApi/bin/Debug/netcoreapp3.1/newdir/appsettings.json /home/narendra/Coding/dataapi/LSDataApi/bin/Debug/netcoreapp3.1/newdir/appSettings.json
+cp /home/narendra/Coding/dataapi/LSDataApi/bin/Debug/netcoreapp3.1/newdir/appSettings.json  /home/narendra/Coding/dataapi/LSDataApi/bin/Debug/netcoreapp3.1
+rm -R  /home/narendra/Coding/dataapi/LSDataApi/bin/Debug/netcoreapp3.1/newdir
+chmod -R 757 /home/narendra/Coding/dataapi/LSDataApi/bin/Debug/netcoreapp3.1
+systemctl restart kestrel-webapi.service
+echo "Deployment is sucess"
