@@ -20,10 +20,10 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'azngwebapp'`, () => {
+  it(`should have as title 'azngwebapp_core'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('azngwebapp');
+    expect(app.title).toEqual('azngwebapp_core');
   });
 
   it('should render title', () => {

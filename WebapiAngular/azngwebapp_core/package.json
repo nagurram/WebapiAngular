@@ -1,5 +1,5 @@
 {
-  "name": "azngwebapp",
+  "name": "azngwebapp_core",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -26,7 +26,7 @@
     "bootstrap": "^3.4.1",
     "core-js": "^3.6.1",
     "file-saver": "^2.0.2",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "ngx-bootstrap": "^5.3.2",
     "popper.js": "^1.16.0",
     "rxjs": "~6.5.5",

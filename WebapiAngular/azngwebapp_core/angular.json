@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "azngwebapp": {
+    "azngwebapp_core": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/azngwebapp",
+            "outputPath": "dist/angnetcore",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -67,18 +67,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "azngwebapp:build"
+            "browserTarget": "azngwebapp_core:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "azngwebapp:build:production"
+              "browserTarget": "azngwebapp_core:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "azngwebapp:build"
+            "browserTarget": "azngwebapp_core:build"
           }
         },
         "test": {
@@ -115,15 +115,15 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "azngwebapp:serve"
+            "devServerTarget": "azngwebapp_core:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "azngwebapp:serve:production"
+              "devServerTarget": "azngwebapp_core:serve:production"
             }
           }
         }
       }
     }},
-  "defaultProject": "azngwebapp"
+  "defaultProject": "azngwebapp_core"
 }

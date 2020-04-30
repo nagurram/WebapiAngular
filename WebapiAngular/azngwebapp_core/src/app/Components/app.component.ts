@@ -7,7 +7,7 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'azngwebapp';
+  title = 'azngwebapp_core';
 
   constructor(private titleService: Title) {
   }
