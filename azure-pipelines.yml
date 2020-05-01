@@ -9,6 +9,7 @@ trigger:
 pool:
   vmImage: 'windows-latest'
 
+
 variables:
   solution: '**/DataApi.csproj'
   buildPlatform: 'Any CPU'
@@ -19,7 +20,9 @@ steps:
 
 - task: NuGetCommand@2
   inputs:
-    restoreSolution: '$(solution)'
+    command: 'restore'
+    restoreSolution: '**/DataApi.csproj'
+    feedsToUse: 'select'
 
 - task: VSBuild@1
   inputs:
