@@ -11,7 +11,7 @@ pool:
 
 
 variables:
-  solution: '**/DataApi.csproj'
+  solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
@@ -21,7 +21,7 @@ steps:
 - task: NuGetCommand@2
   inputs:
     command: 'restore'
-    restoreSolution: '**/DataApi.csproj'
+    restoreSolution: '**/*.sln'
     feedsToUse: 'select'
 
 - task: VSBuild@1
