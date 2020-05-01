@@ -16,7 +16,7 @@ namespace LSDataApi.api
     [EnableCors("_myAllowAllOrigins")]
     public class AdminapiController : BaseAPIController
     {
-      //  private readonly ILogger<AdminapiController> Log;
+        private readonly ILogger<AdminapiController> Log;
 
         public AdminapiController(ILogger<AdminapiController> logger)
         {
