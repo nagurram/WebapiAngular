@@ -1,5 +1,4 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
-import { TodoModel } from '../Model/todoModel';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
@@ -10,6 +9,7 @@ import { Global } from '../Shared/global';
 import { BaseComponent } from './BaseComponent';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { Title } from '@angular/platform-browser';
+import { TodoModel } from '../Model/TodoModel';
 
 @Component({
     templateUrl: './todo.component.html',
