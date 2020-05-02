@@ -6,7 +6,6 @@ import { DBOperation } from '../Shared/enum';
 import { Observable } from 'rxjs';
 import { Global } from '../Shared/global';
 import { Router, ActivatedRoute, Route } from '@angular/router';
-import { removeSpaces } from '../Validators/removeSpaces.validator';
 import { BaseComponent } from './BaseComponent';
 import { Title } from '@angular/platform-browser';
 

@@ -10,7 +10,6 @@ import { ActivatedRoute, Router, NavigationStart } from '@angular/router';
 import { Location, DatePipe } from '@angular/common';
 import { DropdownComponent } from './dropdown.component';
 import { HttpHeaders } from '@angular/common/http';
-import { removeSpaces } from '../Validators/removeSpaces.validator';
 import { TabsetComponent, TabDirective } from 'ngx-bootstrap/tabs';
 import { saveAs } from 'file-saver';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
@@ -19,7 +18,7 @@ import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { BaseComponent } from './BaseComponent';
 import { ApplicationStateService } from '../Service/application-state.service';
 import { Title } from '@angular/platform-browser';
-
+import {removeSpaces} from '../validators/removeSpaces.validator';
 
 const MIME_TYPES = {
     pdf: 'application/pdf',
