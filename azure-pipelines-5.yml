@@ -18,7 +18,7 @@ steps:
 - script: |
     npm install -g typescript
     npm install -g @angular/cli   
-    cd /WebapiAngular/azngwebapp_core
+    cd WebapiAngular/azngwebapp_core
     npm install
     npm update
     ng build --prod
