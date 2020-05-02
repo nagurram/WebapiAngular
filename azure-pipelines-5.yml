@@ -1,0 +1,25 @@
+# Node.js
+# Build a general Node.js project with npm.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '10.17.0'
+    checkLatest: true
+  displayName: 'Install Node.js'
+- script: |
+    npm install -g typescript
+    npm install -g @angular/cli   
+    cd /WebapiAngular/azngwebapp_core
+    npm install
+    npm update
+    ng build --prod
+  displayName: 'npm install and build'
