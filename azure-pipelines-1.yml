@@ -21,7 +21,7 @@ steps:
 - task: NuGetCommand@2
   inputs:
     command: 'restore'
-    restoreSolution: '**/DataApi/packages.config'
+    restoreSolution: '**/DataApi.csproj'
     feedsToUse: 'select'
 
 - task: VSBuild@1
