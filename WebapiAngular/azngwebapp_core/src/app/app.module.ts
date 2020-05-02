@@ -30,7 +30,7 @@ import { TicketService } from '././Service/ticket.service';
 import { AlertModule } from 'ngx-bootstrap/alert'
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ApplicationStateService } from './Service/application-state.service';
-import { ButtonsModule } from 'ngx-bootstrap';
+import {ButtonsModule}  from 'ngx-bootstrap/buttons';
 
 @NgModule({
   declarations: [
