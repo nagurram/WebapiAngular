@@ -19,6 +19,8 @@ steps:
 
 - task: NuGetCommand@2
   inputs:
+    command: 'restore'
+    restoreDirectory: '**/packages/'
     restoreSolution: '**/DataApi.csproj'
 
 - task: VSBuild@1
