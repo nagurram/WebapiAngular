@@ -9,7 +9,7 @@ trigger:
     - master
  paths:
    include:
-     - WebapiAngular/DataApi/*'
+     - WebapiAngular/DataApi/*
 
 pool:
   vmImage: 'windows-latest'
