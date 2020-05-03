@@ -2,7 +2,7 @@
     <form [formGroup]="addUserForm" (ngSubmit)="adduser()">
         <div class="col s12 white">
             <div class="row  top-buffer">
-                <div class="col-md-2" [class.has-error]="addUserForm.controls['FirstName'].hasError('required')"> <label for="txtFirstName">First Name: testing build trigger 1</label>  </div>
+                <div class="col-md-2" [class.has-error]="addUserForm.controls['FirstName'].hasError('required')"> <label for="txtFirstName">First Name:</label>  </div>
                 <div class="col-md-10">
                     <input type="text" id="txtFirstName" formControlName="FirstName" class="form-control">
                     <div *ngIf="addUserForm.controls['FirstName'].touched && !addUserForm.controls['FirstName'].valid">
