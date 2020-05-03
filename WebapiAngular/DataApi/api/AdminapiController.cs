@@ -32,7 +32,7 @@ namespace DataApi.api
         }
 
         /// <summary>
-        /// update Application details
+        /// update Application details //Testing build trigger based on path
         /// </summary>
         /// <param name="id"></param>
         /// <param name="value"></param>
