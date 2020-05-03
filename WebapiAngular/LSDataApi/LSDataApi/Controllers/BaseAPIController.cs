@@ -20,7 +20,7 @@ namespace LSDataApi.api
         /// https://www.youtube.com/watch?v=rbHSTJBhJ44
         /// https://medium.com/better-programming/creating-angular-webapp-for-multiple-views-and-screen-sizes-50fe8a83c433
 
-        protected readonly TicketTrackerContext TicketDB = new TicketTrackerContext();
+        protected TicketTrackerContext TicketDB;
         /*
         protected IActionResult ToJson(dynamic obj)
         {

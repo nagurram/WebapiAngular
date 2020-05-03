@@ -26,9 +26,10 @@ namespace DataApi.api
         private readonly IWebHostEnvironment _hostingEnvironment;
         private string diskFolderPath = "";
 
-        public TicketapiController(ILogger<TicketapiController> logger, IWebHostEnvironment hostingEnvironment)
+        public TicketapiController(ILogger<TicketapiController> logger, IWebHostEnvironment hostingEnvironment, TicketTrackerContext context)
         {
             Log = logger;
+            TicketDB = context;
             _hostingEnvironment = hostingEnvironment;
             string webRootPath = _hostingEnvironment.WebRootPath;
             string contentRootPath = _hostingEnvironment.ContentRootPath;

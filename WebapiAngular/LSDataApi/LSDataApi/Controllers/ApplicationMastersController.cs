@@ -12,9 +12,9 @@ namespace LSDataApi.Controllers
     {
         private readonly TicketTrackerContext _context;
 
-        public ApplicationMastersController()
+        public ApplicationMastersController(TicketTrackerContext context)
         {
-            _context = new TicketTrackerContext();
+            _context = context;
         }
 
         // GET: api/ApplicationMasters

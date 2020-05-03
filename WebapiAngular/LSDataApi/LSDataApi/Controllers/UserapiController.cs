@@ -1,4 +1,5 @@
 ﻿using LsDataApi.Common;
+using LSDataApi.DBContext;
 using LSDataApi.Models;
 using LSDataApi.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -27,8 +28,9 @@ namespace LSDataApi.api
         private IUserService _userService;
         private readonly AppSettings _appSettings;
 
-        public UserapiController(ILogger<UserapiController> logger, IUserService userService, IOptions<AppSettings> appSettings)
+        public UserapiController(ILogger<UserapiController> logger, IUserService userService, IOptions<AppSettings> appSettings, TicketTrackerContext context)
         {
+            TicketDB = context;
             Log = logger;
             _userService = userService;
             _appSettings = appSettings.Value;

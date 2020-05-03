@@ -18,8 +18,9 @@ namespace LSDataApi.api
     {
         private readonly ILogger<AdminapiController> Log;
 
-        public AdminapiController(ILogger<AdminapiController> logger)
+        public AdminapiController(ILogger<AdminapiController> logger, TicketTrackerContext context)
         {
+            TicketDB = context;
             Log = logger;
         }
 

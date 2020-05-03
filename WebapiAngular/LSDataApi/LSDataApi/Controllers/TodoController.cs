@@ -17,8 +17,9 @@ namespace LSDataApi.api
     {
         private readonly ILogger<TodoController> Log;
 
-        public TodoController(ILogger<TodoController> logger)
+        public TodoController(ILogger<TodoController> logger, TicketTrackerContext context)
         {
+            TicketDB = context;
             Log = logger;
         }
 

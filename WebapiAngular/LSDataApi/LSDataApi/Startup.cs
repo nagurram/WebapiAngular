@@ -1,4 +1,5 @@
 using AutoMapper;
+using LSDataApi.DBContext;
 using LSDataApi.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -18,6 +19,8 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using WebApi.Helpers;
+using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 namespace LSDataApi
 {
@@ -39,6 +42,11 @@ namespace LSDataApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton((Serilog.ILogger)new LoggerConfiguration()
+            .MinimumLevel.Information()
+            .WriteTo.File("Logs/DataApi-{Date}.txt")
+            .CreateLogger());
+
             services.Configure<KestrelServerOptions>(
             _configuration.GetSection("Kestrel"));
             services.AddCors(options =>
@@ -51,6 +59,7 @@ namespace LSDataApi
                                                     .AllowAnyMethod();
                                   });
             });
+            services.AddDbContext<TicketTrackerContext>(options => options.UseSqlServer(_configuration.GetConnectionString("WebApiDatabase")));
             services.Configure<ApiBehaviorOptions>(options =>
             {
                 options.SuppressModelStateInvalidFilter = true;
@@ -110,9 +119,9 @@ namespace LSDataApi
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            loggerFactory.AddFile("Logs/DataApi-{Date}.txt");
+            //loggerFactory.AddFile("Logs/DataApi-{Date}.txt");
             if (env.IsDevelopment())
             {
                 // _logger.LogInformation("In Development environment");
