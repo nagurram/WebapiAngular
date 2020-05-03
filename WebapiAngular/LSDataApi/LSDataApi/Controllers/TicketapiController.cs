@@ -248,7 +248,7 @@ namespace DataApi.api
         }
 
         /// <summary>
-        /// Download attachment by attachment  by id//Testing build trigger
+        /// Download attachment by attachment  by id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>

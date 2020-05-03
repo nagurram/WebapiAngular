@@ -18,6 +18,7 @@ namespace DataApi.api
     public class AdminapiController : BaseAPIController
     {
         private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         public HttpResponseMessage Get()
         {
             return BAppMaster();
@@ -31,7 +32,7 @@ namespace DataApi.api
         }
 
         /// <summary>
-        /// update Application details //testing build trigger
+        /// update Application details
         /// </summary>
         /// <param name="id"></param>
         /// <param name="value"></param>
@@ -57,7 +58,7 @@ namespace DataApi.api
         }
 
         /// <summary>
-        /// Add user 
+        /// Add user
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
@@ -74,14 +75,11 @@ namespace DataApi.api
                 Log.Info("Saving complete");
                 return ToJson(1);
             }
-            catch(System.Exception e)
+            catch (System.Exception e)
             {
                 Log.Error(e);
             }
             return ToJson(0);
         }
-
-
-
     }
 }
