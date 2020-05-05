@@ -26,7 +26,7 @@ steps:
 - script: 'sqlcmd -S .\SQLEXPRESS -Q "CREATE DATABASE [TicketTracker]"'
   displayName: 'Create database TicketTracker in Azure Devops SQL EXPRESS'
   
-- script: 'sqlcmd -i ../DBScripts/DBmigrate.sql -S .\SQLEXPRESS -d TicketTracker'
+- script: 'sqlcmd -i ../DBmigrate.sql -S .\SQLEXPRESS -d TicketTracker'
   displayName: ' Run migrate.sql on SQL EXPRESS in Azure Devops'
 
 - task: NuGetToolInstaller@1
