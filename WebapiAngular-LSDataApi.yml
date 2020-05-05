@@ -23,7 +23,7 @@ steps:
 - script: choco install sql-server-express
   displayName: 'CHOCO INSTALL SQL-SERVER-EXPRESS'
 
-- script: 'sqlcmd -i **/DBScripts/DBmigrate.sql -S .\SQLEXPRESS -d TicketTracker'
+- script: 'sqlcmd -i /DBScripts/DBmigrate.sql -S .\SQLEXPRESS -d TicketTracker'
   displayName: ' Run migrate.sql on SQL EXPRESS in Azure Devops'
 
 - task: NuGetToolInstaller@1
