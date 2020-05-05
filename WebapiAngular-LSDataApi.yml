@@ -41,7 +41,7 @@ steps:
 - task: NuGetCommand@2
   inputs:
     command: 'restore'
-    restoreSolution: '**/LSDataApi.sln'
+    restoreSolution: '**\LSDataApi.sln'
     feedsToUse: 'select'
 
 - task: VSBuild@1
