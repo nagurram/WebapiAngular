@@ -54,6 +54,6 @@ steps:
 - task: VSTest@2
   inputs:
     testSelector: 'testAssemblies'
-    testAssemblyVer2:**\LSDataApi.Tests.dll
+    testAssemblyVer2: '**\LSDataApi.Tests.dll'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
