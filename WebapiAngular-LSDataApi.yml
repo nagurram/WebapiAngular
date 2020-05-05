@@ -13,16 +13,23 @@ trigger:
 
 pool:
   vmImage: 'windows-latest'
-
-
+ 
 variables:
   solution: '**/LSDataApi.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
 steps:
+- script: choco install sql-server-express
 - task: NuGetToolInstaller@1
+- task: VisualStudioTestPlatformInstaller@1
+  displayName: 'Visual Studio Test Platform Installer'
+  inputs:
+    versionSelector: latestStable
 
+- task: NuGetCommand@2
+  inputs:
+    restoreSolution: '$(solution)'
 - task: NuGetCommand@2
   inputs:
     command: 'restore'
@@ -35,6 +42,14 @@ steps:
     msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+
+
+
+- script: 'sqlcmd -S .\SQLEXPRESS -Q "CREATE DATABASE [TicketTracker]"'
+  displayName: 'Create database TicketTracker in Azure Devops SQL EXPRESS'
+
+- script: 'sqlcmd -i %BUILD_ARTIFACTSTAGINGDIRECTORY%\migrate.sql -S .\SQLEXPRESS -d SomeAcmeDb'
+  displayName: ' Run migrate.sql on SQL EXPRESS in Azure Devops'
 
 - task: VSTest@2
   inputs:
