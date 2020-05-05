@@ -23,6 +23,9 @@ steps:
 - script: choco install sql-server-express
   displayName: 'CHOCO INSTALL SQL-SERVER-EXPRESS'
 
+- script: 'sqlcmd -i **/DBmigrate.sql -S .\SQLEXPRESS -d TicketTracker'
+  displayName: ' Run migrate.sql on SQL EXPRESS in Azure Devops'
+
 - task: NuGetToolInstaller@1
 - task: VisualStudioTestPlatformInstaller@1
   displayName: 'Visual Studio Test Platform Installer'
@@ -50,8 +53,7 @@ steps:
 - script: 'sqlcmd -S .\SQLEXPRESS -Q "CREATE DATABASE [TicketTracker]"'
   displayName: 'Create database TicketTracker in Azure Devops SQL EXPRESS'
 
-- script: 'sqlcmd -i %BUILD_ARTIFACTSTAGINGDIRECTORY%\migrate.sql -S .\SQLEXPRESS -d SomeAcmeDb'
-  displayName: ' Run migrate.sql on SQL EXPRESS in Azure Devops'
+
 
 - task: VSTest@2
   inputs:
