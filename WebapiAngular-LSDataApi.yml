@@ -21,6 +21,8 @@ variables:
 
 steps:
 - script: choco install sql-server-express
+displayName: 'CHOCO INSTALL SQL-SERVER-EXPRESS'
+
 - task: NuGetToolInstaller@1
 - task: VisualStudioTestPlatformInstaller@1
   displayName: 'Visual Studio Test Platform Installer'
