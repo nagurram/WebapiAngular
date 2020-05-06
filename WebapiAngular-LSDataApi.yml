@@ -51,11 +51,10 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)' 
 
-- task: VSTest@2
+- task: DotNetCoreCLI@2
   inputs:
-    testSelector: 'testAssemblies'
-    testAssemblyVer2: '**\LSDataApi.Tests.dll'
-    platform: '$(buildPlatform)'
+    command: test
+    projects: '../*Test/*.csproj'
     configuration: '$(buildConfiguration)'
 
 - task: CopyPublishBuildArtifacts@1
