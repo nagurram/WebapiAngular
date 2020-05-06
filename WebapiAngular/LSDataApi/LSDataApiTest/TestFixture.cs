@@ -116,7 +116,7 @@ namespace LSDataApi.Tests
             {
                 var jsonString = responsetoken.Content.ReadAsStringAsync().Result;
                 JObject objrespose = JObject.Parse(jsonString);
-                throw new Exception("Error is " + jsonString);
+                // throw new Exception("Error is " + jsonString);
                 authtoken = (string)objrespose["Token"];
             }
             Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", authtoken);
