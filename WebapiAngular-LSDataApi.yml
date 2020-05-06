@@ -37,14 +37,14 @@ steps:
       $site = $site = new-WebSite -name "webapp" -PhysicalPath "c:\Web Sites\webapp" -force
   displayName: 'Powershell Create WebApp'
   
-#- script: choco install sql-server-express
-#  displayName: 'CHOCO INSTALL SQL-SERVER-EXPRESS'
-#
-#- script: 'sqlcmd -S .\SQLEXPRESS -Q "CREATE DATABASE [TicketTracker]"'
-#  displayName: 'Create database TicketTracker in Azure Devops SQL EXPRESS'
-#  
-#- script: 'sqlcmd -i $(Build.SourcesDirectory)\WebapiAngular\DBScripts\DBmigrate.sql -S .\SQLEXPRESS -d TicketTracker'
-#  displayName: ' Run migrate.sql on SQL EXPRESS in Azure Devops'
+- script: choco install sql-server-express
+  displayName: 'CHOCO INSTALL SQL-SERVER-EXPRESS'
+
+- script: 'sqlcmd -S .\SQLEXPRESS -Q "CREATE DATABASE [TicketTracker]"'
+  displayName: 'Create database TicketTracker in Azure Devops SQL EXPRESS'
+  
+- script: 'sqlcmd -i $(Build.SourcesDirectory)\WebapiAngular\DBScripts\DBmigrate.sql -S .\SQLEXPRESS -d TicketTracker'
+  displayName: ' Run migrate.sql on SQL EXPRESS in Azure Devops'
 
 - task: NuGetToolInstaller@1
 - task: VisualStudioTestPlatformInstaller@1
