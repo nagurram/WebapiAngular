@@ -30,7 +30,7 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      IIS:\>Remove-WebSite -Name "Default Web Site"
+      Remove-WebSite -Name "Default Web Site"
       # Write your PowerShell commands here.      
       md "c:\Web Sites\webapp"      
       $site = $site = new-WebSite -name "webapp"  PhysicalPath "c:\Web Sites\webapp" force
