@@ -69,9 +69,3 @@ steps:
     command: test
     projects: '../*Tests/*.csproj'
     configuration: '$(buildConfiguration)'
-
-- task: CopyPublishBuildArtifacts@1
-  inputs:
-    Contents: 'webapp.zip'
-    ArtifactName: 'webapp'
-    ArtifactType: 'FilePath'
