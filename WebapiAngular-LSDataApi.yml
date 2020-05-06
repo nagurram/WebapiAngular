@@ -22,8 +22,8 @@ variables:
 steps:
 - script: 
     choco install iis.administration
-    choco install webdeploy -y
-    choco install urlrewrite -y
+    #choco install webdeploy -y
+    #choco install urlrewrite -y
   displayName: 'CHOCO Enable iis'
 
 - task: PowerShell@2
