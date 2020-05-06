@@ -12,7 +12,8 @@ trigger:
      - WebapiAngular/LSDataApi/*
 
 pool:
-  vmImage: 'windows-latest'
+  environment: ci-pipeline
+  
  
 variables:
   solution: '**/LSDataApi.sln'
