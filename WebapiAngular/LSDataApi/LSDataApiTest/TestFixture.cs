@@ -104,7 +104,7 @@ namespace LSDataApi.Tests
 
             JObject obj = JObject.FromObject(new
             {
-                username = "naren.7090@gmail.com",
+                username = "naren.7090@testmail.com",
                 password = "1234"
             });
 
