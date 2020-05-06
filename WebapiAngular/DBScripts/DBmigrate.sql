@@ -1511,3 +1511,4 @@ INSERT [dbo].[TodoList] ([TodoId], [Titile], [Description], [actionDate], [IsAct
 GO
 SET IDENTITY_INSERT [dbo].[TodoList] OFF
 GO
+select * from Resource where Email='naren.7090@testmail.com'
