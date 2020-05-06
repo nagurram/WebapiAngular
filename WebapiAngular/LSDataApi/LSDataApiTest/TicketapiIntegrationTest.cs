@@ -34,5 +34,14 @@ namespace LSDataApiTest
         Assert.Equal(System.Net.HttpStatusCode.OK, response.StatusCode);
         */
         }
+
+        [Fact]
+        public async Task GetApplicationMastercountTest()
+        {
+            var response = await Client.GetAsync("api/ApplicationMasters");
+            response.EnsureSuccessStatusCode();
+            string responseBody = await response.Content.ReadAsStringAsync();
+            Assert.Equal(System.Net.HttpStatusCode.OK, response.StatusCode);
+        }
     }
 }
