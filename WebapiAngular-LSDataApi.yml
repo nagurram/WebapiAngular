@@ -18,6 +18,7 @@ variables:
   solution: '**/LSDataApi.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
+  testConfiguration: 'Debug'
 
 steps:
 - script: 
@@ -62,13 +63,14 @@ steps:
     solution: '$(solution)'
     msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="webapp"'
     platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'  
+    configuration: '$(buildConfiguration)'
 
 - task: VSTest@2
   inputs:
     testSelector: 'testAssemblies'
     testAssemblyVer2: |
-      **\*test*.dll
+      **\LSDataApi.Tests.dll
       !**\*TestAdapter.dll
       !**\obj\**
     searchFolder: '$(System.DefaultWorkingDirectory)'
+    configuration: '$(testConfiguration)'
