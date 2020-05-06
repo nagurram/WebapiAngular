@@ -8,6 +8,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
+using Xunit.Sdk;
 
 namespace LSDataApiTest
 {
@@ -24,10 +25,14 @@ namespace LSDataApiTest
         [Fact]
         public async Task GetApplicationMasterPassTest()
         {
-            var response = await Client.GetAsync("api/Ticketapi");
-            response.EnsureSuccessStatusCode();
-            string responseBody = await response.Content.ReadAsStringAsync();
-            Assert.Equal(System.Net.HttpStatusCode.OK, response.StatusCode);
+            throw new Exception("new client header is: " + Client.DefaultRequestHeaders);
+            Assert.NotNull(Client.DefaultRequestHeaders);
+            /*
+        var response = await Client.GetAsync("api/Ticketapi");
+        response.EnsureSuccessStatusCode();
+        string responseBody = await response.Content.ReadAsStringAsync();
+        Assert.Equal(System.Net.HttpStatusCode.OK, response.StatusCode);
+        */
         }
     }
 }
