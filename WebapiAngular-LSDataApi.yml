@@ -23,7 +23,10 @@ steps:
 - script: choco install sql-server-express
   displayName: 'CHOCO INSTALL SQL-SERVER-EXPRESS'
 
-- script: choco install iis.administration
+- script: 
+    choco install iis.administration
+    choco install webdeploy -y
+    choco install urlrewrite -y
   displayName: 'CHOCO Enable iis'
 
 - script: 'sqlcmd -S .\SQLEXPRESS -Q "CREATE DATABASE [TicketTracker]"'
