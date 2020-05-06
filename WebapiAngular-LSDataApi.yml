@@ -12,8 +12,7 @@ trigger:
      - WebapiAngular/LSDataApi/*
 
 pool:
-  environment: ci-pipeline
-  
+   vmImage: 'windows-latest'
  
 variables:
   solution: '**/LSDataApi.sln'
@@ -42,7 +41,7 @@ steps:
 - task: NuGetCommand@2
   inputs:
     command: 'restore'
-    restoreSolution: '**\LSDataApi.sln'
+    restoreSolution: '$(solution)'
     feedsToUse: 'select'
 
 - task: VSBuild@1
@@ -50,13 +49,7 @@ steps:
     solution: '$(solution)'
     msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="webapp"'
     platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
-
-- task: IISWebAppDeploymentOnMachineGroup@0
-  inputs:
-    WebSiteName: 'webapp'
-    VirtualApplication: 'webapp'
-    Package: '$(build.artifactStagingDirectory)\WebApp.zip'
+    configuration: '$(buildConfiguration)' 
 
 - task: VSTest@2
   inputs:
