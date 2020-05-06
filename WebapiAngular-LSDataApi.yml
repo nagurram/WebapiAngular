@@ -29,16 +29,7 @@ steps:
     choco install urlrewrite -y
   displayName: 'CHOCO Enable iis'
 
-  - task: PowerShell@2
-    inputs:
-      targetType: 'inline'
-      script: 
-        # Write your PowerShell commands here.        
-        md "c:\Web Sites\webapp"
-        # All on one line
-        $site = $site = new-WebSite -name "webapp" 
-                                    -PhysicalPath "c:\Web Sites\webapp"
-                                    -force
+
 
 - script: 'sqlcmd -S .\SQLEXPRESS -Q "CREATE DATABASE [TicketTracker]"'
   displayName: 'Create database TicketTracker in Azure Devops SQL EXPRESS'
