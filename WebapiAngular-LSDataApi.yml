@@ -51,6 +51,12 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
+- task: IISWebAppDeploymentOnMachineGroup@0
+  inputs:
+    WebSiteName: 'webapp'
+    VirtualApplication: 'webapp'
+    Package: '$(System.DefaultWorkingDirectory)\**\*.zip'
+
 - task: VSTest@2
   inputs:
     testSelector: 'testAssemblies'
