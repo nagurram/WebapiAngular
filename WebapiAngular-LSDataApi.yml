@@ -31,9 +31,9 @@ steps:
     targetType: 'inline'
     script: |
       Remove-WebSite -Name "Default Web Site"
-      # Write your PowerShell commands here.      
-      md "c:\Web Sites\webapp"      
-      $site = $site = new-WebSite -name "webapp"  PhysicalPath "c:\Web Sites\webapp" force
+      # Write your PowerShell commands here.
+      md "c:\Web Sites\webapp"
+      $site = $site = new-WebSite -name "webapp" -PhysicalPath "c:\Web Sites\webapp" -force
   displayName: 'Powershell Create WebApp'
   
 #- script: choco install sql-server-express
