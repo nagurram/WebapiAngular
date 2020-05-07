@@ -80,3 +80,14 @@ steps:
     testResultsFiles: '**/*.trx'
     searchFolder: '$(Agent.TempDirectory)\TestResults'
     testRunTitle: 'Test-Results'
+
+- task: GitHubRelease@1
+  inputs:
+    gitHubConnection: nagurram
+    repositoryName: '$(Build.Repository.Name)'
+    action: 'create'
+    target: '$(Build.SourceVersion)'
+    tagSource: 'gitTag'
+    isDraft: true
+    changeLogCompareToRelease: 'lastFullRelease'
+    changeLogType: 'commitBased'
