@@ -75,3 +75,8 @@ steps:
     searchFolder: '$(System.DefaultWorkingDirectory)'
     codeCoverageEnabled: true
     configuration: '$(testConfiguration)'
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'XUnit'
+    testResultsFiles: '**/TEST-*.xml'
+    testRunTitle: 'Test-Results'
