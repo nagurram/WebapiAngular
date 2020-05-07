@@ -78,4 +78,5 @@ steps:
   inputs:
     testResultsFormat: 'XUnit'
     testResultsFiles: '**/*.trx'
+    searchFolder: '$(Agent.TempDirectory)\TestResults'
     testRunTitle: 'Test-Results'
