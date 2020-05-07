@@ -83,11 +83,13 @@ steps:
 
 - task: GitHubRelease@1
   inputs:
-    gitHubConnection: nagurram
+    gitHubConnection: 'nagurram'
     repositoryName: '$(Build.Repository.Name)'
     action: 'create'
     target: '$(Build.SourceVersion)'
     tagSource: 'gitTag'
+    releaseNotesSource: 'inline'
+    releaseNotesInline: 'Testing'
     isDraft: true
     changeLogCompareToRelease: 'lastFullRelease'
     changeLogType: 'commitBased'
