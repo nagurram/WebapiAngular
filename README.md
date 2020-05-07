@@ -1,6 +1,4 @@
 # WebapiAngular
-
-https://dev.azure.com/narenangular/naren7090/_apis/build/status/LSDataApi_.NetCore?branchName=master
  
 This is my Practice project built on Angular 8, Asp.Net Web Api
 
@@ -17,3 +15,4 @@ Web Api Project name: DataApi.
 Angular Project Name: azngwebapp.
 
 
+[![Build Status](https://dev.azure.com/narenangular/naren7090/_apis/build/status/LSDataApi_.NetCore?branchName=master)](https://dev.azure.com/narenangular/naren7090/_build/latest?definitionId=5&branchName=master)
