@@ -77,5 +77,5 @@ steps:
 - task: PublishTestResults@2
   inputs:
     testResultsFormat: 'XUnit'
-    testResultsFiles: '**/TEST-*.trx'
+    testResultsFiles: '**/*.trx'
     testRunTitle: 'Test-Results'
