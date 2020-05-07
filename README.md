@@ -1,4 +1,7 @@
 # WebapiAngular
+
+https://dev.azure.com/narenangular/naren7090/_apis/build/status/LSDataApi_.NetCore?branchName=master
+ 
 This is my Practice project built on Angular 8, Asp.Net Web Api
 
 Front end is simple Todo List with Authentication.
