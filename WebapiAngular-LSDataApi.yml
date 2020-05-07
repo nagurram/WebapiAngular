@@ -17,8 +17,7 @@ pool:
 variables:
   solution: '**/LSDataApi.sln'
   buildPlatform: 'Any CPU'
-  buildConfiguration: 'Debug'
-  testConfiguration: 'Debug'
+  buildConfiguration: 'Release'
 
 steps:
 - script: 
@@ -74,7 +73,7 @@ steps:
       !**\obj\**
     searchFolder: '$(System.DefaultWorkingDirectory)'
     codeCoverageEnabled: true
-    configuration: '$(testConfiguration)'
+    configuration: '$(buildConfiguration)'
 - task: PublishTestResults@2
   inputs:
     testResultsFormat: 'XUnit'
