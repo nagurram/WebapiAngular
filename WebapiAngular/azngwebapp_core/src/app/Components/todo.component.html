@@ -1,7 +1,7 @@
 <ng-template #todoitem>
     <div class="modal-header">
-        <h4 class="modal-title pull-left"><span class="glyphicon glyphicon-save"></span> Add New ToDo</h4>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <h4 class="modal-title float-left"><span class="glyphicon glyphicon-save"></span> Add New ToDo</h4>
+        <button type="button" class="close float-right" aria-label="Close" (click)="modalRef.hide()">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
@@ -65,7 +65,7 @@
     <div class="row top-buffer">
         <div class="col-md-9"></div>
         <div class="col-md-3">
-            <button (click)="openAddtodoModal(todoitem)" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-plus"></span> Add New item</button>
+            <button (click)="openAddtodoModal(todoitem)" class="btn btn-primary float-right"><span class="glyphicon glyphicon-plus"></span> Add New item</button>
         </div>
     </div>
     <div class='table-responsive  top-buffer'>
