@@ -17,8 +17,8 @@ import { Router } from "@angular/router";
                <li  *ngFor="let cols of userModel.routeCollection" class="nav-item"> <a  class="nav-link" [routerLink]="[cols.key]" routerLinkActive="active" > {{ cols.keyValue }} </a></li >
             </ul>
         <ul class='navbar-nav ml-auto'>
-        <li class="nav-item"><a class="nav-link disabled" href="#"><span class="fa fa-user"></span> {{userModel.UserName}}</a></li>
-        <li class="nav-item"><a class="nav-link" href="#" (click)="logout()"><span class="fa fa-log-out"></span> Logout</a></li>
+        <li class="nav-item"><a class="nav-link disabled" href="#"><span class="fas fa-user"></span> {{userModel.UserName}}</a></li>
+        <li class="nav-item"><a class="nav-link" href="#" (click)="logout()"><i class="fad fa-sign-out-alt"></i> Logout</a></li>
         </ul>
         </div>
       </nav>` 
