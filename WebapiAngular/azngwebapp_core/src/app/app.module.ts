@@ -31,6 +31,7 @@ import { AlertModule } from 'ngx-bootstrap/alert'
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ApplicationStateService } from './Service/application-state.service';
 import {ButtonsModule}  from 'ngx-bootstrap/buttons';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,7 @@ import {ButtonsModule}  from 'ngx-bootstrap/buttons';
     TicketComponent, DropdownComponent
   ],
   imports: [
-    BrowserModule, NgbModule, BrowserAnimationsModule,
+    BrowserModule, NgbModule, BrowserAnimationsModule,CollapseModule.forRoot(),
     AppRoutingModule, FormsModule, BsDatepickerModule.forRoot(),ButtonsModule.forRoot(), ModalModule.forRoot(), AlertModule.forRoot(), TabsModule.forRoot(), HttpClientModule, ReactiveFormsModule
   ],
   providers: [{ provide: APP_BASE_HREF, useValue: '/angnetcore/' }, DatePipe, TodoService, AuthGuard, UserService, TicketService, {
