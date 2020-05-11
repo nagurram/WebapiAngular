@@ -32,6 +32,8 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ApplicationStateService } from './Service/application-state.service';
 import {ButtonsModule}  from 'ngx-bootstrap/buttons';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { LowerCaseUrlSerializer } from './LowerCaseUrlSerializer';
+import { UrlSerializer } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,7 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
   providers: [{ provide: APP_BASE_HREF, useValue: '/angnetcore/' }, DatePipe, TodoService, AuthGuard, UserService, TicketService, {
     provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor,
     multi: true
-  }, MessageService, ApplicationStateService],
+  }, MessageService, ApplicationStateService,{provide:UrlSerializer,useClass:LowerCaseUrlSerializer}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

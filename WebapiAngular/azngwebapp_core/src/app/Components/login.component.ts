@@ -67,7 +67,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
                 localStorage.setItem('userToken', data.Token);
                 this.loginForm.reset();
                 this.loadMenus();
-                this.router.navigate(['/Home']);
+                this.router.navigate(['/home']);
             },
             err => {
                 this.msg = err.error.error_description;

@@ -95,6 +95,7 @@ namespace LSDataApi.api
             int userid = Convert.ToInt32(id);
             var menus = (from p in TicketDB.VwUserPermissions
                          where p.Userid == userid
+                         orderby p.Sortorder
                          select new { key = p.Link, keyValue = p.Displayname }).ToList();
             string userName = Convert.ToString(lastName) + ", " + Convert.ToString(firstName);
 

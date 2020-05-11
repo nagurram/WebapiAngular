@@ -6,6 +6,8 @@ import { Observable } from 'rxjs/';
 import { Subscription } from 'rxjs';
 import { MessageService } from '../Service/message.service';
 import { Router } from "@angular/router";
+import {TitleCasePipe} from "@angular/common"
+
 @Component({
     selector: 'menu-items',
     template: `<nav class="navbar navbar-expand-lg navbar-dark  bg-dark " *ngIf='userModel'>    
@@ -14,11 +16,11 @@ import { Router } from "@angular/router";
     </button>
     <div class="collapse navbar-collapse" id="collapseMenu" [collapse]="isCollapsed">
             <ul class='navbar-nav mr-auto' >
-               <li  *ngFor="let cols of userModel.routeCollection" class="nav-item"> <a  class="nav-link" [routerLink]="[cols.key]" routerLinkActive="active" > {{ cols.keyValue }} </a></li >
+               <li  *ngFor="let cols of userModel.routeCollection" class="nav-item"> <a  class="nav-link" [routerLink]="[cols.key]" routerLinkActive="active" > {{ cols.keyValue | titlecase}} </a></li >
             </ul>
         <ul class='navbar-nav ml-auto'>
         <li class="nav-item"><a class="nav-link disabled" href="#"><span class="fas fa-user"></span> {{userModel.UserName}}</a></li>
-        <li class="nav-item"><a class="nav-link" href="#" (click)="logout()"><i class="fad fa-sign-out-alt"></i> Logout</a></li>
+        <li class="nav-item"><a class="nav-link" href="#" (click)="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
         </ul>
         </div>
       </nav>` 
