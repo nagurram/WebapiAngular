@@ -30,7 +30,7 @@
             <tbody>
                 <tr *ngFor="let tkt of tickets">
                     <td>
-                        <a [routerLink]="['/Ticket']" [queryParams]="{ ticketId:tkt.TicketId  }">{{tkt.TicketId}}</a>
+                        <a [routerLink]="['/ticket']" [queryParams]="{ ticketId:tkt.TicketId  }">{{tkt.TicketId}}</a>
                     </td>
                     <td>{{tkt.Title}}</td>
                     <td>{{tkt.tkttype}}</td>
