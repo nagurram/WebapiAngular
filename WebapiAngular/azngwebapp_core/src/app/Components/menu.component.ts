@@ -9,14 +9,17 @@ import { Router } from "@angular/router";
 @Component({
     selector: 'menu-items',
     template: `<div *ngIf='userModel'>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="collapse navbar-collapse">
-            <ul class='navbar-nav mr-auto mt-2 mt-lg-0' >
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">    
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class='navbar-nav mr-auto' >
                <li  *ngFor="let cols of userModel.routeCollection" class="nav-item"> <a  class="nav-link" [routerLink]="[cols.key]" routerLinkActive="active" > {{ cols.keyValue }} </a></li >
             </ul>
         <ul class='navbar-nav ml-auto'>
-        <li class="nav-item"><a class="nav-link" href="#"><span class="glyphicon glyphicon-user"></span> {{userModel.UserName}}</a></li>
-        <li class="nav-item"><a class="nav-link" href="#" (click)="logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+        <li class="nav-item"><a class="nav-link disabled" href="#"><span class="fa fa-user"></span> {{userModel.UserName}}</a></li>
+        <li class="nav-item"><a class="nav-link" href="#" (click)="logout()"><span class="fa fa-log-out"></span> Logout</a></li>
         </ul>
         </div>
       </nav>

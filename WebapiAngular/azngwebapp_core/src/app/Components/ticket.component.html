@@ -6,10 +6,10 @@
     <div *ngIf='tickets && tickets.length==0' class="alert alert-info" role="alert">No record found!</div>
     <div  *ngIf="ticketId ==-1">
         <div class="row top-buffer">
-            <div class="col-md-10"></div>
-            <div class="col-md-2">
-                <a [routerLink]="['/Ticket']" [queryParams]="{ ticketId:0  }" class="btn btn-info btn-md">
-                    <span class="glyphicon glyphicon-plus"></span> Create Ticket</a>
+            <div class="col-md-9"></div>
+            <div class="col-md-3">
+                <a [routerLink]="['/Ticket']" [queryParams]="{ ticketId:0  }" class="btn btn-secondary btn-md">
+                    <span class="fa fa-plus"></span> Create Ticket</a>
             </div>
            
         </div>
@@ -52,17 +52,17 @@
                 </div>
                 <div class="col-md-3  top-buffer">
                     <button title="Save" class="btn btn-primary" (click)="saveticket()">
-                        <span class="glyphicon glyphicon-saved"></span>
+                        <span class="fa fa-save"></span>
                         Save</button>&nbsp;&nbsp;
                     <a href="javascript:void(0)" (click)="goBack(template)" class="btn btn-info btn-md">
-                        <span class="glyphicon glyphicon-chevron-left"></span> Back
+                        <span class="fa fa-chevron-left"></span> Back
                     </a>
                 </div>
             </div>
 
             <tabset #tabset>
                 <tab>
-                    <ng-template tabHeading><i><span class="glyphicon glyphicon-pencil"></span> </i>Basic data
+                    <ng-template tabHeading><i><span class="fa fa-pencil"></span> </i>Basic data
                     </ng-template>
                     <div class="row top-buffer">
                         <div class="col-md-2">
@@ -280,7 +280,7 @@
 
                 </tab>
                 <tab>
-                    <ng-template tabHeading><i><span class="glyphicon glyphicon-paperclip"></span> </i>Attachments
+                    <ng-template tabHeading><i><span class="fa fa-paperclip"></span> </i>Attachments
                     </ng-template>
                     <h3>Attachements</h3>
                     <div *ngIf='attachments && attachments.length==0' class="alert alert-info" role="alert">No
@@ -345,9 +345,9 @@
         <div class="row">
 
             <div class="col-md-6">
-                <button type="button" (click)="backtosummary()" class="btn btn-warning"><span class="glyphicon glyphicon-chevron-left"></span> Go Back</button>
+                <button type="button" (click)="backtosummary()" class="btn btn-warning"><span class="fa fa-chevron-left"></span> Go Back</button>
                 &nbsp;&nbsp;
-                <button type="button" (click)="CancelItem()" class="btn btn-primary"><span class="glyphicon glyphicon-remove"></span>cancel</button>
+                <button type="button" (click)="CancelItem()" class="btn btn-primary"><span class="fa fa-remove"></span>cancel</button>
             </div>
         </div>
     </div>
