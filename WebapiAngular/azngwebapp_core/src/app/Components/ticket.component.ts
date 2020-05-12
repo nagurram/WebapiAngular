@@ -161,7 +161,7 @@ export class TicketComponent extends BaseComponent implements OnInit {
              }, function () {
                  return;
              }) */
-            this.modalRef = this.modalService.show(template, { animated: true, keyboard: true, backdrop: true, ignoreBackdropClick: true });
+            this.modalRef = this.modalService.show(template, { animated: true, keyboard: true, backdrop: true, ignoreBackdropClick: true,class: 'backgroundTransparent' });
         }
         else {
             if (this.modalRef != null) {
@@ -273,7 +273,7 @@ export class TicketComponent extends BaseComponent implements OnInit {
             this.modalRef.hide();
         }
         this.ticket.TicketId = this.ticketId;
-        this.router.navigate(['/Ticket']);
+        this.router.navigate(['/ticket']);
     }
 
     saveticket(): void {
