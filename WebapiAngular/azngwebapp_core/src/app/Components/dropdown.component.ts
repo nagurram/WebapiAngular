@@ -23,7 +23,7 @@ export class DropdownComponent implements ControlValueAccessor {
     @Input() drpcollection: IkeyValuePair[];
 
     writeValue(value: number): void {
-        console.log('in write vaule:'+value);
+       // console.log('in write vaule:'+value);
         this.value = value || -1;
     }
 

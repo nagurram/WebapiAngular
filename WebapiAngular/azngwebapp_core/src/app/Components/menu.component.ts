@@ -37,6 +37,7 @@ export class MenuComponent implements OnInit {
     constructor(public messageService: MessageService, private userService: UserService, private router: Router) {
         // this.routeCollection = [];
         this.isCollapsed=true;
+        this.userModel=null;
     }
 
     ngOnInit(): void {
