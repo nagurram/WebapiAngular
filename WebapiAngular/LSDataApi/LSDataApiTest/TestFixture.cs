@@ -104,19 +104,26 @@ namespace LSDataApi.Tests
 
             JObject obj = JObject.FromObject(new
             {
+                //username = "naren.7090@gmail.com",
                 username = "naren.7090@testmail.com",
                 password = "1234"
             });
-
+            string authtoken = "";
             var body = obj.ToString();
             HttpContent content = new StringContent(body, Encoding.UTF8, "application/json");
-            var responsetoken = Client.PostAsync("api/userapi/authenticate", content).Result;
-            string authtoken = "";
-            if (responsetoken != null)
+            try
             {
-                var jsonString = responsetoken.Content.ReadAsStringAsync().Result;
-                JObject objrespose = JObject.Parse(jsonString);
-                authtoken = (string)objrespose["Token"];
+                var responsetoken = Client.PostAsync("api/userapi/authenticate", content).Result;
+
+                if (responsetoken != null)
+                {
+                    var jsonString = responsetoken.Content.ReadAsStringAsync().Result;
+                    JObject objrespose = JObject.Parse(jsonString);
+                    authtoken = (string)objrespose["Token"];
+                }
+            }
+            catch (Exception e)
+            {
             }
             Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", authtoken);
         }
