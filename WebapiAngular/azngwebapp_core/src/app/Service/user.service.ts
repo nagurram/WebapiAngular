@@ -44,14 +44,14 @@ export class UserService {
         var url = this.rootUrl + Global.BASE_USER_ENDPOINT + Global.BASE_USER_MENU;
         return this._http.get(url);
     }
-    userlogout(): void {
+    userlogout(): Observable<any>  {
         console.log('logoutservice called');
-        var body = {};
-        localStorage.removeItem('userToken');
+        var body = {};       
         var url = this.rootUrl + Global.BASE_USER_ENDPOINT + Global.BASE_USER_LOGOUT;
         let headers = new HttpHeaders().set('Content-Type', 'application/json');
         let options = { headers: headers };
-        this._http.post(url, body, options);
+        return this._http.post(url, body, options);
+       
     }
 
     private handleError(error: Response) {

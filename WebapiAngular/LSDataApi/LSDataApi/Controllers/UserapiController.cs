@@ -27,13 +27,19 @@ namespace LSDataApi.api
         private readonly ILogger<UserapiController> Log;
         private IUserService _userService;
         private readonly AppSettings _appSettings;
+        private ITokenManager _tokenManager;
 
-        public UserapiController(ILogger<UserapiController> logger, IUserService userService, IOptions<AppSettings> appSettings, TicketTrackerContext context)
+        public UserapiController(ILogger<UserapiController> logger,
+            IUserService userService,
+            IOptions<AppSettings> appSettings,
+            TicketTrackerContext context,
+            ITokenManager tokenManager)
         {
             TicketDB = context;
             Log = logger;
             _userService = userService;
             _appSettings = appSettings.Value;
+            _tokenManager = tokenManager;
         }
 
         [AllowAnonymous]
@@ -64,7 +70,7 @@ namespace LSDataApi.api
             tokenDescriptor.Subject.AddClaims(_roles.Select(role => new Claim(ClaimTypes.Role, role)));
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken(token);
-
+            _tokenManager.SaveToken(user.ResourceId, tokenString, _appSettings.Secret);
             // return basic user info and authentication token
             return Ok(new
             {
@@ -111,7 +117,7 @@ namespace LSDataApi.api
         public IActionResult Logout()
         {
             // var authentication = HttpContext.Current.GetOwinContext().Authentication;
-            //authentication.SignOut();
+            _tokenManager.DeactivateCurrentAsync();
             return Ok(new { message = "Logout successful." });
         }
     }

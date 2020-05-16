@@ -1,5 +1,6 @@
 ﻿using LSDataApi.DBContext;
 using LSDataApi.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
@@ -11,7 +12,7 @@ using System.Linq;
 
 namespace LSDataApi.api
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
     [Route("api/adminapi")]
     [EnableCors("_myAllowAllOrigins")]
     public class AdminapiController : BaseAPIController

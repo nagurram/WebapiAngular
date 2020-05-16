@@ -539,6 +539,45 @@ GO
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
+ 
+GO
+
+/****** Object:  Table [dbo].[UserToken]    Script Date: 16-05-2020 11:32:13 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[UserToken](
+	[UserTokenId] [int] IDENTITY(1,1) NOT NULL,
+	[ResourceId] [int] NOT NULL,
+	[TokenValidFrom] [datetime] NOT NULL,
+	[TokenValidUntil] [datetime] NOT NULL,
+	[PrivateKey] [nvarchar](500) NOT NULL,
+	[AccessToken] [nvarchar](500) NOT NULL,
+ CONSTRAINT [PK_UserToken] PRIMARY KEY CLUSTERED 
+(
+	[UserTokenId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[UserToken] ADD  CONSTRAINT [DF_UserToken_TokenValidFrom]  DEFAULT (getdate()) FOR [TokenValidFrom]
+GO
+
+ALTER TABLE [dbo].[UserToken] ADD  CONSTRAINT [DF_UserToken_TokenValidUntil]  DEFAULT (getdate()) FOR [TokenValidUntil]
+GO
+
+ALTER TABLE [dbo].[UserToken]  WITH CHECK ADD  CONSTRAINT [FK_UserToken_Resource] FOREIGN KEY([ResourceId])
+REFERENCES [dbo].[Resource] ([ResourceId])
+GO
+
+ALTER TABLE [dbo].[UserToken] CHECK CONSTRAINT [FK_UserToken_Resource]
+GO
+
+
+
 GO
 CREATE TABLE [dbo].[TradeValidationError](
 	[TradeValidationErrorID] [int] IDENTITY(1,1) NOT NULL,

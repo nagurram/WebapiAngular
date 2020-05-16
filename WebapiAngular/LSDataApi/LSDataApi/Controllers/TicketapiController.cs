@@ -1,6 +1,7 @@
 ﻿using LSDataApi;
 using LSDataApi.api;
 using LSDataApi.DBContext;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Hosting;
@@ -18,8 +19,8 @@ using System.Text;
 namespace DataApi.api
 {
     [Microsoft.AspNetCore.Mvc.Route("api/Ticketapi")]
-    [Authorize(Roles = "Admin,BasicUser")]
     [EnableCors("_myAllowAllOrigins")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin,BasicUser")]
     public class TicketapiController : BaseAPIController
     {
         private readonly ILogger<TicketapiController> Log;

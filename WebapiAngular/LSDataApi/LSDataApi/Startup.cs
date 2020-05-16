@@ -21,6 +21,7 @@ using System.Threading.Tasks;
 using WebApi.Helpers;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
+using Microsoft.AspNetCore.Http;
 
 namespace LSDataApi
 {
@@ -71,7 +72,9 @@ namespace LSDataApi
             // configure strongly typed settings objects
             var appSettingsSection = _configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);
-
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddTransient<ITokenManager, Services.TokenManager>();
+            services.AddTransient<TokenManagerMiddleware>();
             // configure jwt authentication
             var appSettings = appSettingsSection.Get<AppSettings>();
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
@@ -151,6 +154,7 @@ namespace LSDataApi
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
+            app.UseMiddleware<TokenManagerMiddleware>();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

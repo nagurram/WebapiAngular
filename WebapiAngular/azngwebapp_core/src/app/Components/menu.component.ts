@@ -61,7 +61,17 @@ export class MenuComponent implements OnInit {
     logout(): void {
         this.userModel = null;
         this.messageService.setMessage(null);
-        this.userService.userlogout();
-        this.router.navigateByUrl('/login');
+        this.userService.userlogout().subscribe(
+            (data: any) => {
+                this.userModel = null;
+                this.messageService.setMessage(null);
+                localStorage.removeItem('userToken');
+                this.router.navigateByUrl('/login');
+            },
+            err => {
+                localStorage.removeItem('userToken');
+                this.router.navigateByUrl('/login');
+            });;
+ 
     }
 }

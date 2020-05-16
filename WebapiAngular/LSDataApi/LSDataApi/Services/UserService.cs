@@ -1,5 +1,7 @@
 using LSDataApi.DBContext;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Primitives;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,10 +20,14 @@ namespace LSDataApi.Services
     public class UserService : IUserService
     {
         private readonly ILogger<UserService> Log;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private TicketTrackerContext TicketDB;
 
-        public UserService(ILogger<UserService> logger)
+        public UserService(ILogger<UserService> logger, TicketTrackerContext context, IHttpContextAccessor httpContextAccessor)
         {
             Log = logger;
+            TicketDB = context;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public Resource Authenticate(string username, string password)
@@ -90,5 +96,18 @@ namespace LSDataApi.Services
             }
             return roles;
         }
+
+        private string GetCurrentAsync()
+        {
+            var authorizationHeader = _httpContextAccessor
+                .HttpContext.Request.Headers["authorization"];
+
+            return authorizationHeader == StringValues.Empty
+                ? string.Empty
+                : authorizationHeader.Single().Split(" ").Last();
+        }
+
+        private static string GetKey(string token)
+            => $"tokens:{token}:deactivated";
     }
 }

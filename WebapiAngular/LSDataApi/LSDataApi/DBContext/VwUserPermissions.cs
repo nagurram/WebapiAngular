@@ -1,4 +1,7 @@
-﻿namespace LSDataApi.DBContext
+﻿using System;
+using System.Collections.Generic;
+
+namespace LSDataApi.DBContext
 {
     public partial class VwUserPermissions
     {

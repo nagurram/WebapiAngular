@@ -1,4 +1,5 @@
 ﻿using LSDataApi.DBContext;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
@@ -12,7 +13,7 @@ namespace LSDataApi.api
     [Route("api/Todoapi")]
     // [EnableCors(origins: "http://vmtest.australiaeast.cloudapp.azure.com/angtodo", headers: "*", methods: "*")]
     [EnableCors("_myAllowAllOrigins")]
-    [Authorize]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class TodoController : BaseAPIController
     {
         private readonly ILogger<TodoController> Log;

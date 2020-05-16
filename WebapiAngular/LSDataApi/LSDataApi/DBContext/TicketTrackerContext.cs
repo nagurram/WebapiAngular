@@ -1,17 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace LSDataApi.DBContext
 {
     public partial class TicketTrackerContext : DbContext
     {
-        private IConfiguration Configuration { get; set; }
-
         public TicketTrackerContext()
         {
-            var builder = new ConfigurationBuilder()
-            .AddJsonFile("appSettings.json");
-            Configuration = builder.Build();
         }
 
         public TicketTrackerContext(DbContextOptions<TicketTrackerContext> options)
@@ -48,6 +44,7 @@ namespace LSDataApi.DBContext
         public virtual DbSet<TypeMaster> TypeMaster { get; set; }
         public virtual DbSet<UserMaster> UserMaster { get; set; }
         public virtual DbSet<UserRoles> UserRoles { get; set; }
+        public virtual DbSet<UserToken> UserToken { get; set; }
         public virtual DbSet<VwUserPermissions> VwUserPermissions { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -55,7 +52,7 @@ namespace LSDataApi.DBContext
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer(Configuration.GetConnectionString("WebApiDatabase"));
+                optionsBuilder.UseSqlServer("Server=192.168.2.2;initial catalog=TicketTracker;persist security info=True;user id=appuser;password=Nare7090#;");
             }
         }
 
@@ -478,6 +475,31 @@ namespace LSDataApi.DBContext
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_UserRoles_UserMaster");
+            });
+
+            modelBuilder.Entity<UserToken>(entity =>
+            {
+                entity.Property(e => e.AccessToken)
+                    .IsRequired()
+                    .HasMaxLength(500);
+
+                entity.Property(e => e.PrivateKey)
+                    .IsRequired()
+                    .HasMaxLength(500);
+
+                entity.Property(e => e.TokenValidFrom)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.TokenValidUntil)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.Resource)
+                    .WithMany(p => p.UserToken)
+                    .HasForeignKey(d => d.ResourceId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_UserToken_Resource");
             });
 
             modelBuilder.Entity<VwUserPermissions>(entity =>

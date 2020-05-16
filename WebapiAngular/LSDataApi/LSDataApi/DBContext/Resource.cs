@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace LSDataApi.DBContext
 {
@@ -7,6 +8,7 @@ namespace LSDataApi.DBContext
         public Resource()
         {
             Tickets = new HashSet<Tickets>();
+            UserToken = new HashSet<UserToken>();
         }
 
         public int ResourceId { get; set; }
@@ -18,5 +20,6 @@ namespace LSDataApi.DBContext
         public bool Isactive { get; set; }
 
         public virtual ICollection<Tickets> Tickets { get; set; }
+        public virtual ICollection<UserToken> UserToken { get; set; }
     }
 }
