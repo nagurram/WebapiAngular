@@ -66,7 +66,7 @@ steps:
     projectKey: 'narendraprojectkey'
     projectName: 'sonar.LSDataApi_.NetCore'
 
-- task: SonarCloudAnalyze@1
+     
 
 - task: VSBuild@1
   inputs:
@@ -74,6 +74,8 @@ steps:
     msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="webapp"'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+
+- task: SonarCloudAnalyze@1
 
 - task: VSTest@2
   inputs:
