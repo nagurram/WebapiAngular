@@ -94,6 +94,14 @@ steps:
     searchFolder: '$(Agent.TempDirectory)\TestResults'
     testRunTitle: 'Test-Results'
 
+- task: PublishCodeCoverageResults@1
+  inputs:
+    codeCoverageTool: 'JaCoCo'
+    summaryFileLocation: '$(System.DefaultWorkingDirectory)/webapp/**/cobertura/coverage.xml'
+- task: SonarCloudPublish@1
+  inputs:
+    pollingTimeoutSec: '300'
+
 #- task: GitHubRelease@1
 #  inputs:
 #    gitHubConnection: 'nagurram'
