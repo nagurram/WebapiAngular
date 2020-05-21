@@ -45,7 +45,9 @@ namespace LSDataApi
         {
             services.AddSingleton((Serilog.ILogger)new LoggerConfiguration()
             .MinimumLevel.Information()
-            .WriteTo.File("Logs/DataApi-{Date}.txt")
+            .WriteTo.File("Logs/DataApiLog.txt", rollingInterval: RollingInterval.Day,
+            outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception}"
+            )
             .CreateLogger());
 
             services.Configure<KestrelServerOptions>(

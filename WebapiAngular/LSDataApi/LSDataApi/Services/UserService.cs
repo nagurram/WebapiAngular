@@ -35,33 +35,29 @@ namespace LSDataApi.Services
             Log.LogInformation("in Login, User id is:  " + username + " , Pwd " + "**********");
             // context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
             Resource _logedinUser = null;
-            //using (TicketTrackerContext TicketDB = new TicketTrackerContext())
-            //{
+
             try
             {
                 Log.LogInformation("step 1 of authentication");
-                using (TicketTrackerContext TicketDB = new TicketTrackerContext())
+                var user = TicketDB.Resource.SingleOrDefault(x => x.Email == username);
+                Log.LogInformation("step 2 of authentication");
+                if (user == null)
                 {
-                    var user = TicketDB.Resource.SingleOrDefault(x => x.Email == username);
-
-                    Log.LogInformation("step 2 of authentication");
-                    if (user == null)
-                    {
-                        Log.LogInformation("invalid_grant", "The user name or password is incorrect.");
-                        return _logedinUser;
-                    }
-                    else if (!user.Pwd.Equals(password, StringComparison.OrdinalIgnoreCase))
-                    {
-                        Log.LogInformation("invalid_grant", "The user name or password is incorrect.");
-                        return _logedinUser;
-                    }
-
-                    user.Pwd = "";
-                    _logedinUser = (Resource)user;
+                    Log.LogInformation("invalid_grant The user name or password is incorrect.");
+                    return _logedinUser;
                 }
-                // authentication successful
+                else if (!user.Pwd.Equals(password, StringComparison.OrdinalIgnoreCase))
+                {
+                    Log.LogInformation("invalid_grant The user name or password is incorrect.");
+                    return _logedinUser;
+                }
+                _logedinUser = new Resource();
+                _logedinUser.Email = user.Email;
+                _logedinUser.Fname = user.Fname;
+                _logedinUser.Lname = user.Lname;
+                _logedinUser.Roles = user.Roles;
+                _logedinUser.ResourceId = user.ResourceId;
                 return _logedinUser;
-                //}
             }
             catch (System.Exception e)
             {
@@ -73,27 +69,22 @@ namespace LSDataApi.Services
         public Resource GetById(int id)
         {
             Resource _logedinUser = null;
-            Log.LogInformation("step 1 of authentication");
-            using (TicketTrackerContext TicketDB = new TicketTrackerContext())
-            {
-                _logedinUser = TicketDB.Resource.Find(id);
-            }
+            Log.LogInformation("in GetById , with param: " + id);
+            _logedinUser = TicketDB.Resource.Find(id);
             return _logedinUser;
         }
 
         public IList<string> UserRoles(int userId)
         {
             IList<string> roles = null;
-            using (TicketTrackerContext _repo = new TicketTrackerContext())
-            {
-                List<int> rolelist = (from r in _repo.UserRoles
-                                      where r.UserId == userId
-                                      select r.RoleId).ToList();
 
-                roles = (from rm in _repo.RoleMaster
-                         where rolelist.Contains(rm.RoleId)
-                         select rm.RoleDescription).ToList();
-            }
+            List<int> rolelist = (from r in TicketDB.UserRoles
+                                  where r.UserId == userId
+                                  select r.RoleId).ToList();
+
+            roles = (from rm in TicketDB.RoleMaster
+                     where rolelist.Contains(rm.RoleId)
+                     select rm.RoleDescription).ToList();
             return roles;
         }
 
