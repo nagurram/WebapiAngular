@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace LSDataApi.DBContext
+﻿namespace LSDataApi.DBContext
 {
     public partial class TrainingHistory
     {

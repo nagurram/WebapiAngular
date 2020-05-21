@@ -4,31 +4,31 @@ using LSDataApi.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Serilog;
 using System;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using WebApi.Helpers;
-using Microsoft.EntityFrameworkCore;
-using Serilog;
-using Microsoft.AspNetCore.Http;
 
 namespace LSDataApi
 {
     public class Startup
     {
         private readonly string MyAllowSpecificOrigins = "_myAllowAllOrigins";
-        private readonly IWebHostEnvironment _env;
+
+        //private readonly IWebHostEnvironment _env;
         private readonly IConfiguration _configuration;
 
         //https://jasonwatmore.com/post/2019/10/14/aspnet-core-3-simple-api-for-authentication-registration-and-user-management

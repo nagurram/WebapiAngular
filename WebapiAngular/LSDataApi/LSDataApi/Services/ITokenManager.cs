@@ -6,7 +6,7 @@ namespace LSDataApi.Services
     {
         Task<bool> IsCurrentActiveToken();
 
-        Task SaveToken(int user, string accesstoken, string secret);
+        Task SaveToken(int userid, string accesstoken, string secret);
 
         Task DeactivateCurrentAsync();
 

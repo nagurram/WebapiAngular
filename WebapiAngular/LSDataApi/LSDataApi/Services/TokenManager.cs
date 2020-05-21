@@ -1,13 +1,11 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using LSDataApi.DBContext;
+﻿using LSDataApi.DBContext;
 using Microsoft.AspNetCore.Http;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Primitives;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace LSDataApi.Services
 {
@@ -15,8 +13,8 @@ namespace LSDataApi.Services
     {
         private readonly IDistributedCache _cache;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private TicketTrackerContext TicketDB;
         private IConfiguration configuration;
+        private TicketTrackerContext TicketDB;
 
         public TokenManager(TicketTrackerContext context,
                 IHttpContextAccessor httpContextAccessor,
@@ -28,17 +26,14 @@ namespace LSDataApi.Services
             configuration = iConfig;
         }
 
-        public async Task<bool> IsCurrentActiveToken()
-            => await IsActiveAsync(GetCurrentAsync());
-
-        public async Task<bool> Skipvalidation(string path)
+        public async Task DeactivateAsync(string token)
         {
-            var lstpath = configuration.GetSection("MiddlewareSkips:PathList").Value.ToString().ToLower().Split(',').ToList();
-            if (lstpath.Contains(path.ToLower()))
+            var result = TicketDB.UserToken.SingleOrDefault(b => b.AccessToken == token);
+            if (result != null)
             {
-                return true;
+                result.TokenValidUntil = DateTime.UtcNow;
+                TicketDB.SaveChanges();
             }
-            return false;
         }
 
         public async Task DeactivateCurrentAsync()
@@ -52,27 +47,27 @@ namespace LSDataApi.Services
             return isactive;
         }
 
+        public async Task<bool> IsCurrentActiveToken()
+                                    => await IsActiveAsync(GetCurrentAsync());
+
         public async Task SaveToken(int userid, string accesstoken, string secret)
         {
-            try
-            {
-                TicketDB.UserToken.Add(new UserToken() { AccessToken = accesstoken, PrivateKey = secret, ResourceId = userid, TokenValidFrom = DateTime.UtcNow, TokenValidUntil = DateTime.UtcNow.AddDays(1) });
-                TicketDB.SaveChanges();
-            }
-            catch (System.Exception e)
-            {
-            }
+            TicketDB.UserToken.Add(new UserToken() { AccessToken = accesstoken, PrivateKey = secret, ResourceId = userid, TokenValidFrom = DateTime.UtcNow, TokenValidUntil = DateTime.UtcNow.AddDays(1) });
+            TicketDB.SaveChanges();
         }
 
-        public async Task DeactivateAsync(string token)
+        public async Task<bool> Skipvalidation(string path)
         {
-            var result = TicketDB.UserToken.SingleOrDefault(b => b.AccessToken == token);
-            if (result != null)
+            var lstpath = configuration.GetSection("MiddlewareSkips:PathList").Value.ToString().ToLower().Split(',').ToList();
+            if (lstpath.Contains(path.ToLower()))
             {
-                result.TokenValidUntil = DateTime.UtcNow;
-                TicketDB.SaveChanges();
+                return true;
             }
+            return false;
         }
+
+        private static string GetKey(string token)
+            => $"tokens:{token}:deactivated";
 
         private string GetCurrentAsync()
         {
@@ -83,8 +78,5 @@ namespace LSDataApi.Services
                 ? string.Empty
                 : authorizationHeader.Single().Split(" ").Last();
         }
-
-        private static string GetKey(string token)
-            => $"tokens:{token}:deactivated";
     }
 }

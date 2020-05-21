@@ -1,14 +1,8 @@
 using LSDataApi;
-using LSDataApi.Controllers;
 using LSDataApi.Tests;
-using Newtonsoft.Json.Linq;
-using System;
 using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
-using Xunit.Sdk;
 
 namespace LSDataApiTest
 {

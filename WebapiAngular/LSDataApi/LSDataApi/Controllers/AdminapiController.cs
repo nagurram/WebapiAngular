@@ -12,6 +12,9 @@ using System.Linq;
 
 namespace LSDataApi.api
 {
+    /// <summary>
+    /// Adminapi Controller
+    /// </summary>
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
     [Route("api/adminapi")]
     [EnableCors("_myAllowAllOrigins")]
@@ -19,6 +22,11 @@ namespace LSDataApi.api
     {
         private readonly ILogger<AdminapiController> Log;
 
+        /// <summary>
+        /// Constructor Dependency injection
+        /// </summary>
+        /// <param name="logger"></param>
+        /// <param name="context"></param>
         public AdminapiController(ILogger<AdminapiController> logger, TicketTrackerContext context)
         {
             TicketDB = context;

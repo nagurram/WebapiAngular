@@ -7,16 +7,26 @@ using System.Threading.Tasks;
 
 namespace LSDataApi.Controllers
 {
+    /// <summary>
+    /// ApplicationMasters ananymous controller
+    /// </summary>
     [Route("api/[controller]")]
     public class ApplicationMastersController : ControllerBase
     {
         private readonly TicketTrackerContext _context;
 
+        /// <summary>
+        /// ApplicationMastersController Constructor Dependency injection
+        /// </summary>
         public ApplicationMastersController(TicketTrackerContext context)
         {
             _context = context;
         }
 
+        /// <summary>
+        /// Get list of applications
+        /// </summary>
+        /// <returns></returns>
         // GET: api/ApplicationMasters
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ApplicationMaster>>> GetApplicationMaster()
@@ -24,6 +34,11 @@ namespace LSDataApi.Controllers
             return await _context.ApplicationMaster.ToListAsync();
         }
 
+        /// <summary>
+        /// get by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         // GET: api/ApplicationMasters/5
         [HttpGet("{id}")]
         public async Task<ActionResult<ApplicationMaster>> GetApplicationMaster(int id)
@@ -38,6 +53,12 @@ namespace LSDataApi.Controllers
             return applicationMaster;
         }
 
+        /// <summary>
+        /// update application details
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="applicationMaster"></param>
+        /// <returns></returns>
         // PUT: api/ApplicationMasters/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
@@ -70,6 +91,11 @@ namespace LSDataApi.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// insert application
+        /// </summary>
+        /// <param name="applicationMaster"></param>
+        /// <returns></returns>
         // POST: api/ApplicationMasters
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
@@ -82,6 +108,11 @@ namespace LSDataApi.Controllers
             return CreatedAtAction("GetApplicationMaster", new { id = applicationMaster.ApplicationId }, applicationMaster);
         }
 
+        /// <summary>
+        /// Delete Applications
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         // DELETE: api/ApplicationMasters/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<ApplicationMaster>> DeleteApplicationMaster(int id)
