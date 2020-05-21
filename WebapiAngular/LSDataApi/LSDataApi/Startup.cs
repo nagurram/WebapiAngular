@@ -28,13 +28,13 @@ namespace LSDataApi
     {
         private readonly string MyAllowSpecificOrigins = "_myAllowAllOrigins";
 
-        //private readonly IWebHostEnvironment _env;
+        // private readonly IWebHostEnvironment _env;
         private readonly IConfiguration _configuration;
 
         //https://jasonwatmore.com/post/2019/10/14/aspnet-core-3-simple-api-for-authentication-registration-and-user-management
         public Startup(IWebHostEnvironment env, IConfiguration configuration)
         {
-            _env = env;
+            //  _env = env;
             _configuration = configuration;
         }
 
