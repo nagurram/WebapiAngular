@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -107,18 +108,21 @@ namespace LSDataApi.api
             var _lstResource = new List<Resource>();
             try
             {
+                if (value.FirstName == null || value.LastName == null || value.EmailId == null || value.Roleid == null)
+                {
+                    throw new System.Exception("invalid user details");
+                }
                 Log.LogInformation("Saving users");
                 TicketDB.Resource.Add(new Resource() { Fname = value.FirstName, Lname = value.LastName, Email = value.EmailId, Pwd = "1234", Roles = "2", Isactive = true });
                 TicketDB.SaveChanges();
-
                 Log.LogInformation("Saving complete");
                 return Ok(1);
             }
             catch (System.Exception e)
             {
                 Log.LogError(null, e);
+                return ValidationProblem("something wrong with user details " + e.Message);
             }
-            return Ok(0);
         }
     }
 }

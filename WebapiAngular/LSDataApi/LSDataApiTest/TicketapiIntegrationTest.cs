@@ -1,6 +1,8 @@
 using LSDataApi;
 using LSDataApi.Tests;
+using Newtonsoft.Json.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -94,6 +96,24 @@ namespace LSDataApiTest
         public async Task TypeMasterTest()
         {
             var response = await Client.GetAsync("api/Ticketapi/TypeMaster");
+            response.EnsureSuccessStatusCode();
+            string responseBody = await response.Content.ReadAsStringAsync();
+            Assert.Equal(System.Net.HttpStatusCode.OK, response.StatusCode);
+        }
+
+        [Fact]
+        public async Task AdduserTest()
+        {
+            JObject obj = JObject.FromObject(new
+            {
+                FirstName = "First Name Test",
+                LastName = "Last Name Test",
+                EmailId = "Firstname.LastName@testMail.com",
+                Roleid = "1"
+            });
+            var body = obj.ToString();
+            HttpContent content = new StringContent(body, Encoding.UTF8, "application/json");
+            var response = await Client.PostAsync("api/adminapi/adduser", content);
             response.EnsureSuccessStatusCode();
             string responseBody = await response.Content.ReadAsStringAsync();
             Assert.Equal(System.Net.HttpStatusCode.OK, response.StatusCode);
