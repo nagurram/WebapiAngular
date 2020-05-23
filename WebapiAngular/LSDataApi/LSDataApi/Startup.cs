@@ -15,11 +15,13 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json.Serialization;
 using Serilog;
 using System;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using WebApi.Helpers;
 
 namespace LSDataApi
@@ -119,7 +121,11 @@ namespace LSDataApi
                 var filePath = Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, "LSDataApi.xml");
                 c.IncludeXmlComments(filePath);
             });
-            services.AddControllers().AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
+            //services.AddControllers().AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
+            services.AddControllers().AddNewtonsoftJson(options =>
+            {
+                options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+            });
             services.AddTransient<IUserService, UserService>();
         }
 

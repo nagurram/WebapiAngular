@@ -18,7 +18,7 @@ import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { BaseComponent } from './BaseComponent';
 import { ApplicationStateService } from '../Service/application-state.service';
 import { Title } from '@angular/platform-browser';
-import {removeSpaces} from '../validators/removeSpaces.validator';
+import { removeSpaces } from '../validators/removeSpaces.validator';
 
 const MIME_TYPES = {
     pdf: 'application/pdf',
@@ -120,37 +120,41 @@ export class TicketComponent extends BaseComponent implements OnInit {
             'Comments': new FormControl(this.ticket.Comments, [removeSpaces, Validators.required]),
             'UpdatedBy': new FormControl(this.ticket.UpdatedBy),
             'LastModifiedon': new FormControl(this.ticket.LastModifiedon)
-        },{ validator: statusValidator });
-/*
-        this.ticketForm.controls['Createddate'].valueChanges.subscribe(value => {
-            this.ticketForm.controls['Createddate'].setValue(this.datepipe.transform(value, 'dd/MM/yyyy'),
-                {
-                    onlySelf: false,
-                    emitEvent: false,
-                    emitModelToViewChange: false,
-                    emitViewToModelChange: false
+        }, { validator: statusValidator });
+        /*
+                this.ticketForm.controls['Createddate'].valueChanges.subscribe(value => {
+                    this.ticketForm.controls['Createddate'].setValue(this.datepipe.transform(value, 'dd/MM/yyyy'),
+                        {
+                            onlySelf: false,
+                            emitEvent: false,
+                            emitModelToViewChange: false,
+                            emitViewToModelChange: false
+                        });
                 });
-        });
-        this.ticketForm.controls['ResolutionDeadline'].valueChanges.subscribe(value => {
-            this.ticketForm.controls['ResolutionDeadline'].setValue(this.datepipe.transform(value, 'dd/MM/yyyy'),
-                {
-                    onlySelf: false,
-                    emitEvent: false,
-                    emitModelToViewChange: false,
-                    emitViewToModelChange: false
+                this.ticketForm.controls['ResolutionDeadline'].valueChanges.subscribe(value => {
+                    this.ticketForm.controls['ResolutionDeadline'].setValue(this.datepipe.transform(value, 'dd/MM/yyyy'),
+                        {
+                            onlySelf: false,
+                            emitEvent: false,
+                            emitModelToViewChange: false,
+                            emitViewToModelChange: false
+                        });
                 });
-        });
-
-        this.ticketForm.controls['ResponseDeadline'].valueChanges.subscribe(value => {
-            this.ticketForm.controls['ResponseDeadline'].setValue(this.datepipe.transform(value, 'dd/MM/yyyy'),
-                {
-                    onlySelf: false,
-                    emitEvent: false,
-                    emitModelToViewChange: false,
-                    emitViewToModelChange: false
+        
+                this.ticketForm.controls['ResponseDeadline'].valueChanges.subscribe(value => {
+                    this.ticketForm.controls['ResponseDeadline'].setValue(this.datepipe.transform(value, 'dd/MM/yyyy'),
+                        {
+                            onlySelf: false,
+                            emitEvent: false,
+                            emitModelToViewChange: false,
+                            emitViewToModelChange: false
+                        });
                 });
-        });
-        */
+                */
+        if (this.ticketId == 0) {
+            this.attachments = null;
+            return;
+        }
     }
     // #endregion 
     goBack(template) {
@@ -161,7 +165,7 @@ export class TicketComponent extends BaseComponent implements OnInit {
              }, function () {
                  return;
              }) */
-            this.modalRef = this.modalService.show(template, { animated: true, keyboard: true, backdrop: true, ignoreBackdropClick: true,class: 'backgroundTransparent' });
+            this.modalRef = this.modalService.show(template, { animated: true, keyboard: true, backdrop: true, ignoreBackdropClick: true, class: 'backgroundTransparent' });
         }
         else {
             if (this.modalRef != null) {
@@ -244,16 +248,16 @@ export class TicketComponent extends BaseComponent implements OnInit {
                 this.pagetitile = "";
                 if (id > 0) {
                     this.ticket = ticket.body[0];
-                    
-                    var adate= this.ticket.Createddate;
+
+                    var adate = this.ticket.Createddate;
                     console.log(adate);
-                    this.ticket.Createddate=new Date(adate);
-                    adate=this.ticket.ResolutionDeadline;
-                    this.ticket.ResolutionDeadline=new Date(adate);
-                    adate=this.ticket.ResponseDeadline;
-                    this.ticket.ResponseDeadline=new Date(adate);
+                    this.ticket.Createddate = new Date(adate);
+                    adate = this.ticket.ResolutionDeadline;
+                    this.ticket.ResolutionDeadline = new Date(adate);
+                    adate = this.ticket.ResponseDeadline;
+                    this.ticket.ResponseDeadline = new Date(adate);
                     console.log(this.ticket);
-                    
+
                     this.pagetitile = this.ticket.Title;
                     this.ticketForm.setValue(Object.assign({}, this.ticket));
                 }
@@ -282,7 +286,7 @@ export class TicketComponent extends BaseComponent implements OnInit {
             this.validateAllFields(this.ticketForm);
             return;
         }
-        const tktresult: Ticket = Object.assign({}, this.ticketForm.getRawValue() );
+        const tktresult: Ticket = Object.assign({}, this.ticketForm.getRawValue());
         this._tickservice.put(Global.BASE_TICKET_ENDPOINT + Global.BASE_TICKET_UPDATE, tktresult.TicketId, tktresult).subscribe(
             data => {
                 if (data == 1) //Success
@@ -305,7 +309,7 @@ export class TicketComponent extends BaseComponent implements OnInit {
             data => {
                 if (data.Message == "1") //Success
                 {
-                   // $('#fileupload').val('');
+                    // $('#fileupload').val('');
                     this.LoadAttachments(this.ticketId);
                     // console.log(this.attachments)
                     this.msg = "File Upload successfull"

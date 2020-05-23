@@ -29,7 +29,7 @@ export class UserService {
     }
 
     userAuthentication(userName: string, password: string): Observable<any> {
-        //var body = "username=" + userName + "&password=" + password + "&grant_type=password";
+       //var body = "username=" + userName + "&password=" + password + "&grant_type=password";
         var body = '{"username":"' + userName + '","password":"' + password + '"}';
         //var url = this.rootUrl +  'token' ;//'api/userapi/authenticate';
         var url = this.rootUrl + 'api/userapi/authenticate';
