@@ -289,7 +289,7 @@
                     </div>
 
                 
-                    <div *ngIf='ticket.TicketId>=0'>
+                    <div *ngIf='ticket.TicketId>0'>
                     <h3>Attachements</h3>
                     <div *ngIf='attachments && attachments.length==0 && ticket.TicketId>=0' class="alert alert-info" role="alert">No
                         record found!</div>

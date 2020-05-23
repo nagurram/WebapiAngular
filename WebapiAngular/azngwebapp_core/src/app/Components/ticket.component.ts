@@ -74,7 +74,7 @@ export class TicketComponent extends BaseComponent implements OnInit {
                 // Defaults to 0 if no query param provided.
                 this.ticketId = params.ticketId || -1;
                 if (this.ticketId >= 0) {
-
+                    this.attachments = null;
                     this.iniTicketdata();
                     this.GetTicketById(this.ticketId);
                     //console.log('in query params and ticket id : ' + this.ticketId);
