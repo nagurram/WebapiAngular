@@ -47,13 +47,14 @@ namespace DataApi.api
         public IActionResult Get()
         {
             var _lstticket = from t in TicketDB.Tickets
-                             join um in TicketDB.UserMaster on t.CreatedBy equals um.UserId
+                             join um in TicketDB.UserMaster on t.CreatedBy equals um.UserId into um
+                             from subum in um.DefaultIfEmpty()
                              join pm in TicketDB.PriorityMaster on t.PriorityId equals pm.PriorityId
                              join am in TicketDB.ApplicationMaster on t.ApplicationId equals am.ApplicationId
                              join um2 in TicketDB.UserMaster on t.AssignedTo equals um2.UserId
                              join st in TicketDB.StatusMaster on t.StatusId equals st.StatusId
                              join tp in TicketDB.TypeMaster on t.TypeId equals tp.TypeId
-                             select new { t.TicketId, t.Title, t.Createddate, pm.PriorityDescription, createdby = um.Lname + ", " + um.Fname, am.ApplicationName, AssignedTo = um2.Lname + ", " + um2.Fname, status = st.StatusDescription, tkttype = tp.TypeDescription };
+                             select new { t.TicketId, t.Title, t.Createddate, pm.PriorityDescription, createdby = subum.Lname + ", " + subum.Fname, am.ApplicationName, AssignedTo = um2.Lname + ", " + um2.Fname, status = st.StatusDescription, tkttype = tp.TypeDescription };
 
             return Ok(_lstticket);
         }

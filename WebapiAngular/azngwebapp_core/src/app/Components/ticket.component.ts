@@ -54,6 +54,7 @@ export class TicketComponent extends BaseComponent implements OnInit {
     fileblob: any;
     modalRef: BsModalRef;
     datepickerconfig: Partial<BsDatepickerConfig>;
+    dropdownminval: number = 1;
 
     constructor(private _tickservice: TicketService, private _route: ActivatedRoute, private location: Location,
         private formBuilder: FormBuilder, private router: Router, private datepipe: DatePipe, private modalService: BsModalService,
@@ -101,22 +102,23 @@ export class TicketComponent extends BaseComponent implements OnInit {
     // #region LoadTicketData
     iniTicketdata() {
 
+        this.dropdownminval = this.ticketId > 0 ? 1 : -1;
         this.ticket.TicketId = this.ticketId;
         this.ticketForm = this.formBuilder.group({
             'TicketId': new FormControl(this.ticket.TicketId),
             'Title': new FormControl(this.ticket.Title, [removeSpaces, Validators.required]),
             'Tdescription': new FormControl(this.ticket.Tdescription, [removeSpaces, Validators.required]),
             'CreatedBy': new FormControl(this.ticket.CreatedBy, [Validators.required]),
-            'StatusId': new FormControl(this.ticket.StatusId, [Validators.required, Validators.min(1)]),
+            'StatusId': new FormControl(this.ticket.StatusId, [Validators.required, Validators.min(this.dropdownminval)]),
             'Createddate': new FormControl(this.ticket.Createddate, [Validators.required]),
-            'AssignedTo': new FormControl(this.ticket.AssignedTo, [Validators.required, Validators.min(1)]),
-            'PriorityId': new FormControl(this.ticket.PriorityId, [Validators.required, Validators.min(1)]),
-            'TypeId': new FormControl(this.ticket.TypeId, [Validators.required, Validators.min(1)]),
-            'ApplicationId': new FormControl(this.ticket.ApplicationId, [Validators.required, Validators.min(1)]),
-            'ModuleId': new FormControl(this.ticket.ModuleId, [Validators.required, Validators.min(1)]),
+            'AssignedTo': new FormControl(this.ticket.AssignedTo, [Validators.required, Validators.min(this.dropdownminval)]),
+            'PriorityId': new FormControl(this.ticket.PriorityId, [Validators.required, Validators.min(this.dropdownminval)]),
+            'TypeId': new FormControl(this.ticket.TypeId, [Validators.required, Validators.min(this.dropdownminval)]),
+            'ApplicationId': new FormControl(this.ticket.ApplicationId, [Validators.required, Validators.min(this.dropdownminval)]),
+            'ModuleId': new FormControl(this.ticket.ModuleId, [Validators.required, Validators.min(this.dropdownminval)]),
             'ResponseDeadline': new FormControl(this.ticket.ResponseDeadline, [Validators.required]),
             'ResolutionDeadline': new FormControl(this.ticket.ResolutionDeadline, [Validators.required]),
-            'RootCauseId': new FormControl(this.ticket.RootCauseId, [Validators.required, Validators.min(1)]),
+            'RootCauseId': new FormControl(this.ticket.RootCauseId, [Validators.required, Validators.min(this.dropdownminval)]),
             'Comments': new FormControl(this.ticket.Comments, [removeSpaces, Validators.required]),
             'UpdatedBy': new FormControl(this.ticket.UpdatedBy),
             'LastModifiedon': new FormControl(this.ticket.LastModifiedon)
@@ -282,6 +284,7 @@ export class TicketComponent extends BaseComponent implements OnInit {
 
     saveticket(): void {
         //console.log('in save');
+        this.dropdownminval=1;
         if (this.ticketForm.status == 'INVALID') {
             this.validateAllFields(this.ticketForm);
             return;

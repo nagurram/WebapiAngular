@@ -32,7 +32,9 @@
                     <td>
                         <a [routerLink]="['/ticket']" [queryParams]="{ ticketId:tkt.TicketId  }">{{tkt.TicketId}}</a>
                     </td>
-                    <td>{{tkt.Title}}</td>
+                    <td>
+                        <div class="textlen">{{tkt.Title}}</div>
+                    </td>
                     <td>{{tkt.tkttype}}</td>
                     <td>{{tkt.Createddate|date}}</td>
                     <td>{{tkt.status}}</td>
@@ -281,51 +283,52 @@
                     </div>
 
                 </tab>
-                <tab >
+                <tab>
                     <ng-template tabHeading><i><span class="fa fa-paperclip"></span> </i>Attachments
                     </ng-template>
-                    <div *ngIf='ticket.TicketId==0'class="alert alert-info" role="alert">
-                    Please save ticket before adding attachments
+                    <div *ngIf='ticket.TicketId==0' class="alert alert-info" role="alert">
+                        Please save ticket before adding attachments
                     </div>
 
-                
+
                     <div *ngIf='ticket.TicketId>0'>
-                    <h3>Attachements</h3>
-                    <div *ngIf='attachments && attachments.length==0 && ticket.TicketId>=0' class="alert alert-info" role="alert">No
-                        record found!</div>
-                    <div class='table-responsive'>
-                        <table class="table table-striped table-bordered" *ngIf='attachments && attachments.length'>
-                            <thead>
-                                <tr>
-                                    <th>File Id</th>
-                                    <th>File Name</th>
-                                    <th>Upload date</th>
-                                    <th>Download</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let tkt of attachments">
-                                    <td>{{tkt.Fileid}}</td>
-                                    <td>{{tkt.FileName}}</td>
-                                    <td>{{tkt.UploadDate|date}}</td>
-                                    <td> <a (click)="downloadfile(tkt.Fileid,tkt.FileName)"
-                                            style="cursor: pointer;">Download</a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <a class="download-zip-link" #downloadZipLink></a>
-                    </div>
-                    <div class='row'>
-                        <div class="col-md-9">
-                            <label class="control-label " for="image1"> File</label>
-                            <input id="fileupload" type="file" class="form-control" (change)=fileEvent($event) />
+                        <h3>Attachements</h3>
+                        <div *ngIf='attachments && attachments.length==0 && ticket.TicketId>=0' class="alert alert-info"
+                            role="alert">No
+                            record found!</div>
+                        <div class='table-responsive'>
+                            <table class="table table-striped table-bordered" *ngIf='attachments && attachments.length'>
+                                <thead>
+                                    <tr>
+                                        <th>File Id</th>
+                                        <th>File Name</th>
+                                        <th>Upload date</th>
+                                        <th>Download</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let tkt of attachments">
+                                        <td>{{tkt.Fileid}}</td>
+                                        <td>{{tkt.FileName}}</td>
+                                        <td>{{tkt.UploadDate|date}}</td>
+                                        <td> <a (click)="downloadfile(tkt.Fileid,tkt.FileName)"
+                                                style="cursor: pointer;">Download</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <a class="download-zip-link" #downloadZipLink></a>
                         </div>
-                        <div class="col-md-3 top-buffer">
-                            <button title="Save" class="btn btn-primary">Upload</button>
+                        <div class='row'>
+                            <div class="col-md-9">
+                                <label class="control-label " for="image1"> File</label>
+                                <input id="fileupload" type="file" class="form-control" (change)=fileEvent($event) />
+                            </div>
+                            <div class="col-md-3 top-buffer">
+                                <button title="Save" class="btn btn-primary">Upload</button>
+                            </div>
                         </div>
                     </div>
-                </div>
                 </tab>
                 <tab heading="Audit">
                     <h3>Audit Log</h3>
