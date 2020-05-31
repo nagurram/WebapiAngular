@@ -5,8 +5,8 @@
     //public static BASE_URL="http://localhost/dataapi/"
     //public static BASE_URL = "http://192.168.2.34:90/"
     //public static BASE_URL = "http://chandus8411c.mylabserver.com/dataservice/"
-    public static BASE_URL = "http://localhost:52865/"
-    //public static BASE_URL = "http://chandus8411c.mylabserver.com/dataservice/"
+    //public static BASE_URL = "http://localhost:52865/"
+    public static BASE_URL = "http://chandus8411c.mylabserver.com/dataservice/"
     
     //ENDPOINTS
     public static BASE_TODOLIST_ENDPOINT = "api/Todoapi/todolist";
