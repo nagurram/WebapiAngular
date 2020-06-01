@@ -34,6 +34,10 @@ steps:
       # Write your PowerShell commands here.
       md "c:\Web Sites\webapp"
       $site = $site = new-WebSite -name "webapp" -PhysicalPath "c:\Web Sites\webapp" -force
+      dotnet tool install -g dotnet-reportgenerator-globaltool
+      dotnet tool install dotnet-reportgenerator-globaltool --tool-path tools
+      dotnet new tool-manifest
+      dotnet tool install dotnet-reportgenerator-globaltool
   displayName: 'Powershell Create WebApp'
   
 - script: choco install sql-server-express
@@ -84,8 +88,7 @@ steps:
       **\LSDataApi.Tests.dll
       !**\*TestAdapter.dll
       !**\obj\**
-    searchFolder: '$(System.DefaultWorkingDirectory)'
-    codeCoverageEnabled: true
+    searchFolder: '$(System.DefaultWorkingDirectory)'  
     configuration: '$(buildConfiguration)'
 - task: PublishTestResults@2
   inputs:
@@ -101,10 +104,19 @@ steps:
     arguments: '/p:CollectCoverage=true  /p:CoverletOutputFormat=cobertura  /p:CoverletOutput=$(Build.SourcesDirectory)\TestResults\Coverage\'
     testRunTitle: 'Test and collect coverage'
 
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'custom'
+    projects: '**/LSDataApi.Tests.csproj'
+    custom: 'reportgenerator'
+    arguments: '"-reports:$(Build.SourcesDirectory)\TestResults\Coverage\coverage.cobertura.xml" "-targetdir:$(Build.SourcesDirectory)\TestResults\Coverage\Reports" -tag:$(Build.BuildNumber) -reportTypes:htmlInline'
+
+
 - task: PublishCodeCoverageResults@1
   inputs:
-    codeCoverageTool: 'JaCoCo'
-    summaryFileLocation: '$(System.DefaultWorkingDirectory)/webapp/**/cobertura/coverage.xml'
+    codeCoverageTool: 'Cobertura'
+    summaryFileLocation: '$(Build.SourcesDirectory)\TestResults\Coverage\**\coverage.cobertura.xml'
+    Reportdirectory: $(Build.SourcesDirectory)\TestResults\Coverage\Reports
 - task: SonarCloudPublish@1
   inputs:
     pollingTimeoutSec: '300'
