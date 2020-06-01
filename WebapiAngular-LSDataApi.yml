@@ -62,14 +62,6 @@ steps:
     feedsToUse: 'select'
 
 
-- task: SonarCloudPrepare@1
-  inputs:
-    SonarCloud: 'sonarcloud-azurepipeline'
-    organization: 'narendraorganization'
-    scannerMode: 'MSBuild'
-    projectKey: 'narendraprojectkey'
-    projectName: 'sonar.LSDataApi_.NetCore'
-
      
 
 - task: VSBuild@1
@@ -117,6 +109,23 @@ steps:
     codeCoverageTool: 'Cobertura'
     summaryFileLocation: '$(Build.SourcesDirectory)\TestResults\Coverage\**\coverage.cobertura.xml'
     Reportdirectory: $(Build.SourcesDirectory)\TestResults\Coverage\Reports
+
+
+
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'sonarcloud-azurepipeline'
+    organization: 'narendraorganization'
+    scannerMode: 'MSBuild'
+    projectKey: 'narendraprojectkey'
+    projectName: 'sonar.LSDataApi_.NetCore'
+    extraProperties: |
+      # Additional properties that will be passed to the scanner, 
+      # Put one key=value per line, example:
+      # sonar.exclusions=**/*.bin
+      sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/TestResults/Coverage/coverage.opencover.xml
+
+
 - task: SonarCloudPublish@1
   inputs:
     pollingTimeoutSec: '300'
