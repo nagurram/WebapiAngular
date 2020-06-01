@@ -25,9 +25,9 @@ namespace LSDataApi.api
     public class UserapiController : BaseAPIController
     {
         private readonly ILogger<UserapiController> Log;
-        private IUserService _userService;
+        private readonly IUserService _userService;
         private readonly AppSettings _appSettings;
-        private ITokenManager _tokenManager;
+        private readonly ITokenManager _tokenManager;
 
         public UserapiController(ILogger<UserapiController> logger,
             IUserService userService,
@@ -116,7 +116,6 @@ namespace LSDataApi.api
         [Route("Logout")]
         public IActionResult Logout()
         {
-            // var authentication = HttpContext.Current.GetOwinContext().Authentication;
             _tokenManager.DeactivateCurrentAsync();
             return Ok(new { message = "Logout successful." });
         }

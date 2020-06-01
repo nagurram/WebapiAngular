@@ -206,12 +206,8 @@ namespace DataApi.api
             {
                 if (file.Length > 0)
                 {
-                    string fileName = "";
-                    if (string.IsNullOrEmpty(file.FileName))
-                    {
-                        fileName = Guid.NewGuid().ToString();
-                    }
-                    fileName = file.FileName;
+                    string fileName = string.IsNullOrEmpty(file.FileName) ? Guid.NewGuid().ToString() : file.FileName;
+
                     if (fileName.StartsWith("\"") && fileName.EndsWith("\""))
                     {
                         fileName = fileName.Trim('"');
@@ -262,10 +258,9 @@ namespace DataApi.api
             var filelist = (TicketDB.FileUpload.Where(t => t.Fileid == id).Select(p => new { p.Fileid, p.Filedata, p.FileName, p.Filetype, p.UploadDate })).FirstOrDefault();
 
             var memorycontent = new MemoryStream(filelist.Filedata);
-            //  string cotenttype = GetfileContenttype(filelist.Filetype);
 
             string fileres = Encoding.UTF8.GetString(filelist.Filedata, 0, filelist.Filedata.Length);
-            StreamContent _rescontent = new StreamContent(memorycontent); ;// new StringContent(JsonConvert.SerializeObject(fileres), Encoding.UTF8, cotenttype);
+            StreamContent _rescontent = new StreamContent(memorycontent);
             Log.LogInformation("in GetfileAttachemnet  method in last line");
 
             return File(memorycontent, new DownloadResult().GetfileContenttype(filelist.Filetype), filelist.FileName);

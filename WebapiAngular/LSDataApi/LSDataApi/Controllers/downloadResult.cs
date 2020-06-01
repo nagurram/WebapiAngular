@@ -10,11 +10,17 @@ namespace LSDataApi
     public class DownloadResult : IHttpActionResult
 
     {
-        private MemoryStream bookStuff;
-        private string PdfFileName;
-        private HttpRequestMessage httpRequestMessage;
+        private readonly MemoryStream bookStuff;
+        private readonly string PdfFileName;
+        private readonly HttpRequestMessage httpRequestMessage;
         private HttpResponseMessage httpResponseMessage;
 
+        /// <summary>
+        /// DownloadResult
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="request"></param>
+        /// <param name="filename"></param>
         public DownloadResult(MemoryStream data, HttpRequestMessage request, string filename)
         {
             bookStuff = data;
@@ -22,15 +28,22 @@ namespace LSDataApi
             PdfFileName = filename;
         }
 
+        /// <summary>
+        /// DownloadResult
+        /// </summary>
         public DownloadResult()
         {
         }
 
+        /// <summary>
+        /// ExecuteAsync
+        /// </summary>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         public System.Threading.Tasks.Task<HttpResponseMessage> ExecuteAsync(System.Threading.CancellationToken cancellationToken)
         {
             httpResponseMessage = httpRequestMessage.CreateResponse(HttpStatusCode.OK);
             httpResponseMessage.Content = new StreamContent(bookStuff);
-            //httpResponseMessage.Content = new ByteArrayContent(bookStuff.ToArray());
             httpResponseMessage.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment");
             httpResponseMessage.Content.Headers.ContentDisposition.FileName = PdfFileName;
             httpResponseMessage.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
@@ -38,6 +51,11 @@ namespace LSDataApi
             return System.Threading.Tasks.Task.FromResult(httpResponseMessage);
         }
 
+        /// <summary>
+        /// GetfileContenttype
+        /// </summary>
+        /// <param name="filetype"></param>
+        /// <returns></returns>
         public string GetfileContenttype(string filetype)
         {
             return BuildMappings()['.' + filetype];

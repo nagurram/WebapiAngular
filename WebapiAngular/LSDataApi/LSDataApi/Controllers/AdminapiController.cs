@@ -110,7 +110,7 @@ namespace LSDataApi.api
             {
                 if (value.FirstName == null || value.LastName == null || value.EmailId == null || value.Roleid == null)
                 {
-                    throw new System.Exception("invalid user details");
+                    throw new InvalidOperationException("invalid user details");
                 }
                 Log.LogInformation("Saving users");
                 TicketDB.Resource.Add(new Resource() { Fname = value.FirstName, Lname = value.LastName, Email = value.EmailId, Pwd = "1234", Roles = "2", Isactive = true });

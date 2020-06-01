@@ -24,22 +24,6 @@ namespace LSDataApi.api
         /// https://medium.com/better-programming/creating-angular-webapp-for-multiple-views-and-screen-sizes-50fe8a83c433
 
         protected TicketTrackerContext TicketDB;
-        /*
-        protected IActionResult ToJson(dynamic obj)
-        {
-            try
-            {
-                var response = Request.CreateResponse(HttpStatusCode.OK);
-                response.Content = new StringContent(JsonConvert.SerializeObject(obj), Encoding.UTF8, "application/json");
-                return response;
-            }
-            catch(System.Exception e)
-            {
-                BLog.Error(e);
-                throw;
-            }
-        }
-        */
 
         /// <summary>
         /// application master list
@@ -121,10 +105,7 @@ namespace LSDataApi.api
 
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             // Gets list of claims.
-            IEnumerable<Claim> claim = identity.Claims;
-            var calimVal = claim
-                               .Where(x => x.Type == name)
-                               .FirstOrDefault();
+            var calimVal = identity.Claims.Where(x => x.Type == name).FirstOrDefault();
             _retunval = Convert.ToString(calimVal.Value);
             return _retunval;
         }
