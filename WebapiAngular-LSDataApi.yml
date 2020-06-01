@@ -101,7 +101,7 @@ steps:
   inputs:
     command: 'test'
     projects: '**/LSDataApi.Tests.csproj'
-    arguments: '/p:CollectCoverage=true  /p:CoverletOutputFormat=cobertura  /p:CoverletOutput=$(Build.SourcesDirectory)\TestResults\Coverage\'
+    arguments: '/p:CollectCoverage=true  /p:CoverletOutputFormat=cobertura%2copencover  /p:CoverletOutput=$(Build.SourcesDirectory)\TestResults\Coverage\'
     testRunTitle: 'Test and collect coverage'
 
 - task: DotNetCoreCLI@2
