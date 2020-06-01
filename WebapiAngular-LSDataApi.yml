@@ -60,7 +60,6 @@ steps:
     command: 'restore'
     restoreSolution: '$(solution)'
     feedsToUse: 'select'
-     
 
 - task: VSBuild@1
   inputs:
@@ -99,7 +98,6 @@ steps:
     custom: 'reportgenerator'
     arguments: '"-reports:$(Build.SourcesDirectory)\TestResults\Coverage\coverage.cobertura.xml" "-targetdir:$(Build.SourcesDirectory)\TestResults\Coverage\Reports" -tag:$(Build.BuildNumber) -reportTypes:htmlInline'
 
-
 - task: PublishCodeCoverageResults@1
   inputs:
     codeCoverageTool: 'Cobertura'
@@ -118,7 +116,6 @@ steps:
       # Put one key=value per line, example:
       # sonar.exclusions=**/*.bin
       sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/TestResults/Coverage/coverage.opencover.xml
-
 
 - task: SonarCloudAnalyze@1
 
