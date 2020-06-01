@@ -75,7 +75,8 @@ steps:
       **\LSDataApi.Tests.dll
       !**\*TestAdapter.dll
       !**\obj\**
-    searchFolder: '$(Build.SourcesDirectory)'  
+    searchFolder: '$(Build.SourcesDirectory)'
+    resultsFolder: '$(Build.SourcesDirectory)\TestResults'
     configuration: '$(buildConfiguration)'
     
 - task: PublishTestResults@2
