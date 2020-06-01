@@ -29,13 +29,11 @@ namespace LSDataApi
     {
         private readonly string MyAllowSpecificOrigins = "_myAllowAllOrigins";
 
-        // private readonly IWebHostEnvironment _env;
         private readonly IConfiguration _configuration;
 
         //https://jasonwatmore.com/post/2019/10/14/aspnet-core-3-simple-api-for-authentication-registration-and-user-management
         public Startup(IWebHostEnvironment env, IConfiguration configuration)
         {
-            //  _env = env;
             _configuration = configuration;
         }
 
@@ -70,7 +68,6 @@ namespace LSDataApi
                 options.SuppressConsumesConstraintForFormFileParameters = true;
             });
             services.AddControllers();
-            //services.AddControllers().AddNewtonsoftJson(); ;
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             // configure strongly typed settings objects
             var appSettingsSection = _configuration.GetSection("AppSettings");
@@ -120,7 +117,6 @@ namespace LSDataApi
                 var filePath = Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, "LSDataApi.xml");
                 c.IncludeXmlComments(filePath);
             });
-            //services.AddControllers().AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
             services.AddControllers().AddNewtonsoftJson(options =>
             {
                 options.SerializerSettings.ContractResolver = new DefaultContractResolver();
@@ -131,10 +127,8 @@ namespace LSDataApi
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            //loggerFactory.AddFile("Logs/DataApi-{Date}.txt");
             if (env.IsDevelopment())
             {
-                // _logger.LogInformation("In Development environment");
                 app.UseDeveloperExceptionPage();
             }
 

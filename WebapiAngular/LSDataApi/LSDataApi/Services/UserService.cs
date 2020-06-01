@@ -33,7 +33,6 @@ namespace LSDataApi.Services
         public Resource Authenticate(string username, string password)
         {
             Log.LogInformation("in Login, User id is:  " + username + " , Pwd " + "**********");
-            // context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
             Resource _logedinUser = null;
 
             try
@@ -66,6 +65,11 @@ namespace LSDataApi.Services
             }
         }
 
+        /// <summary>
+        /// GetById
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public Resource GetById(int id)
         {
             Resource _logedinUser = null;
@@ -74,6 +78,11 @@ namespace LSDataApi.Services
             return _logedinUser;
         }
 
+        /// <summary>
+        /// UserRoles
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         public IList<string> UserRoles(int userId)
         {
             IList<string> roles = null;
