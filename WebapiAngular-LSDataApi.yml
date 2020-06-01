@@ -81,7 +81,7 @@ steps:
   inputs:
     testResultsFormat: 'XUnit'
     testResultsFiles: '**/*.trx'
-    searchFolder: '$(Agent.TempDirectory)\TestResults'
+    searchFolder: '$(Build.SourcesDirectory)\TestResults'
     testRunTitle: 'Test-Results'
 
 - task: DotNetCoreCLI@2
