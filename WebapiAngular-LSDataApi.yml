@@ -75,8 +75,9 @@ steps:
       **\LSDataApi.Tests.dll
       !**\*TestAdapter.dll
       !**\obj\**
-    searchFolder: '$(System.DefaultWorkingDirectory)'  
+    searchFolder: '$(Build.SourcesDirectory)'  
     configuration: '$(buildConfiguration)'
+    
 - task: PublishTestResults@2
   inputs:
     testResultsFormat: 'XUnit'
