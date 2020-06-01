@@ -101,10 +101,19 @@ steps:
     arguments: '/p:CollectCoverage=true  /p:CoverletOutputFormat=cobertura  /p:CoverletOutput=$(Build.SourcesDirectory)\TestResults\Coverage\'
     testRunTitle: 'Test and collect coverage'
 
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'custom'
+    projects: '**/LSDataApi.Tests.csproj'
+    custom: 'reportgenrator'
+    arguments: '"-reports:$(Build.SourcesDirectory)\TestResults\Coverage\coverage.cobertura.xml" "-targetdir:$(Build.SourcesDirectory)\TestResults\Coverage\Reports" -tag:$(Build.BuildNumber) -reportTypes:htmlInline'
+
+
 - task: PublishCodeCoverageResults@1
   inputs:
-    codeCoverageTool: 'JaCoCo'
-    summaryFileLocation: '$(System.DefaultWorkingDirectory)/webapp/**/cobertura/coverage.xml'
+    codeCoverageTool: 'Cobertura'
+    summaryFileLocation: '$(Build.SourcesDirectory)\TestResults\Coverage\**\coverage.cobertura.xml'
+    Reportdirectory: $(Build.SourcesDirectory)\TestResults\Coverage\Reports
 - task: SonarCloudPublish@1
   inputs:
     pollingTimeoutSec: '300'
