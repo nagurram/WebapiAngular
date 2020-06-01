@@ -88,8 +88,7 @@ steps:
       **\LSDataApi.Tests.dll
       !**\*TestAdapter.dll
       !**\obj\**
-    searchFolder: '$(System.DefaultWorkingDirectory)'
-    codeCoverageEnabled: true
+    searchFolder: '$(System.DefaultWorkingDirectory)'  
     configuration: '$(buildConfiguration)'
 - task: PublishTestResults@2
   inputs:
