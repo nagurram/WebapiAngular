@@ -94,6 +94,13 @@ steps:
     searchFolder: '$(Agent.TempDirectory)\TestResults'
     testRunTitle: 'Test-Results'
 
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'test'
+    projects: '**/LSDataApi.Tests.csproj'
+    arguments: '/p:CollectCoverage=true  /p:CoverletOutputFormat=cobertura  /p:CoverletOutput=$(Build.SourcesDirectory)\TestResults\Coverage\'
+    testRunTitle: 'Test and collect coverage'
+
 - task: PublishCodeCoverageResults@1
   inputs:
     codeCoverageTool: 'JaCoCo'
