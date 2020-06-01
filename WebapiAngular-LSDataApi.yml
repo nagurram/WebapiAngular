@@ -105,7 +105,7 @@ steps:
   inputs:
     command: 'custom'
     projects: '**/LSDataApi.Tests.csproj'
-    custom: 'reportgenrator'
+    custom: 'reportgenerator'
     arguments: '"-reports:$(Build.SourcesDirectory)\TestResults\Coverage\coverage.cobertura.xml" "-targetdir:$(Build.SourcesDirectory)\TestResults\Coverage\Reports" -tag:$(Build.BuildNumber) -reportTypes:htmlInline'
 
 
