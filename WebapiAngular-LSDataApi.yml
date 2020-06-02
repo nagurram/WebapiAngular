@@ -61,6 +61,20 @@ steps:
     restoreSolution: '$(solution)'
     feedsToUse: 'select'
 
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'sonarcloud-azurepipeline'
+    organization: 'narendraorganization'
+    scannerMode: 'MSBuild'
+    projectKey: 'narendraprojectkey'
+    projectName: 'sonar.LSDataApi_.NetCore'
+    extraProperties: |
+      # Additional properties that will be passed to the scanner, 
+      # Put one key=value per line, example:
+      sonar.exclusions=**/obj/**,**/*.dll
+      sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/TestResults/Coverage/coverage.opencover.xml
+      sonar.cs.vstest.reportsPaths=$(Build.SourcesDirectory)/*.trx
+
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'
@@ -107,19 +121,7 @@ steps:
     summaryFileLocation: '$(Build.SourcesDirectory)\TestResults\Coverage\**\coverage.cobertura.xml'
     Reportdirectory: $(Build.SourcesDirectory)\TestResults\Coverage\Reports
 
-- task: SonarCloudPrepare@1
-  inputs:
-    SonarCloud: 'sonarcloud-azurepipeline'
-    organization: 'narendraorganization'
-    scannerMode: 'MSBuild'
-    projectKey: 'narendraprojectkey'
-    projectName: 'sonar.LSDataApi_.NetCore'
-    extraProperties: |
-      # Additional properties that will be passed to the scanner, 
-      # Put one key=value per line, example:
-      sonar.exclusions=**/obj/**,**/*.dll
-      sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/TestResults/Coverage/coverage.opencover.xml
-      sonar.cs.vstest.reportsPaths=$(Build.SourcesDirectory)/*.trx
+
 
 - task: SonarCloudAnalyze@1
 
