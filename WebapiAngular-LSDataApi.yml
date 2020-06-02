@@ -76,7 +76,7 @@ steps:
       !**\*TestAdapter.dll
       !**\obj\**
     searchFolder: '$(Build.SourcesDirectory)'
-	codeCoverageEnabled: true
+    codeCoverageEnabled: true
     resultsFolder: '$(Build.SourcesDirectory)\TestResults'
     configuration: '$(buildConfiguration)'
     
