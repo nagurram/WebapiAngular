@@ -71,9 +71,9 @@ steps:
     extraProperties: |
       # Additional properties that will be passed to the scanner, 
       # Put one key=value per line, example:
-      sonar.exclusions=**/obj/**,**/*.dll
+      sonar.exclusions=**/obj/**,**/*.dll,WebapiAngular/LSDataApi/LSDataApi/DBContext/*.*
       sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/TestResults/Coverage/coverage.opencover.xml
-      sonar.cs.vstest.reportsPaths=$(Build.SourcesDirectory)/*.trx
+      sonar.cs.vstest.reportsPaths=$(Build.SourcesDirectory)/TestResults/*.trx
 
 - task: VSBuild@1
   inputs:
