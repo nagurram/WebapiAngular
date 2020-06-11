@@ -19,6 +19,7 @@ import { BaseComponent } from './BaseComponent';
 import { ApplicationStateService } from '../Service/application-state.service';
 import { Title } from '@angular/platform-browser';
 import { removeSpaces } from '../validators/removeSpaces.validator';
+import { PaginationConfig } from '../Model/paginationconfig';
 
 const MIME_TYPES = {
     pdf: 'application/pdf',
@@ -55,6 +56,10 @@ export class TicketComponent extends BaseComponent implements OnInit {
     modalRef: BsModalRef;
     datepickerconfig: Partial<BsDatepickerConfig>;
     dropdownminval: number = 1;
+    config: PaginationConfig;
+
+
+
 
     constructor(private _tickservice: TicketService, private _route: ActivatedRoute, private location: Location,
         private formBuilder: FormBuilder, private router: Router, private datepipe: DatePipe, private modalService: BsModalService,
@@ -62,6 +67,9 @@ export class TicketComponent extends BaseComponent implements OnInit {
         super(titleService);
         this.datepickerconfig = Object.assign({}, { containerClass: 'theme-dark-blue', dateInputFormat: 'MM/DD/YYYY' })
         this.pagetitile = 'Ticket Summary';
+        this.config = new PaginationConfig();
+        this.config.totalItems = 10;
+
     }
 
     ngOnInit(): void {
@@ -181,7 +189,7 @@ export class TicketComponent extends BaseComponent implements OnInit {
         this.indLoading = true;
         this.pagetitile = "Ticket Summary";
         this._tickservice.get(Global.BASE_TICKET_ENDPOINT)
-            .subscribe(tickets => { this.tickets = tickets; this.indLoading = false; },
+            .subscribe(tickets => { this.tickets = tickets; this.indLoading = false; this.config.totalItems = tickets.length; },
                 error => this.msg = <any>error);
     }
     // #region Load DropdownData  
@@ -252,13 +260,11 @@ export class TicketComponent extends BaseComponent implements OnInit {
                     this.ticket = ticket.body[0];
 
                     var adate = this.ticket.Createddate;
-                    console.log(adate);
                     this.ticket.Createddate = new Date(adate);
                     adate = this.ticket.ResolutionDeadline;
                     this.ticket.ResolutionDeadline = new Date(adate);
                     adate = this.ticket.ResponseDeadline;
                     this.ticket.ResponseDeadline = new Date(adate);
-                    console.log(this.ticket);
 
                     this.pagetitile = this.ticket.Title;
                     this.ticketForm.setValue(Object.assign({}, this.ticket));
@@ -283,8 +289,7 @@ export class TicketComponent extends BaseComponent implements OnInit {
     }
 
     saveticket(): void {
-        //console.log('in save');
-        this.dropdownminval=1;
+        this.dropdownminval = 1;
         if (this.ticketForm.status == 'INVALID') {
             this.validateAllFields(this.ticketForm);
             return;
@@ -314,7 +319,6 @@ export class TicketComponent extends BaseComponent implements OnInit {
                 {
                     // $('#fileupload').val('');
                     this.LoadAttachments(this.ticketId);
-                    // console.log(this.attachments)
                     this.msg = "File Upload successfull"
                 }
                 else {
@@ -330,7 +334,6 @@ export class TicketComponent extends BaseComponent implements OnInit {
     downloadfile(id: number, fileName: string): void {
 
         const EXT = fileName.substr(fileName.lastIndexOf('.') + 1);
-        // console.log('in download file file id : ' + id);
         this._tickservice.downloadFile(Global.BASE_TICKET_ENDPOINT + Global.BASE_TICKET_FILE + id)
             .subscribe(data => {
                 //save it on the client machine.
@@ -357,6 +360,10 @@ export class TicketComponent extends BaseComponent implements OnInit {
         this.Loadrootcauses();
         this.Loadtypes();
     }
+
+    pageChanged(event) {
+        this.config.currentPage = event;
+    }
 }
 
 const statusValidator: ValidatorFn = (fg: FormGroup) => {
@@ -365,9 +372,7 @@ const statusValidator: ValidatorFn = (fg: FormGroup) => {
     }
     const start = new Date(fg.get('Createddate').value);
     const end = new Date(fg.get('ResolutionDeadline').value);
-    // console.log(start);
-    // console.log(end);
-    // console.log(end > start);
+
     var diff = (start !== null && end !== null) ? end > start : 0
     return diff > 0 ? null : { range: true };
 };

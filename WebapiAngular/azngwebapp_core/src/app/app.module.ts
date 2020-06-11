@@ -30,10 +30,12 @@ import { TicketService } from '././Service/ticket.service';
 import { AlertModule } from 'ngx-bootstrap/alert'
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ApplicationStateService } from './Service/application-state.service';
-import {ButtonsModule}  from 'ngx-bootstrap/buttons';
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { LowerCaseUrlSerializer } from './LowerCaseUrlSerializer';
 import { UrlSerializer } from '@angular/router';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 @NgModule({
   declarations: [
@@ -41,13 +43,14 @@ import { UrlSerializer } from '@angular/router';
     TicketComponent, DropdownComponent
   ],
   imports: [
-    BrowserModule, NgbModule, BrowserAnimationsModule,CollapseModule.forRoot(),
-    AppRoutingModule, FormsModule, BsDatepickerModule.forRoot(),ButtonsModule.forRoot(), ModalModule.forRoot(), AlertModule.forRoot(), TabsModule.forRoot(), HttpClientModule, ReactiveFormsModule
+    BrowserModule, NgbModule, BrowserAnimationsModule, CollapseModule.forRoot(), NgxPaginationModule, Ng2SearchPipeModule,
+    AppRoutingModule, FormsModule, BsDatepickerModule.forRoot(), ButtonsModule.forRoot(), ModalModule.forRoot(),
+    AlertModule.forRoot(), TabsModule.forRoot(), HttpClientModule, ReactiveFormsModule
   ],
   providers: [{ provide: APP_BASE_HREF, useValue: '/angnetcore/' }, DatePipe, TodoService, AuthGuard, UserService, TicketService, {
     provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor,
     multi: true
-  }, MessageService, ApplicationStateService,{provide:UrlSerializer,useClass:LowerCaseUrlSerializer}],
+  }, MessageService, ApplicationStateService, { provide: UrlSerializer, useClass: LowerCaseUrlSerializer }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
