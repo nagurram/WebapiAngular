@@ -18,10 +18,13 @@ using System.Text;
 
 namespace DataApi.api
 {
+    /// <summary>
+    /// Ticket Api Controller
+    /// </summary>
     [Microsoft.AspNetCore.Mvc.Route("api/Ticketapi")]
     [EnableCors("_myAllowAllOrigins")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin,BasicUser")]
-    public class TicketapiController : BaseAPIController
+    public class TicketapiController : BaseApiController
     {
         private readonly ILogger<TicketapiController> Log;
         private readonly IWebHostEnvironment _hostingEnvironment;
@@ -32,7 +35,6 @@ namespace DataApi.api
             Log = logger;
             TicketDB = context;
             _hostingEnvironment = hostingEnvironment;
-            string webRootPath = _hostingEnvironment.WebRootPath;
             string contentRootPath = _hostingEnvironment.ContentRootPath;
             diskFolderPath = Path.Combine(contentRootPath, "App_Data");
         }
@@ -60,27 +62,6 @@ namespace DataApi.api
         }
 
         /// <summary>
-        /// Update ticket details
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        [HttpPut, Route("Updateticket/{id}")]
-        public IActionResult Put(int id, [FromBody]Tickets value)
-        {
-            Tickets _ticket = new Tickets() { TicketId = id, Title = value.Title, Tdescription = value.Tdescription, CreatedBy = value.CreatedBy, StatusId = value.StatusId, Createddate = value.Createddate, AssignedTo = value.AssignedTo, PriorityId = value.PriorityId, TypeId = value.TypeId, ApplicationId = value.ApplicationId, ModuleId = value.ModuleId, ResponseDeadline = value.ResponseDeadline, ResolutionDeadline = value.ResolutionDeadline, RootCauseId = value.RootCauseId, Comments = value.Comments, UpdatedBy = Convert.ToInt32(GetClaimValue(ClaimTypes.Name)), LastModifiedon = value.LastModifiedon };
-            if (_ticket.TicketId == 0)
-            {
-                TicketDB.Tickets.Add(_ticket);
-            }
-            else
-            {
-                TicketDB.Entry(_ticket).State = EntityState.Modified;
-            }
-            return Ok(TicketDB.SaveChanges());
-        }
-
-        /// <summary>
         /// Get ticket by Id
         /// </summary>
         /// <param name="id"></param>
@@ -95,6 +76,27 @@ namespace DataApi.api
                 where t.TicketId == id
                 select new { t.TicketId, t.Title, t.Tdescription, t.CreatedBy, t.StatusId, t.Createddate, t.AssignedTo, t.PriorityId, t.TypeId, t.ApplicationId, t.ModuleId, t.ResponseDeadline, t.ResolutionDeadline, t.RootCauseId, t.Comments, t.UpdatedBy, t.LastModifiedon }
                 );
+        }
+
+        /// <summary>
+        /// Update ticket details
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        [HttpPut, Route("Updateticket/{id}")]
+        public IActionResult Put(int id, [FromBody] Tickets value)
+        {
+            Tickets _ticket = new Tickets() { TicketId = id, Title = value.Title, Tdescription = value.Tdescription, CreatedBy = value.CreatedBy, StatusId = value.StatusId, Createddate = value.Createddate, AssignedTo = value.AssignedTo, PriorityId = value.PriorityId, TypeId = value.TypeId, ApplicationId = value.ApplicationId, ModuleId = value.ModuleId, ResponseDeadline = value.ResponseDeadline, ResolutionDeadline = value.ResolutionDeadline, RootCauseId = value.RootCauseId, Comments = value.Comments, UpdatedBy = Convert.ToInt32(GetClaimValue(ClaimTypes.Name)), LastModifiedon = value.LastModifiedon };
+            if (_ticket.TicketId == 0)
+            {
+                TicketDB.Tickets.Add(_ticket);
+            }
+            else
+            {
+                TicketDB.Entry(_ticket).State = EntityState.Modified;
+            }
+            return Ok(TicketDB.SaveChanges());
         }
 
         /// <summary>
@@ -201,7 +203,6 @@ namespace DataApi.api
             var path = Path.GetTempPath();
             var file = Request.Form.Files[0];
 
-            MultipartFormDataStreamProvider streamProvider = new MultipartFormDataStreamProvider(path);
             try
             {
                 if (file.Length > 0)
@@ -259,8 +260,6 @@ namespace DataApi.api
 
             var memorycontent = new MemoryStream(filelist.Filedata);
 
-            string fileres = Encoding.UTF8.GetString(filelist.Filedata, 0, filelist.Filedata.Length);
-            StreamContent _rescontent = new StreamContent(memorycontent);
             Log.LogInformation("in GetfileAttachemnet  method in last line");
 
             return File(memorycontent, new DownloadResult().GetfileContenttype(filelist.Filetype), filelist.FileName);

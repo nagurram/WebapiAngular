@@ -14,7 +14,7 @@ namespace LSDataApi.api
     // [EnableCors(origins: "http://vmtest.australiaeast.cloudapp.azure.com/angtodo", headers: "*", methods: "*")]
     [EnableCors("_myAllowAllOrigins")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public class TodoController : BaseAPIController
+    public class TodoController : BaseApiController
     {
         private readonly ILogger<TodoController> Log;
 
@@ -53,7 +53,7 @@ namespace LSDataApi.api
         /// <param name="value"></param>
         /// <returns></returns>
         [HttpPut, Route("Updatetodo/{id}")]
-        public IActionResult Put(int id, [FromBody]TodoList value)
+        public IActionResult Put(int id, [FromBody] TodoList value)
         {
             TodoList _todoitem = new TodoList() { TodoId = value.TodoId, Userid = value.Userid, Titile = value.Titile, Description = value.Description, ActionDate = value.ActionDate, IsActive = value.IsActive };
             if (_todoitem.TodoId == 0)

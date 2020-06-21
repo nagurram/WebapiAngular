@@ -4,7 +4,6 @@ using LSDataApi.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 
@@ -13,7 +12,7 @@ namespace LSDataApi.api
     /// <summary>
     /// Base api controller
     /// </summary>
-    public class BaseAPIController : ControllerBase
+    public class BaseApiController : ControllerBase
     {
         ///http://bitoftech.net/2015/03/11/asp-net-identity-2-1-roles-based-authorization-authentication-asp-net-web-api/
         /// http://bitoftech.net/2014/06/01/token-based-authentication-asp-net-web-api-2-owin-asp-net-identity/

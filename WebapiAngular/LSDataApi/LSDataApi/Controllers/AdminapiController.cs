@@ -19,7 +19,7 @@ namespace LSDataApi.api
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
     [Route("api/adminapi")]
     [EnableCors("_myAllowAllOrigins")]
-    public class AdminapiController : BaseAPIController
+    public class AdminapiController : BaseApiController
     {
         private readonly ILogger<AdminapiController> Log;
 
@@ -61,7 +61,7 @@ namespace LSDataApi.api
         /// <param name="value"></param>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult Post([FromBody]keyvalueModel value)
+        public IActionResult Post([FromBody] keyvalueModel value)
         {
             var app = new ApplicationMaster() { ApplicationId = value.Id, ApplicationName = value.keyValue, IsDeleted = false };
             TicketDB.ApplicationMaster.Add(app);
@@ -77,7 +77,7 @@ namespace LSDataApi.api
         /// <param name="value"></param>
         /// <returns></returns>
         [HttpPut, Route("updateapplication/{id}")]
-        public IActionResult Put(int id, [FromBody]keyvalueModel value)
+        public IActionResult Put(int id, [FromBody] keyvalueModel value)
         {
             ApplicationMaster _applicationMaster = new ApplicationMaster() { ApplicationId = value.Id, ApplicationName = value.keyValue, IsDeleted = false };
             TicketDB.Entry(_applicationMaster).State = EntityState.Modified;
@@ -103,9 +103,8 @@ namespace LSDataApi.api
         /// <param name="value"></param>
         /// <returns></returns>
         [HttpPost, Route("adduser")]
-        public IActionResult adduser([FromBody]UserModel value)
+        public IActionResult adduser([FromBody] UserModel value)
         {
-            var _lstResource = new List<Resource>();
             try
             {
                 if (value.FirstName == null || value.LastName == null || value.EmailId == null || value.Roleid == null)

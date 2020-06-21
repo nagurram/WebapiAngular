@@ -22,7 +22,7 @@ namespace LSDataApi.api
     [Route("api/userapi")]
     [Authorize]
     [EnableCors("_myAllowAllOrigins")]
-    public class UserapiController : BaseAPIController
+    public class UserapiController : BaseApiController
     {
         private readonly ILogger<UserapiController> Log;
         private readonly IUserService _userService;
@@ -44,7 +44,7 @@ namespace LSDataApi.api
 
         [AllowAnonymous]
         [HttpPost("authenticate")]
-        public IActionResult Authenticate([FromBody]AuthenticateModel model)
+        public IActionResult Authenticate([FromBody] AuthenticateModel model)
         {
             Log.LogInformation("User name is " + model.Username);
             var user = _userService.Authenticate(model.Username, model.Password);
