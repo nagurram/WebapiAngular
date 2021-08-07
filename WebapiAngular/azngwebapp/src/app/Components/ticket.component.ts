@@ -274,7 +274,7 @@ export class TicketComponent extends BaseComponent implements OnInit {
             this.modalRef.hide();
         }
         this.ticket.TicketId = this.ticketId;
-        this.router.navigate(['/Ticket']);
+        this.router.navigate(['/ticket']);
     }
 
     saveticket(): void {
