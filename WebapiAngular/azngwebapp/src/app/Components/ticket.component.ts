@@ -106,7 +106,7 @@ export class TicketComponent extends BaseComponent implements OnInit {
         this.ticketForm = this.formBuilder.group({
             'TicketId': new FormControl(this.ticket.TicketId),
             'Title': new FormControl(this.ticket.Title, [removeSpaces, Validators.required]),
-            'TDescription': new FormControl(this.ticket.TDescription, [removeSpaces, Validators.required]),
+            'Tdescription': new FormControl(this.ticket.Tdescription, [removeSpaces, Validators.required]),
             'CreatedBy': new FormControl(this.ticket.CreatedBy, [Validators.required]),
             'StatusId': new FormControl(this.ticket.StatusId, [Validators.required, Validators.min(1)]),
             'Createddate': new FormControl(this.ticket.Createddate, [Validators.required]),
@@ -114,7 +114,7 @@ export class TicketComponent extends BaseComponent implements OnInit {
             'PriorityId': new FormControl(this.ticket.PriorityId, [Validators.required, Validators.min(1)]),
             'TypeId': new FormControl(this.ticket.TypeId, [Validators.required, Validators.min(1)]),
             'ApplicationId': new FormControl(this.ticket.ApplicationId, [Validators.required, Validators.min(1)]),
-            'ModuleID': new FormControl(this.ticket.ModuleID, [Validators.required, Validators.min(1)]),
+            'ModuleId': new FormControl(this.ticket.ModuleId, [Validators.required, Validators.min(1)]),
             'ResponseDeadline': new FormControl(this.ticket.ResponseDeadline, [Validators.required]),
             'ResolutionDeadline': new FormControl(this.ticket.ResolutionDeadline, [Validators.required]),
             'RootCauseId': new FormControl(this.ticket.RootCauseId, [Validators.required, Validators.min(1)]),

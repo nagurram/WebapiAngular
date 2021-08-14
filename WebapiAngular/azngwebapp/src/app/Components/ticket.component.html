@@ -30,7 +30,7 @@
             <tbody>
                 <tr *ngFor="let tkt of tickets">
                     <td>
-                        <a [routerLink]="['/Ticket']" [queryParams]="{ ticketId:tkt.TicketId  }">{{tkt.TicketId}}</a>
+                        <a [routerLink]="['/ticket']" [queryParams]="{ ticketId:tkt.TicketId  }">{{tkt.TicketId}}</a>
                     </td>
                     <td>{{tkt.Title}}</td>
                     <td>{{tkt.tkttype}}</td>
@@ -89,17 +89,17 @@
                     </div>
                     <div class="row top-buffer">
                         <div class="col-md-2"
-                            [class.has-error]="ticketForm.controls['TDescription'].touched && ticketForm.controls['TDescription'].hasError('required')">
+                            [class.has-error]="ticketForm.controls['Tdescription'].touched && ticketForm.controls['Tdescription'].hasError('required')">
                             <label class="control-label " for="txtTDescription"
                                 [ngStyle]="{'text-align': (getIsMobileResolution) ? 'left' : 'right'}">Description</label>
                         </div>
                         <div class="col-md-10"
-                            [class.has-error]="ticketForm.controls['TDescription'].touched && ticketForm.controls['TDescription'].hasError('required')">
-                            <textarea rows="4" formControlName="TDescription" id="txtTDescription" class="form-control"
+                            [class.has-error]="ticketForm.controls['Tdescription'].touched && ticketForm.controls['Tdescription'].hasError('required')">
+                            <textarea rows="4" formControlName="Tdescription" id="txtTDescription" class="form-control"
                                 style="min-width: 100%"></textarea>
                             <div
-                                *ngIf="ticketForm.controls['TDescription'].touched && !ticketForm.controls['TDescription'].valid">
-                                <span *ngIf="ticketForm.controls['TDescription'].hasError('required') "
+                                *ngIf="ticketForm.controls['Tdescription'].touched && !ticketForm.controls['Tdescription'].valid">
+                                <span *ngIf="ticketForm.controls['Tdescription'].hasError('required') "
                                     class="alert-danger">
                                     Ticket Description is required
                                 </span>
@@ -190,15 +190,15 @@
                                 Please select Application
                             </span>
                         </div>
-                        <div class="col-md-2" [class.has-error]="ticketForm.controls['ModuleID'].hasError('min')">
-                            <label class="control-label " for="txtModuleID"
+                        <div class="col-md-2" [class.has-error]="ticketForm.controls['ModuleId'].hasError('min')">
+                            <label class="control-label " for="txtModuleId"
                                 [ngStyle]="{'text-align': (getIsMobileResolution) ? 'left' : 'right'}">Module</label>
                         </div>
-                        <div class="col-md-4" [class.has-error]="ticketForm.controls['ModuleID'].hasError('min')">
-                            <dropdown [drpcollection]="modules" formControlName="ModuleID"></dropdown>
+                        <div class="col-md-4" [class.has-error]="ticketForm.controls['ModuleId'].hasError('min')">
+                            <dropdown [drpcollection]="modules" formControlName="ModuleId"></dropdown>
 
 
-                            <span *ngIf="ticketForm.controls['ModuleID'].hasError('min')" class="alert-danger">
+                            <span *ngIf="ticketForm.controls['ModuleId'].hasError('min')" class="alert-danger">
                                 Please select Module
                             </span>
                         </div>

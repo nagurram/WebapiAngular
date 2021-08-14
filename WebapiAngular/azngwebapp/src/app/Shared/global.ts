@@ -3,8 +3,8 @@
 
     //public static BASE_URL="http://vmtest.australiaeast.cloudapp.azure.com/Dataapi/"
     //public static BASE_URL="http://localhost/dataapi/"
-    //public static BASE_URL = "http://192.168.2.2/dataapi/"
-    public static BASE_URL = "http://localhost:52865/"
+    public static BASE_URL = "http://bb7ce38b821c.mylabserver.com:8080/"
+    //public static BASE_URL = "http://localhost:62878/"
     
     //ENDPOINTS
     public static BASE_TODOLIST_ENDPOINT = "api/Todoapi/todolist";
