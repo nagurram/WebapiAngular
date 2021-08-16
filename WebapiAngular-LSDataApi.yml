@@ -89,8 +89,7 @@ steps:
       **\LSDataApi.Tests.dll
       !**\*TestAdapter.dll
       !**\obj\**      
-      !**\xunit.runner.visualstudio.testadapter.dll
-      !**\xunit.runner.visualstudio.dotnetcore.testadapter.dll
+      !**\bin\**\ref\**
     searchFolder: '$(Build.SourcesDirectory)'
     codeCoverageEnabled: true
     resultsFolder: '$(Build.SourcesDirectory)\TestResults'
