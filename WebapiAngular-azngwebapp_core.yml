@@ -9,7 +9,7 @@ trigger:
     - master
  paths:
    include:
-     - WebapiAngular/azngwebapp_core/*
+     - WebapiAngular/azngwebapp/*
 
 pool:
   vmImage: 'ubuntu-latest'
