@@ -90,6 +90,7 @@ steps:
       !**\*TestAdapter.dll
       !**\obj\**      
       !**\bin\**\ref\**
+    diagnosticsEnabled: True
     searchFolder: '$(Build.SourcesDirectory)'
     codeCoverageEnabled: true
     resultsFolder: '$(Build.SourcesDirectory)\TestResults'
