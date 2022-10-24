@@ -2,9 +2,9 @@
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR ./source
 COPY . .
-RUN dotnet restore "./LSDataApi/LSDataApi/LSDataApi.csproj" --disable-parallel
+RUN dotnet restore "./LSDataApi/LSDataApi.csproj" --disable-parallel
 
-RUN dotnet publish "./LSDataApi/LSDataApi/LSDataApi.csproj" -c release -o /app --no-restore
+RUN dotnet publish "./LSDataApi/LSDataApi.csproj" -c release -o /app --no-restore
 
 
 #Serve Stage
