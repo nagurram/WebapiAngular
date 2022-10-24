@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+ # db:  
+  api:
+     build: ./LSDataApi
+     ports:
+          - "8080:80"
+
+  webapp:
+     build: ./azngwebapp
+     ports:
+         - "9090:80"
