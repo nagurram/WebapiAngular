@@ -1,7 +1,7 @@
 ﻿<div class="container">
     <form [formGroup]="loginForm" (ngSubmit)="authenticate()">
         <div class="col s12 white">
-            <div class="row  top-buffer">
+            <div class="row  mt-3">
                 <div class="col-md-1"> <label for="txtuserid">User Id:</label>  </div>
                 <div class="col-md-11">
                     <input formControlName="Userid" class="form-control">
@@ -15,7 +15,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row  top-buffer">
+            <div class="row  mt-3">
                 <div class="col-md-1"><label for="txtpwd">Password:</label></div>
                 <div class="col-md-11">
                     <input formControlName="Password" class="form-control" type="password">
@@ -26,7 +26,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row  top-buffer">
+            <div class="row  mt-3">
                 <div class="col-md-4">
                     <button type="submit" class="btn btn-primary pull-right" >Login</button>
                     <span class="alert-danger">

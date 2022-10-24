@@ -19,6 +19,7 @@ import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { BaseComponent } from './BaseComponent';
 import { ApplicationStateService } from '../Service/application-state.service';
 import { Title } from '@angular/platform-browser';
+import {ViewEncapsulation} from '@angular/core';
 
 
 const MIME_TYPES = {
@@ -29,7 +30,9 @@ const MIME_TYPES = {
 
 @Component({
     templateUrl: './ticket.component.html',
-    styleUrls: ['./ticket.component.css']
+    styleUrls: ['./ticket.component.css'],
+    encapsulation: ViewEncapsulation.None
+
 })
 
 export class TicketComponent extends BaseComponent implements OnInit {

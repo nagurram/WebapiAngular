@@ -6,6 +6,8 @@ import { Observable } from 'rxjs/';
 import { Subscription } from 'rxjs';
 import { MessageService } from '../Service/message.service';
 import { Router } from "@angular/router";
+import {ViewEncapsulation} from '@angular/core';
+
 @Component({
     selector: 'menu-items',
     template: `<div *ngIf='userModel'>
@@ -20,6 +22,7 @@ import { Router } from "@angular/router";
         </ul>
       </nav>
         </div>` ,
+         encapsulation: ViewEncapsulation.None
     // styles: ['.navbar-nav {background-color:#337AB7 !important;}']
 })
 
