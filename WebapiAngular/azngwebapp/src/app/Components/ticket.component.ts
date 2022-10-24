@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators, FormControl, ValidatorFn } from '@a
 import { IkeyValuePair } from '../Model/keyValuePair';
 import { Ticket } from '../Model/ticketModel';
 import { DBOperation } from '../Shared/enum';
-import { Observable } from 'rxjs/Rx';
+import { Observable} from 'rxjs';
 import { Global } from '../Shared/global';
 import { ActivatedRoute, Router, NavigationStart } from '@angular/router';
 import { Location, DatePipe } from '@angular/common';

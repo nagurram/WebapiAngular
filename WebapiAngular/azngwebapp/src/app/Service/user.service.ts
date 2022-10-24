@@ -1,8 +1,7 @@
 ﻿import { Injectable } from '@angular/core';
 import { PlatformLocation } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-
+import { Observable, throwError } from 'rxjs';
 import { Global } from '../Shared/global';
 
 
@@ -56,6 +55,6 @@ export class UserService {
 
     private handleError(error: Response) {
         console.error(error);
-        return Observable.throw(error.json() || 'Server error');
+        return throwError(()=> (error.json() || 'Server error'));
     }
 }
