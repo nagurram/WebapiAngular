@@ -41,7 +41,7 @@ import { ButtonsModule } from 'ngx-bootstrap/buttons';
     BrowserModule, NgbModule, BrowserAnimationsModule,
     AppRoutingModule, FormsModule, BsDatepickerModule.forRoot(),ButtonsModule.forRoot(), ModalModule.forRoot(), AlertModule.forRoot(), TabsModule.forRoot(), HttpClientModule, ReactiveFormsModule
   ],
-  providers: [{ provide: APP_BASE_HREF, useValue: '/angtodo/' }, DatePipe, TodoService, AuthGuard, UserService, TicketService, {
+  providers: [{ provide: APP_BASE_HREF, useValue: '/azngwebapp/' }, DatePipe, TodoService, AuthGuard, UserService, TicketService, {
     provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor,
     multi: true
   }, MessageService, ApplicationStateService],
