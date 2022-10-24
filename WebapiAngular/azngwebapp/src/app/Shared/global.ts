@@ -3,7 +3,7 @@
 
     //public static BASE_URL="http://vmtest.australiaeast.cloudapp.azure.com/Dataapi/"
     //public static BASE_URL="http://localhost/dataapi/"
-    public static BASE_URL = "http://localhost:62878/"
+    public static BASE_URL = "http://192.168.1.113:5200/"
     //public static BASE_URL = "http://localhost:62878/"
     
     //ENDPOINTS

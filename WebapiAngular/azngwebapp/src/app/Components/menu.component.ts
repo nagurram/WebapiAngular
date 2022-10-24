@@ -9,10 +9,10 @@ import { Router } from "@angular/router";
 @Component({
     selector: 'menu-items',
     template: `<div *ngIf='userModel'>
-    <nav class='navbar navbar-inverse' >
+    <nav class='navbar navbar-expand-lg navbar-light bg-light' >
         
-            <ul class='nav navbar-nav' >
-               <li  *ngFor="let cols of userModel.routeCollection"> <a [routerLink]="[cols.key]" routerLinkActive="active" > {{ cols.keyValue }} </a></li >
+            <ul class='navbar-nav mr-auto' >
+               <li  *ngFor="let cols of userModel.routeCollection" class="nav-item active"> <a [routerLink]="[cols.key]" routerLinkActive="active" class="nav-link"  > {{ cols.keyValue }} </a></li >
             </ul>
         <ul class="nav navbar-nav navbar-right">
         <li><a href="#"><span class="glyphicon glyphicon-user"></span> {{userModel.UserName}}</a></li>
