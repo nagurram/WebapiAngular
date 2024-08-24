@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators, FormControl, ValidatorFn } from '@a
 import { IkeyValuePair } from '../Model/keyValuePair';
 import { Ticket } from '../Model/ticketModel';
 import { DBOperation } from '../Shared/enum';
-import { Observable } from 'rxjs/Rx';
+import { Observable} from 'rxjs';
 import { Global } from '../Shared/global';
 import { ActivatedRoute, Router, NavigationStart } from '@angular/router';
 import { Location, DatePipe } from '@angular/common';
@@ -19,6 +19,7 @@ import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { BaseComponent } from './BaseComponent';
 import { ApplicationStateService } from '../Service/application-state.service';
 import { Title } from '@angular/platform-browser';
+import {ViewEncapsulation} from '@angular/core';
 
 
 const MIME_TYPES = {
@@ -29,7 +30,9 @@ const MIME_TYPES = {
 
 @Component({
     templateUrl: './ticket.component.html',
-    styleUrls: ['./ticket.component.css']
+    styleUrls: ['./ticket.component.css'],
+    encapsulation: ViewEncapsulation.None
+
 })
 
 export class TicketComponent extends BaseComponent implements OnInit {
@@ -106,7 +109,7 @@ export class TicketComponent extends BaseComponent implements OnInit {
         this.ticketForm = this.formBuilder.group({
             'TicketId': new FormControl(this.ticket.TicketId),
             'Title': new FormControl(this.ticket.Title, [removeSpaces, Validators.required]),
-            'TDescription': new FormControl(this.ticket.TDescription, [removeSpaces, Validators.required]),
+            'Tdescription': new FormControl(this.ticket.Tdescription, [removeSpaces, Validators.required]),
             'CreatedBy': new FormControl(this.ticket.CreatedBy, [Validators.required]),
             'StatusId': new FormControl(this.ticket.StatusId, [Validators.required, Validators.min(1)]),
             'Createddate': new FormControl(this.ticket.Createddate, [Validators.required]),
@@ -114,7 +117,7 @@ export class TicketComponent extends BaseComponent implements OnInit {
             'PriorityId': new FormControl(this.ticket.PriorityId, [Validators.required, Validators.min(1)]),
             'TypeId': new FormControl(this.ticket.TypeId, [Validators.required, Validators.min(1)]),
             'ApplicationId': new FormControl(this.ticket.ApplicationId, [Validators.required, Validators.min(1)]),
-            'ModuleID': new FormControl(this.ticket.ModuleID, [Validators.required, Validators.min(1)]),
+            'ModuleId': new FormControl(this.ticket.ModuleId, [Validators.required, Validators.min(1)]),
             'ResponseDeadline': new FormControl(this.ticket.ResponseDeadline, [Validators.required]),
             'ResolutionDeadline': new FormControl(this.ticket.ResolutionDeadline, [Validators.required]),
             'RootCauseId': new FormControl(this.ticket.RootCauseId, [Validators.required, Validators.min(1)]),
@@ -274,7 +277,7 @@ export class TicketComponent extends BaseComponent implements OnInit {
             this.modalRef.hide();
         }
         this.ticket.TicketId = this.ticketId;
-        this.router.navigate(['/Ticket']);
+        this.router.navigate(['/ticket']);
     }
 
     saveticket(): void {

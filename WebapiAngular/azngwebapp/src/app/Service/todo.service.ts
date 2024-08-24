@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Global } from '../Shared/global';
 
@@ -47,7 +47,7 @@ export class TodoService {
 
     private handleError(error: Response) {
         console.error(error);
-        return Observable.throw(error.json() || 'Server error');
+        return throwError(()=>(error.json() || 'Server error'));
     }
 
 
