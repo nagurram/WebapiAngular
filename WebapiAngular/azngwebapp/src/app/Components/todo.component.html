@@ -7,7 +7,7 @@
     </div>
     <form [formGroup]="todoForm" (ngSubmit)="addtodoitem()">
         <div class="modal-body">
-            <div class="row top-buffer">
+            <div class="row mt-3">
                 <div class="col-md-3" [class.has-error]="todoForm.controls['Titile'].hasError('required')"><label
                         for="txtTitile">Titile</label></div>
                 <div class="col-md-9">
@@ -19,7 +19,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row top-buffer">
+            <div class="row mt-3">
                 <div class="col-md-3" [class.has-error]="todoForm.controls['Description'].hasError('required')">
                     <label for="txtDescription">Description</label>
                 </div>
@@ -33,7 +33,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row top-buffer">
+            <div class="row mt-3">
                 <div class="col-md-3" [class.has-error]="todoForm.controls['ActionDate'].hasError('required')">
                     <label for="txtDate">Date</label>
                 </div>
@@ -62,13 +62,13 @@
     </form>
 </ng-template>
 <div>
-    <div class="row top-buffer">
+    <div class="row mt-3">
         <div class="col-md-9"></div>
         <div class="col-md-3">
             <button (click)="openAddtodoModal(todoitem)" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-plus"></span> Add New item</button>
         </div>
     </div>
-    <div class='table-responsive  top-buffer'>
+    <div class='table-responsive  mt-3'>
         <table class="table table-striped table-bordered" *ngIf='todolist && todolist.length'>
             <thead>
                 <tr>

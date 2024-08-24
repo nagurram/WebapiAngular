@@ -30,7 +30,7 @@ import { TicketService } from '././Service/ticket.service';
 import { AlertModule } from 'ngx-bootstrap/alert'
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ApplicationStateService } from './Service/application-state.service';
-import { ButtonsModule } from 'ngx-bootstrap';
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
 
 @NgModule({
   declarations: [
@@ -41,7 +41,7 @@ import { ButtonsModule } from 'ngx-bootstrap';
     BrowserModule, NgbModule, BrowserAnimationsModule,
     AppRoutingModule, FormsModule, BsDatepickerModule.forRoot(),ButtonsModule.forRoot(), ModalModule.forRoot(), AlertModule.forRoot(), TabsModule.forRoot(), HttpClientModule, ReactiveFormsModule
   ],
-  providers: [{ provide: APP_BASE_HREF, useValue: '/angtodo/' }, DatePipe, TodoService, AuthGuard, UserService, TicketService, {
+  providers: [{ provide: APP_BASE_HREF, useValue: '/azngwebapp/' }, DatePipe, TodoService, AuthGuard, UserService, TicketService, {
     provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor,
     multi: true
   }, MessageService, ApplicationStateService],

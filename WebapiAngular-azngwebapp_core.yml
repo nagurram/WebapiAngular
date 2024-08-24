@@ -9,21 +9,20 @@ trigger:
     - master
  paths:
    include:
-     - WebapiAngular/azngwebapp_core/*
+     - WebapiAngular/azngwebapp/*
 
 pool:
   vmImage: 'ubuntu-latest'
 
 steps:
 - task: NodeTool@0
-  inputs:
-    versionSpec: '10.17.0'
+  inputs:    
     checkLatest: true
   displayName: 'Install Node.js'
 - script: |
     npm install -g typescript
     npm install -g @angular/cli   
-    cd WebapiAngular/azngwebapp_core
+    cd WebapiAngular/azngwebapp
     npm install
     npm update
     ng build --prod

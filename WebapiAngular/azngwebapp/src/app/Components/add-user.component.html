@@ -1,7 +1,7 @@
 <div class="container">
     <form [formGroup]="addUserForm" (ngSubmit)="adduser()">
         <div class="col s12 white">
-            <div class="row  top-buffer">
+            <div class="row  mt-3">
                 <div class="col-md-2" [class.has-error]="addUserForm.controls['FirstName'].hasError('required')"> <label for="txtFirstName">First Name:</label>  </div>
                 <div class="col-md-10">
                     <input type="text" id="txtFirstName" formControlName="FirstName" class="form-control">
@@ -13,7 +13,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row  top-buffer">
+            <div class="row  mt-3">
                 <div class="col-md-2" [class.has-error]="addUserForm.controls['LastName'].hasError('required')"><label for="txtLastName">Last Name:</label></div>
                 <div class="col-md-10">
                     <input type="text" id="txtLastName" formControlName="LastName" class="form-control">
@@ -24,7 +24,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row  top-buffer">
+            <div class="row  mt-3">
                 <div class="col-md-2" [class.has-error]="addUserForm.controls['EmailId'].hasError('required')|| addUserForm.controls['EmailId'].hasError('email')"><label for="txtEmailId">Email id:</label></div>
                 <div class="col-md-10">
                     <input type="text" id="txtEmailId" formControlName="EmailId" class="form-control">
@@ -35,7 +35,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row  top-buffer">
+            <div class="row  mt-3">
                 <div class="col-md-4">
                     <button type="submit" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-saved"></span> Add User</button>
                     <span [className]="savedsuccess ? 'alert-success' : 'alert-danger'" >

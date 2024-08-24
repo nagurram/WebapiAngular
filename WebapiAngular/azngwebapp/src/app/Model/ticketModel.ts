@@ -1,7 +1,7 @@
 ﻿export class Ticket {
     TicketId: number=0;
     Title: string="";
-    TDescription: string="";
+    Tdescription: string="";
     CreatedBy: number=-1;
     StatusId: number=-1;
     Createddate: Date = new Date();
@@ -9,7 +9,7 @@
     PriorityId: number=-1;
     TypeId: number=-1;
     ApplicationId: number=-1;
-    ModuleID: number=-1;
+    ModuleId: number=-1;
     ResponseDeadline: Date= new Date();
     ResolutionDeadline: Date= new Date();
     RootCauseId: number=-1;

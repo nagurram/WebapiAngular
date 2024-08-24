@@ -10,10 +10,12 @@ import { Global } from '../Shared/global';
 import { BaseComponent } from './BaseComponent';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { Title } from '@angular/platform-browser';
+import {ViewEncapsulation} from '@angular/core';
 
 @Component({
     templateUrl: './todo.component.html',
-    styleUrls: ['./todo.component.css']
+    styleUrls: ['./todo.component.css'],
+    encapsulation: ViewEncapsulation.None
 })
 export class ToDoComponent extends BaseComponent implements OnInit {
     datepickerconfig: Partial<BsDatepickerConfig>;

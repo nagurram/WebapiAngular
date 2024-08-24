@@ -1,11 +1,7 @@
 ﻿import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/catch';
-import { tap } from 'rxjs/operators';
-//import 'rxjs/Rx';
+import { Observable,throwError } from 'rxjs';
+import { tap ,map, catchError} from 'rxjs/operators';
 
 @Injectable()
 export class TicketService {
@@ -51,7 +47,7 @@ export class TicketService {
 
     private handleError(error: Response) {
         console.error(error);
-        return Observable.throw(error.json() || 'Server error');
+        return throwError(()=>(error.json() || 'Server error'));
     }
 
     uploadFile(url: string, fileToUpload: File): Observable<any> {
