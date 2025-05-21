@@ -23,8 +23,3 @@ jobs:
       run: dotnet build --no-restore WebapiAngular/LSDataApi/LSDataApi/LSDataApi.csproj
     - name: Test
       run: dotnet test --no-build --verbosity normal WebapiAngular/LSDataApi/LSDataApi/LSDataApi.csproj
-      
-      
-    - name: GitHub Spellcheck
-      uses: igsekor/pyspelling-any@v1.0.4
-
