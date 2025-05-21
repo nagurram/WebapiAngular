@@ -18,11 +18,11 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore WebapiAngular/LSDataApi/LSDataApi/LSDataApi.csproj
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build --no-restore WebapiAngular/LSDataApi/LSDataApi/LSDataApi.csproj
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test --no-build --verbosity normal WebapiAngular/LSDataApi/LSDataApi/LSDataApi.csproj
       
       
     - name: GitHub Spellcheck
